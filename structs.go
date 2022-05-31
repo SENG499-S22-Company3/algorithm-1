@@ -19,7 +19,13 @@ type Assignment struct {
 }
 
 type Course struct {
+	courseNumber   uint
+	subject        string
+	sequenceNumber string
+	courseTitle    string
 }
 
 type Professor struct {
+	// Preferences in map? Maybe its own struct
+	displayName string
 }
