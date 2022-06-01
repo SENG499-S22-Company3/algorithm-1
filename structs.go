@@ -2,6 +2,7 @@ package main
 
 import "time"
 
+// Migrate this struct fully as a GraphQL Schema
 type Assignment struct {
 	course    Course
 	prof      Professor

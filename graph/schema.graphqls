@@ -1,0 +1,53 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+input NewCourse {
+  courseNumber: Int
+  subject: String
+  sequenceNumber: String
+  courseTitle: String
+}
+
+input NewProfessor {
+  displayName: String
+}
+
+type Professor {
+  displayName: String
+}
+
+type Course {
+  courseNumber: Int
+  subject: String
+  sequenceNumber: String
+  courseTitle: String
+}
+
+type Assignment {
+  course: Course
+  prof: Professor
+  startDate: String
+  endDate: String
+  beginTime: String
+  endTime: String
+  sunday: Boolean
+  monday: Boolean
+  tuesday: Boolean
+  wednesday: Boolean
+  thursday: Boolean
+  friday: Boolean
+  saturday: Boolean
+}
+
+type Schedule {
+  assignments: [Assignment!]!
+}
+
+type Query {
+  schedules: [Schedule!]
+}
+
+type Mutation {
+  generateSchedule(courses: [NewCourse!]!, professors: [NewProfessor!]!, numSchedules: Int): Schedule
+}
