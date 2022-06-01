@@ -19,13 +19,24 @@ type Assignment struct {
 }
 
 type Course struct {
-	courseNumber   uint
-	subject        string
-	sequenceNumber string
-	courseTitle    string
+	courseNumber      uint
+	subject           string
+	sequenceNumber    string
+	courseTitle       string
+	requiredEquipment []string
+	requiresPEng      bool
 }
 
 type Professor struct {
-	displayName    string
-	teachingStatus string
+	preferences       []Preference
+	coursesCanTeach   []Course
+	displayName       string
+	teachingStatus    string
+	requiredEquipment []string
+	hasPEng           bool
+}
+
+type Preference struct {
+	course        Course
+	preferenceNum uint
 }
