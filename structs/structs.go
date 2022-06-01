@@ -26,6 +26,6 @@ type Course struct {
 }
 
 type Professor struct {
-	// Preferences in map? Maybe its own struct
-	displayName string
+	displayName    string
+	teachingStatus string
 }
