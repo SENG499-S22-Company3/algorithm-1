@@ -3,40 +3,40 @@ package structs
 import "time"
 
 type Assignment struct {
-	course    Course
-	prof      Professor
-	startDate time.Time
-	endDate   time.Time
-	beginTime time.Time
-	endTime   time.Time
-	sunday    bool
-	monday    bool
-	tuesday   bool
-	wednesday bool
-	thursday  bool
-	friday    bool
-	saturday  bool
+	Course    Course
+	Prof      Professor
+	StartDate time.Time
+	EndDate   time.Time
+	BeginTime time.Time
+	EndTime   time.Time
+	Sunday    bool
+	Monday    bool
+	Tuesday   bool
+	Wednesday bool
+	Thursday  bool
+	Friday    bool
+	Saturday  bool
 }
 
 type Course struct {
-	courseNumber      uint
-	subject           string
-	sequenceNumber    string
-	courseTitle       string
-	requiredEquipment []string
-	requiresPEng      bool
+	CourseNumber      uint
+	Subject           string
+	SequenceNumber    string
+	CourseTitle       string
+	RequiredEquipment []string
+	RequiresPEng      bool
 }
 
 type Professor struct {
-	preferences       []Preference
-	coursesCanTeach   []Course
-	displayName       string
-	teachingStatus    string
-	requiredEquipment []string
-	hasPEng           bool
+	Preferences       []Preference
+	CoursesCanTeach   []Course
+	DisplayName       string
+	TeachingStatus    string
+	RequiredEquipment []string
+	HasPEng           bool
 }
 
 type Preference struct {
-	course        Course
-	preferenceNum uint
+	Course        Course
+	PreferenceNum uint
 }
