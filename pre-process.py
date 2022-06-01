@@ -2,6 +2,7 @@ import sys
 import json
 import re
 
+
 """
 
 USE: python pre-process.py <jsonfile> > output.json
