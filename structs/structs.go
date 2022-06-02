@@ -1,14 +1,12 @@
 package structs
 
-import "time"
-
 type Assignment struct {
 	Course    Course
 	Prof      Professor
-	StartDate time.Time
-	EndDate   time.Time
-	BeginTime time.Time
-	EndTime   time.Time
+	StartDate string
+	EndDate   string
+	BeginTime string
+	EndTime   string
 	Sunday    bool
 	Monday    bool
 	Tuesday   bool
