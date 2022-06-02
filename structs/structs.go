@@ -3,10 +3,10 @@ package structs
 type Assignment struct {
 	Course    Course
 	Prof      Professor
-	StartDate string
-	EndDate   string
-	BeginTime string
-	EndTime   string
+	StartDate string // Follow "yyyy-mm=dd"
+	EndDate   string // Follow "yyyy-mm-dd"
+	BeginTime string // Use 24hr "0000" - "2359"
+	EndTime   string // Use 24hr "0000" - "2359"
 	Sunday    bool
 	Monday    bool
 	Tuesday   bool
