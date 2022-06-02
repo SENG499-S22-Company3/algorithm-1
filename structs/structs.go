@@ -32,6 +32,9 @@ type Professor struct {
 	TeachingStatus    string
 	RequiredEquipment []string
 	HasPEng           bool
+	FallTermCourses   uint
+	SpringTermCourses uint
+	SummerTermCourses uint
 }
 
 type Preference struct {
