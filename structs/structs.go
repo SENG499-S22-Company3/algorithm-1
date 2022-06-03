@@ -5,8 +5,8 @@ type Assignment struct {
 	Prof      Professor
 	StartDate string // Follow "yyyy-mm=dd"
 	EndDate   string // Follow "yyyy-mm-dd"
-	BeginTime string // Use 24hr "0000" - "2359"
-	EndTime   string // Use 24hr "0000" - "2359"
+	BeginTime uint
+	EndTime   uint
 	Sunday    bool
 	Monday    bool
 	Tuesday   bool
@@ -23,21 +23,23 @@ type Course struct {
 	CourseTitle       string
 	RequiredEquipment []string
 	RequiresPEng      bool
+	StreamSequence    string
 }
 
 type Professor struct {
-	Preferences       []Preference
-	CoursesCanTeach   []Course
-	DisplayName       string
-	TeachingStatus    string
-	RequiredEquipment []string
-	HasPEng           bool
-	FallTermCourses   uint
-	SpringTermCourses uint
-	SummerTermCourses uint
+	Preferences        []Preference
+	CoursesCanTeach    []Course
+	DisplayName        string
+	NumCoursesCanTeach uint
+	RequiredEquipment  []string
+	HasPEng            bool
+	FallTermCourses    uint
+	SpringTermCourses  uint
+	SummerTermCourses  uint
 }
 
 type Preference struct {
 	Course        Course
 	PreferenceNum uint
+	Term          string
 }

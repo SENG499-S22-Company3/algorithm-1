@@ -15,7 +15,7 @@ var requiresPEng = false
 
 // Test professor info
 var displayName = "John Doe"
-var teachingStatus = "Research"
+var numCourses uint = 3
 var profEquipment = []string{"Projector"}
 var hasPEng = true
 
@@ -50,12 +50,12 @@ func TestProfessorStuct(t *testing.T) {
 	}
 
 	testProfessor := structs.Professor{
-		Preferences:       []structs.Preference{testPreference},
-		CoursesCanTeach:   []structs.Course{testCourse},
-		DisplayName:       displayName,
-		TeachingStatus:    teachingStatus,
-		RequiredEquipment: profEquipment,
-		HasPEng:           hasPEng,
+		Preferences:        []structs.Preference{testPreference},
+		CoursesCanTeach:    []structs.Course{testCourse},
+		DisplayName:        displayName,
+		NumCoursesCanTeach: numCourses,
+		RequiredEquipment:  profEquipment,
+		HasPEng:            hasPEng,
 	}
 
 	if testProfessor.Preferences[0].Course.CourseNumber != 370 {
