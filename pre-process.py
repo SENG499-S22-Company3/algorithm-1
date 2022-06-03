@@ -54,7 +54,7 @@ def del_fields(entry):
         del x["meetingTime"]["term"]
         del x["meetingTime"]["campusDescription"]
         del x["meetingTime"]["meetingTypeDescription"]
-        del x["meetingTime"]["campusDescription"]
+        del x["meetingTime"]["creditHourSession"]
         del x["term"]
         
     del entry["reservedSeatSummary"]
