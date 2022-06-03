@@ -77,7 +77,7 @@ def main():
                 # fall courses 
                 if re.search("^.*09$", entry["term"]): 
                     if entry['subject'] == "CSC":
-                        if entry['courseNumber'] in ['111', '115', '225', '226', '230', '320', '355', '360', '361', '370', '355']:
+                        if entry['courseNumber'] in ['111', '115', '225', '226', '230', '320', '355', '360', '361', '370']:
                             print(json.dumps(del_fields(entry),indent=2))
                             print(",")
                     elif entry['subject'] == "SENG":
@@ -85,7 +85,7 @@ def main():
                             print(json.dumps(del_fields(entry),indent=2))
                             print(",")
                     elif entry['subject'] == "ECE":
-                        if entry['courseNumber'] in ["255", "260", "355"]:
+                        if entry['courseNumber'] in ["255", "260", "355", "216", "260", "350", "360", "365", "370", "380", "399"]:
                             print(json.dumps(del_fields(entry),indent=2))
                             print(",")
                     elif entry['subject'] == "MATH":
@@ -120,7 +120,7 @@ def main():
                             print(json.dumps(del_fields(entry),indent=2))
                             print(",")
                     elif entry['subject'] == "ECE":
-                        if entry['courseNumber'] in ["458", "360", "455"]:
+                        if entry['courseNumber'] in ["458", "360", "455", "300", "310", "320", "330", "340"]:
                             print(json.dumps(del_fields(entry),indent=2))
                             print(",")
                     elif entry['subject'] == "MATH":
@@ -147,11 +147,11 @@ def main():
                             print(json.dumps(del_fields(entry),indent=2))
                             print(",")
                     elif entry['subject'] == "SENG":
-                        if entry['courseNumber'] in ["265", "275", "310", "426", "440", "499", "275", "310"]:
+                        if entry['courseNumber'] in ["265", "275", "310", "426", "440", "499", "310"]:
                             print(json.dumps(del_fields(entry),indent=2))
                             print(",")
                     elif entry['subject'] == "ECE":
-                        if entry['courseNumber'] in ["310"]:
+                        if entry['courseNumber'] in ["310", "216", "220", "250", "260", "299", "310", "499"]:
                             print(json.dumps(del_fields(entry),indent=2))
                             print(",")
                     elif entry['subject'] == "ECON":
