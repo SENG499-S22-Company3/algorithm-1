@@ -34,14 +34,7 @@ def del_fields(entry):
     del entry["linkIdentifier"]
     del entry["isSectionLinked"]
     del entry["subjectCourse"]
-    for x in entry["faculty"]:
-        del x["bannerId"]
-        del x["category"]
-        del x["class"]
-        del x["courseReferenceNumber"]
-        del x["primaryIndicator"]
-        del x["term"]
-        del x["emailAddress"]
+    del entry["faculty"]
 
     for x in entry["meetingsFaculty"]:
         del x["category"]
@@ -57,6 +50,7 @@ def del_fields(entry):
         del x["meetingTime"]["meetingScheduleType"]
         del x["meetingTime"]["meetingType"]
         del x["meetingTime"]["room"]
+        del x["meetingTime"]["term"]
         del x["term"]
         
     del entry["reservedSeatSummary"]
