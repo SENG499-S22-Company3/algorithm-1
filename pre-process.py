@@ -11,6 +11,7 @@ USE: python pre-process.py <jsonfile> > output.json
 
 def del_fields(entry):
     del entry["id"]
+    del entry["termDesc"]
     del entry["courseReferenceNumber"]
     del entry["partOfTerm"]
     del entry["subjectDescription"]
@@ -51,6 +52,9 @@ def del_fields(entry):
         del x["meetingTime"]["meetingType"]
         del x["meetingTime"]["room"]
         del x["meetingTime"]["term"]
+        del x["meetingTime"]["campusDescription"]
+        del x["meetingTime"]["meetingTypeDescription"]
+        del x["meetingTime"]["campusDescription"]
         del x["term"]
         
     del entry["reservedSeatSummary"]
