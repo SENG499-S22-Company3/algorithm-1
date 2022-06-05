@@ -21,18 +21,15 @@ type Course struct {
 	Subject           string
 	SequenceNumber    string
 	CourseTitle       string
-	RequiredEquipment []string
-	RequiresPEng      bool
+	RequiredEquipment []string // May remove if it is not in scope
 	StreamSequence    string
 }
 
 type Professor struct {
 	Preferences        []Preference
-	CoursesCanTeach    []Course
 	DisplayName        string
 	NumCoursesCanTeach uint
-	RequiredEquipment  []string
-	HasPEng            bool
+	RequiredEquipment  []string // May remove if it is not in scope
 	FallTermCourses    uint
 	SpringTermCourses  uint
 	SummerTermCourses  uint
