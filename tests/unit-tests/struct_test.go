@@ -32,16 +32,8 @@ func TestCourseStruct(t *testing.T) {
 }
 
 func TestProfessorStuct(t *testing.T) {
-	testCourse := structs.Course{
-		CourseNumber:      courseNum,
-		Subject:           courseSub,
-		SequenceNumber:    courseSeq,
-		CourseTitle:       courseTitle,
-		RequiredEquipment: courseEquipment,
-	}
-
 	testPreference := structs.Preference{
-		Course:        testCourse,
+		CourseNum:     "CSC370",
 		PreferenceNum: 195,
 	}
 
@@ -52,8 +44,8 @@ func TestProfessorStuct(t *testing.T) {
 		RequiredEquipment:  profEquipment,
 	}
 
-	if testProfessor.Preferences[0].Course.CourseNumber != 370 {
-		t.Errorf("Got %v, expected %v", testProfessor.Preferences[0].Course.CourseNumber, 370)
+	if testProfessor.Preferences[0].CourseNum != "CSC370" {
+		t.Errorf("Got %v, expected %v", testProfessor.Preferences[0].CourseNum, 370)
 	}
 }
 
