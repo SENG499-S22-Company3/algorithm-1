@@ -1,43 +1,47 @@
 package structs
 
+type Schedule struct {
+	FallCourses   []Assignment
+	SpringCourses []Assignment
+	SummerCourses []Assignment
+}
+
 type Assignment struct {
 	Course    Course
 	Prof      Professor
-	StartDate string // Follow "yyyy-mm=dd"
-	EndDate   string // Follow "yyyy-mm-dd"
-	BeginTime string // Use 24hr "0000" - "2359"
-	EndTime   string // Use 24hr "0000" - "2359"
-	Sunday    bool
-	Monday    bool
-	Tuesday   bool
-	Wednesday bool
-	Thursday  bool
-	Friday    bool
-	Saturday  bool
+	StartDate string `json:"startDate"`
+	EndDate   string `json:"endDate"`
+	BeginTime uint   `json:"beginTime"`
+	EndTime   uint   `json:"endtime"`
+	Sunday    bool   `json:"sunday"`
+	Monday    bool   `json:"monday"`
+	Tuesday   bool   `json:"tuesday"`
+	Wednesday bool   `json:"wednesday"`
+	Thursday  bool   `json:"thursday"`
+	Friday    bool   `json:"friday"`
+	Saturday  bool   `json:"saturday"`
 }
 
 type Course struct {
-	CourseNumber      uint
-	Subject           string
-	SequenceNumber    string
-	CourseTitle       string
-	RequiredEquipment []string
-	RequiresPEng      bool
+	CourseNumber      uint     `json:"courseNumber"`
+	Subject           string   `json:"subject"`
+	SequenceNumber    string   `json:"sequenceNumber"`
+	CourseTitle       string   `json:"courseTitle"`
+	RequiredEquipment []string `json:"requiredEquipment,omitempty"`
+	StreamSequence    string   `json:"streamSequence"`
 }
 
 type Professor struct {
 	Preferences       []Preference
-	CoursesCanTeach   []Course
-	DisplayName       string
-	TeachingStatus    string
-	RequiredEquipment []string
-	HasPEng           bool
-	FallTermCourses   uint
-	SpringTermCourses uint
-	SummerTermCourses uint
+	DisplayName       string   `json:"displayName,omitempty"`
+	RequiredEquipment []string `json:"requiredEquipment,omitempty"`
+	FallTermCourses   uint     `json:"fallTermCourses,omitempty"`
+	SpringTermCourses uint     `json:"springTermCourses,omitempty"`
+	SummerTermCourses uint     `json:"summerTermCourses,omitempty"`
 }
 
 type Preference struct {
-	Course        Course
-	PreferenceNum uint
+	CourseNum     string `json:"courseNum,omitempty"`
+	PreferenceNum uint   `json:"preferenceNum,omitempty"`
+	Term          string `json:"term,omitempty"`
 }
