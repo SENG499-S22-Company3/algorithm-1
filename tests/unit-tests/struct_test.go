@@ -14,7 +14,6 @@ var courseEquipment = []string{"Projector", "Whiteboard"}
 
 // Test professor info
 var displayName = "John Doe"
-var numCourses uint = 3
 var profEquipment = []string{"Projector"}
 
 func TestCourseStruct(t *testing.T) {
@@ -38,10 +37,9 @@ func TestProfessorStuct(t *testing.T) {
 	}
 
 	testProfessor := structs.Professor{
-		Preferences:        []structs.Preference{testPreference},
-		DisplayName:        displayName,
-		NumCoursesCanTeach: numCourses,
-		RequiredEquipment:  profEquipment,
+		Preferences:       []structs.Preference{testPreference},
+		DisplayName:       displayName,
+		RequiredEquipment: profEquipment,
 	}
 
 	if testProfessor.Preferences[0].CourseNum != "CSC370" {
