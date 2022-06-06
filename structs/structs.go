@@ -9,40 +9,40 @@ type Schedule struct {
 type Assignment struct {
 	Course    Course
 	Prof      Professor
-	StartDate string // Follow "yyyy-mm=dd"
-	EndDate   string // Follow "yyyy-mm-dd"
-	BeginTime uint
-	EndTime   uint
-	Sunday    bool
-	Monday    bool
-	Tuesday   bool
-	Wednesday bool
-	Thursday  bool
-	Friday    bool
-	Saturday  bool
+	StartDate string `json:"startDate"`
+	EndDate   string `json:"endDate"`
+	BeginTime uint   `json:"beginTime"`
+	EndTime   uint   `json:"endtime"`
+	Sunday    bool   `json:"sunday"`
+	Monday    bool   `json:"monday"`
+	Tuesday   bool   `json:"tuesday"`
+	Wednesday bool   `json:"wednesday"`
+	Thursday  bool   `json:"thursday"`
+	Friday    bool   `json:"friday"`
+	Saturday  bool   `json:"saturday"`
 }
 
 type Course struct {
-	CourseNumber      uint
-	Subject           string
-	SequenceNumber    string
-	CourseTitle       string
-	RequiredEquipment []string
-	StreamSequence    string
+	CourseNumber      uint     `json:"courseNumber"`
+	Subject           string   `json:"subject"`
+	SequenceNumber    string   `json:"sequenceNumber"`
+	CourseTitle       string   `json:"courseTitle"`
+	RequiredEquipment []string `json:"requiredEquipment,omitempty"`
+	StreamSequence    string   `json:"streamSequence"`
 }
 
 type Professor struct {
 	Preferences        []Preference
-	DisplayName        string
-	NumCoursesCanTeach uint
-	RequiredEquipment  []string
-	FallTermCourses    uint
-	SpringTermCourses  uint
-	SummerTermCourses  uint
+	DisplayName        string   `json:"displayName,omitempty"`
+	NumCoursesCanTeach uint     // May not need as we specify number in uint <season>TermCourses fields
+	RequiredEquipment  []string `json:"requiredEquipment,omitempty"`
+	FallTermCourses    uint     `json:"fallTermCourses,omitempty"`
+	SpringTermCourses  uint     `json:"springTermCourses,omitempty"`
+	SummerTermCourses  uint     `json:"summerTermCourses,omitempty"`
 }
 
 type Preference struct {
-	Course        Course
-	PreferenceNum uint
-	Term          string
+	CourseNum     string `json:"courseNum,omitempty"`
+	PreferenceNum uint   `json:"preferenceNum,omitempty"`
+	Term          string `json:"term,omitempty"`
 }
