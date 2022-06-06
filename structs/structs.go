@@ -32,13 +32,12 @@ type Course struct {
 }
 
 type Professor struct {
-	Preferences        []Preference
-	DisplayName        string   `json:"displayName,omitempty"`
-	NumCoursesCanTeach uint     // May not need as we specify number in uint <season>TermCourses fields
-	RequiredEquipment  []string `json:"requiredEquipment,omitempty"`
-	FallTermCourses    uint     `json:"fallTermCourses,omitempty"`
-	SpringTermCourses  uint     `json:"springTermCourses,omitempty"`
-	SummerTermCourses  uint     `json:"summerTermCourses,omitempty"`
+	Preferences       []Preference
+	DisplayName       string   `json:"displayName,omitempty"`
+	RequiredEquipment []string `json:"requiredEquipment,omitempty"`
+	FallTermCourses   uint     `json:"fallTermCourses,omitempty"`
+	SpringTermCourses uint     `json:"springTermCourses,omitempty"`
+	SummerTermCourses uint     `json:"summerTermCourses,omitempty"`
 }
 
 type Preference struct {
