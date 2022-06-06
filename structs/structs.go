@@ -1,5 +1,11 @@
 package structs
 
+type Schedule struct {
+	FallCourses   []Assignment
+	SpringCourses []Assignment
+	SummerCourses []Assignment
+}
+
 type Assignment struct {
 	Course    Course
 	Prof      Professor
