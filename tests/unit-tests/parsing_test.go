@@ -10,7 +10,7 @@ func TestSmallHistoricalParse(t *testing.T) {
 		{
 			"fallTermCourses": [
 				{
-				"courseNumber": 101,
+				"courseNumber": "101",
 				"subject": "CHEM",
 				"sequenceNumber": "A01",
 				"courseTitle": "Properties of Materials",
@@ -38,7 +38,7 @@ func TestSmallHistoricalParse(t *testing.T) {
 
 	if testSchedule.FallCourses == nil {
 		t.Error("Schedule failed to be parsed")
-	} else if testSchedule.FallCourses[0].CourseNumber != 101 && !testSchedule.FallCourses[0].Assignment.Thursday {
+	} else if testSchedule.FallCourses[0].CourseNumber != "101" && !testSchedule.FallCourses[0].Assignment.Thursday {
 		t.Errorf("Schedule successfully parsed, but data is incorrect. Course number should be 101 and it was %v, and/or Thursday should be true when it was %v",
 			testSchedule.FallCourses[0].CourseNumber, testSchedule.FallCourses[0].Assignment.Thursday)
 	}
@@ -65,24 +65,24 @@ func TestCourseParse(t *testing.T) {
 	// example input
 	jsonData := []byte(
 		`[{
-			"streamSequence": "200805",
-			"courseNumber": 115,
+			"streamSequence": "3A",
+			"courseNumber": "115",
 			"subject": "CSC",
 			"sequenceNumber": "A01",
 			"courseTitle": "FUNDAMENTAL PROGRAMING:II"
 		}, {
-			"streamSequence": "200805",
-			"courseNumber": 225,
+			"streamSequence": "3B",
+			"courseNumber": "225",
 			"subject": "CSC",
 			"sequenceNumber": "A01",
 			"courseTitle": "ALGORITHMS+DATA STUCT:I"
 		}]`)
 	result := structs.ParseCourses(jsonData)
 
-	if result[0].CourseNumber != 115 {
+	if result[0].CourseNumber != "115" {
 		t.Error("Incorrect CourseNumber")
 	}
-	if result[1].CourseNumber != 225 {
+	if result[1].CourseNumber != "225" {
 		t.Error("Incorrect CourseNumber")
 	}
 }
