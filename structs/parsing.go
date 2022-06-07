@@ -15,3 +15,13 @@ func ParseHistorical(jsonData []byte) Schedule {
 
 	return parsedSchedule
 }
+
+func ParseCourses(jsonData []byte) []Course {
+	var courses []Course
+	err := json.Unmarshal(jsonData, &courses)
+	if err != nil {
+		panic(err)
+	}
+
+	return courses
+}
