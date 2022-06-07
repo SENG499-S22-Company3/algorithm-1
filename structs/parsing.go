@@ -25,3 +25,14 @@ func ParseCourses(jsonData []byte) []Course {
 
 	return courses
 }
+
+func StructToJSON(schedule Schedule) []byte {
+
+	jsonData, err := json.Marshal(schedule)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return jsonData
+}
