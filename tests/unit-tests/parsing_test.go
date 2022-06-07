@@ -2,7 +2,6 @@ package tests
 
 import (
 	"algorithm-1/structs"
-	"fmt"
 	"testing"
 )
 
@@ -38,8 +37,6 @@ func TestHistoricalParse(t *testing.T) {
 		}`)
 
 	testSchedule = structs.ParseHistorical(jsonData)
-
-	fmt.Println(testSchedule.FallCourses[0].CourseNumber)
 
 	if testSchedule.FallCourses == nil {
 		t.Error("Schedule failed to be parsed")
