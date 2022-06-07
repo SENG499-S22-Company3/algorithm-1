@@ -60,3 +60,29 @@ func TestLargeHistoricalParse(t *testing.T) {
 		t.Error("Schedule failed to be parsed")
 	}
 }
+
+func TestCourseParse(t *testing.T) {
+	// example input
+	jsonData := []byte(
+		`[{
+			"streamSequence": "3A",
+			"courseNumber": "115",
+			"subject": "CSC",
+			"sequenceNumber": "A01",
+			"courseTitle": "FUNDAMENTAL PROGRAMING:II"
+		}, {
+			"streamSequence": "3B",
+			"courseNumber": "225",
+			"subject": "CSC",
+			"sequenceNumber": "A01",
+			"courseTitle": "ALGORITHMS+DATA STUCT:I"
+		}]`)
+	result := structs.ParseCourses(jsonData)
+
+	if result[0].CourseNumber != "115" {
+		t.Error("Incorrect CourseNumber")
+	}
+	if result[1].CourseNumber != "225" {
+		t.Error("Incorrect CourseNumber")
+	}
+}
