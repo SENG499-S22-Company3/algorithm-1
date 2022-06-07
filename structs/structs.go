@@ -1,34 +1,34 @@
 package structs
 
 type Schedule struct {
-	FallCourses   []Assignment
-	SpringCourses []Assignment
-	SummerCourses []Assignment
+	FallCourses   []Course `json:"fallTermCourses,omitempty"`
+	SpringCourses []Course `json:"springTermCourses,omitempty"`
+	SummerCourses []Course `json:"summerTermCourses,omitempty"`
 }
 
 type Assignment struct {
-	Course    Course
-	Prof      Professor
-	StartDate string `json:"startDate"`
-	EndDate   string `json:"endDate"`
-	BeginTime uint   `json:"beginTime"`
-	EndTime   uint   `json:"endtime"`
-	Sunday    bool   `json:"sunday"`
-	Monday    bool   `json:"monday"`
-	Tuesday   bool   `json:"tuesday"`
-	Wednesday bool   `json:"wednesday"`
-	Thursday  bool   `json:"thursday"`
-	Friday    bool   `json:"friday"`
-	Saturday  bool   `json:"saturday"`
+	Prof      Professor `json:"prof,omitempty"`
+	StartDate string    `json:"startDate"`
+	EndDate   string    `json:"endDate"`
+	BeginTime uint      `json:"beginTime"`
+	EndTime   uint      `json:"endtime"`
+	Sunday    bool      `json:"sunday"`
+	Monday    bool      `json:"monday"`
+	Tuesday   bool      `json:"tuesday"`
+	Wednesday bool      `json:"wednesday"`
+	Thursday  bool      `json:"thursday"`
+	Friday    bool      `json:"friday"`
+	Saturday  bool      `json:"saturday"`
 }
 
 type Course struct {
-	CourseNumber      uint     `json:"courseNumber"`
-	Subject           string   `json:"subject"`
-	SequenceNumber    string   `json:"sequenceNumber"`
-	CourseTitle       string   `json:"courseTitle"`
-	RequiredEquipment []string `json:"requiredEquipment,omitempty"`
-	StreamSequence    string   `json:"streamSequence"`
+	CourseNumber      uint       `json:"courseNumber"`
+	Subject           string     `json:"subject"`
+	SequenceNumber    string     `json:"sequenceNumber"`
+	CourseTitle       string     `json:"courseTitle"`
+	RequiredEquipment []string   `json:"requiredEquipment,omitempty"`
+	StreamSequence    string     `json:"streamSequence,omitempty"`
+	Assignment        Assignment `json:"meetingTime"`
 }
 
 type Professor struct {
