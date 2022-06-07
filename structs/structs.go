@@ -12,6 +12,7 @@ type Assignment struct {
 	EndDate   string    `json:"endDate"`
 	BeginTime uint      `json:"beginTime"`
 	EndTime   uint      `json:"endtime"`
+	HoursWeek uint      `json:"hoursWeek"`
 	Sunday    bool      `json:"sunday"`
 	Monday    bool      `json:"monday"`
 	Tuesday   bool      `json:"tuesday"`
