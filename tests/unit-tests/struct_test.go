@@ -6,7 +6,7 @@ import (
 )
 
 // Test course info
-var courseNum uint = 370
+var courseNum = "370"
 var courseSub = "CSC"
 var courseSeq = "A01/A02"
 var courseTitle = "Database Systems"
@@ -25,7 +25,7 @@ func TestCourseStruct(t *testing.T) {
 		RequiredEquipment: courseEquipment,
 	}
 
-	if testCourse.CourseNumber != 370 {
+	if testCourse.CourseNumber != "370" {
 		t.Errorf("Got %v. expected 370", testCourse.CourseNumber)
 	}
 }
