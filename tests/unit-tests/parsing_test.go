@@ -6,8 +6,6 @@ import (
 )
 
 func TestSmallHistoricalParse(t *testing.T) {
-	var testSchedule structs.Schedule
-
 	jsonData := []byte(`
 		{
 			"fallTermCourses": [
@@ -36,7 +34,7 @@ func TestSmallHistoricalParse(t *testing.T) {
 			"summerTermCourses": []
 		}`)
 
-	testSchedule = structs.ParseHistorical(jsonData)
+	testSchedule := structs.ParseHistorical(jsonData)
 
 	if testSchedule.FallCourses == nil {
 		t.Error("Schedule failed to be parsed")
