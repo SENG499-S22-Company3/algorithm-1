@@ -10,7 +10,7 @@ func TestSmallHistoricalParse(t *testing.T) {
 		{
 			"fallTermCourses": [
 				{
-				"courseNumber": 101,
+				"courseNumber": "101",
 				"subject": "CHEM",
 				"sequenceNumber": "A01",
 				"courseTitle": "Properties of Materials",
@@ -38,7 +38,7 @@ func TestSmallHistoricalParse(t *testing.T) {
 
 	if testSchedule.FallCourses == nil {
 		t.Error("Schedule failed to be parsed")
-	} else if testSchedule.FallCourses[0].CourseNumber != 101 && !testSchedule.FallCourses[0].Assignment.Thursday {
+	} else if testSchedule.FallCourses[0].CourseNumber != "101" && !testSchedule.FallCourses[0].Assignment.Thursday {
 		t.Errorf("Schedule successfully parsed, but data is incorrect. Course number should be 101 and it was %v, and/or Thursday should be true when it was %v",
 			testSchedule.FallCourses[0].CourseNumber, testSchedule.FallCourses[0].Assignment.Thursday)
 	}

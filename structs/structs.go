@@ -23,7 +23,7 @@ type Assignment struct {
 }
 
 type Course struct {
-	CourseNumber      uint       `json:"courseNumber"`
+	CourseNumber      string     `json:"courseNumber"`
 	Subject           string     `json:"subject"`
 	SequenceNumber    string     `json:"sequenceNumber"`
 	CourseTitle       string     `json:"courseTitle"`
