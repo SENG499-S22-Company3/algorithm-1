@@ -23,3 +23,10 @@ jobs:
 
     - name: Test
       run: go test -v ./tests/...
+
+    - name: Deploy to Heroku App
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "schedulater-algorithm1"
+        heroku_email: "ant.nikitenko@protonmail.com"
