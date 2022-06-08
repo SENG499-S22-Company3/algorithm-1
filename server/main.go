@@ -5,7 +5,10 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
+
+const PORT = "8080"
 
 func Root(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Algorithm 1 REST server is alive!")
@@ -44,11 +47,21 @@ func CheckSchedule(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Gets default value passed if no value exist for given environment variable.
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
+}
+
 func StartHTTPServer() {
+	port := getEnv("PORT", PORT)
+
 	// Define all routes for REST API
 	http.HandleFunc("/", Root)
 	http.HandleFunc("/generate_schedule", GenerateSchedule)
 	http.HandleFunc("/check_schedule", CheckSchedule)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
 }
