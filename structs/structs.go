@@ -10,9 +10,9 @@ type Assignment struct {
 	Prof      Professor `json:"prof,omitempty"`
 	StartDate string    `json:"startDate"`
 	EndDate   string    `json:"endDate"`
-	BeginTime uint      `json:"beginTime"`
-	EndTime   uint      `json:"endtime"`
-	HoursWeek uint      `json:"hoursWeek"`
+	BeginTime string    `json:"beginTime"`
+	EndTime   string    `json:"endtime"`
+	HoursWeek float32   `json:"hoursWeek"`
 	Sunday    bool      `json:"sunday"`
 	Monday    bool      `json:"monday"`
 	Tuesday   bool      `json:"tuesday"`
