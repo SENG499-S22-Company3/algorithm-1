@@ -16,6 +16,7 @@ func ParseHistorical(jsonData []byte) Schedule {
 	return parsedSchedule
 }
 
+
 func ParseCourses(jsonData []byte) []Course {
 	var courses []Course
 	err := json.Unmarshal(jsonData, &courses)
@@ -25,6 +26,19 @@ func ParseCourses(jsonData []byte) []Course {
 
 	return courses
 }
+
+func ParseProfPreferences(jsonData []byte) []Professor {
+	var profs []Professor
+
+	err := json.Unmarshal(jsonData, &profs)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return profs
+}
+
 
 func StructToJSON(schedule Schedule) []byte {
 
@@ -36,3 +50,4 @@ func StructToJSON(schedule Schedule) []byte {
 
 	return jsonData
 }
+
