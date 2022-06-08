@@ -7,18 +7,18 @@ type Schedule struct {
 }
 
 type Assignment struct {
-	StartDate string `json:"startDate"`
-	EndDate   string `json:"endDate"`
-	BeginTime uint   `json:"beginTime"`
-	EndTime   uint   `json:"endtime"`
-	HoursWeek uint   `json:"hoursWeek"`
-	Sunday    bool   `json:"sunday"`
-	Monday    bool   `json:"monday"`
-	Tuesday   bool   `json:"tuesday"`
-	Wednesday bool   `json:"wednesday"`
-	Thursday  bool   `json:"thursday"`
-	Friday    bool   `json:"friday"`
-	Saturday  bool   `json:"saturday"`
+	StartDate string  `json:"startDate"`
+	EndDate   string  `json:"endDate"`
+	BeginTime uint    `json:"beginTime"`
+	EndTime   uint    `json:"endtime"`
+	HoursWeek float32 `json:"hoursWeek"`
+	Sunday    bool    `json:"sunday"`
+	Monday    bool    `json:"monday"`
+	Tuesday   bool    `json:"tuesday"`
+	Wednesday bool    `json:"wednesday"`
+	Thursday  bool    `json:"thursday"`
+	Friday    bool    `json:"friday"`
+	Saturday  bool    `json:"saturday"`
 }
 
 type Course struct {
