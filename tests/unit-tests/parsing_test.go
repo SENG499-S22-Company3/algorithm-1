@@ -2,6 +2,8 @@ package tests
 
 import (
 	"algorithm-1/structs"
+	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -84,5 +86,93 @@ func TestCourseParse(t *testing.T) {
 	}
 	if result[1].CourseNumber != "225" {
 		t.Error("Incorrect CourseNumber")
+	}
+}
+
+func TestJSONGeneration(t *testing.T) {
+	// Test data
+	testAssignment := structs.Assignment{
+		StartDate: "Sep 05, 2018",
+		EndDate:   "Dec 05, 2018",
+		BeginTime: 1300,
+		EndTime:   1420,
+		HoursWeek: 3,
+		Sunday:    false,
+		Monday:    true,
+		Tuesday:   false,
+		Wednesday: false,
+		Thursday:  true,
+		Friday:    false,
+		Saturday:  false,
+	}
+
+	testProf := structs.Professor{
+		DisplayName: "JohnSmith",
+	}
+
+	testCourse := structs.Course{
+		Assignment:     testAssignment,
+		Prof:           testProf,
+		CourseNumber:   "101",
+		Subject:        "CHEM",
+		SequenceNumber: "A01",
+		StreamSequence: "2A",
+		CourseTitle:    "Properties of Materials",
+	}
+
+	testSchedule := structs.Schedule{
+		FallCourses:   []structs.Course{testCourse},
+		SpringCourses: []structs.Course{},
+		SummerCourses: []structs.Course{},
+	}
+
+	// Test check data with whitespace for readability
+	jsonString := `
+	{
+		"fallTermCourses":
+		[
+			{
+				"courseNumber":"101",
+				"subject":"CHEM",
+				"sequenceNumber":"A01",
+				"courseTitle":"Properties of Materials",
+				"streamSequence":"2A",
+				"meetingTime":
+					{
+					"startDate":"Sep 05, 2018",
+					"endDate":"Dec 05, 2018",
+					"beginTime":1300,
+					"endtime":1420,
+					"hoursWeek":3,
+					"sunday":false,
+					"monday":true,
+					"tuesday":false,
+					"wednesday":false,
+					"thursday":true,
+					"friday":false,
+					"saturday":false
+					},
+				"prof":
+					{
+					"displayName":"JohnSmith"
+					}
+			}
+		],
+		"springTermCourses":[],
+		"summerTermCourses":[]
+	}`
+
+	jsonData := structs.StructToJSON(testSchedule)
+
+	fmt.Println(string(jsonData))
+
+	// Remove whitespace and newlines for testing
+	jsonString = strings.Replace(jsonString, "\n", "", -1)
+	jsonString = strings.Replace(jsonString, "\t", "", -1)
+
+	fmt.Println(jsonString)
+
+	if string(jsonData) != jsonString {
+		t.Error("Schedule failed to parse to JSON correctly")
 	}
 }
