@@ -9,7 +9,6 @@ import re
 
 def reformat(entry):
     for x in entry["meetingsFaculty"]:
-
         assign = {
             'startDate': x["meetingTime"]["startDate"],
             'endDate': x["meetingTime"]["endDate"],

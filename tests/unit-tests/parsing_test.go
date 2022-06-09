@@ -199,3 +199,41 @@ func TestJSONGeneration(t *testing.T) {
 		t.Error("Schedule failed to parse to JSON correctly")
 	}
 }
+
+
+func TestProfParse(t *testing.T) {
+	// example input
+	jsonData := []byte(
+		`[{
+				"displayName": "Berg, Celina",
+				"prefs": [
+					{"courseNum": "CSC111", "preferenceNum": 78},
+					{"courseNum": "CSC115", "preferenceNum": 20},
+					{"courseNum": "CSC225", "preferenceNum": 20},
+					{"courseNum": "CSC226", "preferenceNum": 40},
+					{"courseNum": "CSC230", "preferenceNum": 20},
+					{"courseNum": "SENG265", "preferenceNum": 195},
+					{"courseNum": "SENG275", "preferenceNum": 20}
+				]
+			},
+			{
+				"displayName": "Bird, Bill",
+				"prefs": [
+					{"courseNum": "CSC111", "preferenceNum": 78},
+					{"courseNum": "CSC115", "preferenceNum": 20},
+					{"courseNum": "CSC225", "preferenceNum": 20}
+				]
+			}
+		]`)
+	result := structs.ParseProfPreferences(jsonData)
+
+	if result[0].DisplayName != "Berg, Celina" {
+		t.Error("Incorrect Prof Name")
+	}
+	if result[1].Preferences[2].CourseNum != "CSC225" {
+		t.Error("Incorrect CourseNumber")
+	}
+	if result[0].Preferences[4].PreferenceNum != 20 {
+		t.Error("Incorrect CourseNumber")
+	}
+}
