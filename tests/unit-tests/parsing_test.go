@@ -2,7 +2,6 @@ package tests
 
 import (
 	"algorithm-1/structs"
-	"fmt"
 	"strings"
 	"testing"
 )
@@ -17,9 +16,9 @@ func TestSmallHistoricalParse(t *testing.T) {
 				"sequenceNumber": "A01",
 				"courseTitle": "Properties of Materials",
 				"meetingTime": {
-					"beginTime": 1300,
+					"beginTime": "1300",
 					"endDate": "Dec 05, 2018",
-					"endTime": 1420,
+					"endTime": "1420",
 					"friday": false,
 					"hoursWeek": 3,
 					"monday": true,
@@ -37,9 +36,9 @@ func TestSmallHistoricalParse(t *testing.T) {
 					"sequenceNumber": "A01",
 					"courseTitle": "Properties of Materials",
 					"meetingTime": {
-						"beginTime": 1300,
+						"beginTime": "1300",
 						"endDate": "Dec 05, 2017",
-						"endTime": 1420,
+						"endTime": "1420",
 						"friday": false,
 						"hoursWeek": 3,
 						"monday": true,
@@ -122,8 +121,8 @@ func TestJSONGeneration(t *testing.T) {
 	testAssignment := structs.Assignment{
 		StartDate: "Sep 05, 2018",
 		EndDate:   "Dec 05, 2018",
-		BeginTime: 1300,
-		EndTime:   1420,
+		BeginTime: "1300",
+		EndTime:   "1420",
 		HoursWeek: 3,
 		Sunday:    false,
 		Monday:    true,
@@ -169,8 +168,8 @@ func TestJSONGeneration(t *testing.T) {
 					{
 					"startDate":"Sep 05, 2018",
 					"endDate":"Dec 05, 2018",
-					"beginTime":1300,
-					"endtime":1420,
+					"beginTime":"1300",
+					"endtime":"1420",
 					"hoursWeek":3,
 					"sunday":false,
 					"monday":true,
@@ -192,13 +191,9 @@ func TestJSONGeneration(t *testing.T) {
 
 	jsonData := structs.StructToJSON(testSchedule)
 
-	fmt.Println(string(jsonData))
-
 	// Remove whitespace and newlines for testing
 	jsonString = strings.Replace(jsonString, "\n", "", -1)
 	jsonString = strings.Replace(jsonString, "\t", "", -1)
-
-	fmt.Println(jsonString)
 
 	if string(jsonData) != jsonString {
 		t.Error("Schedule failed to parse to JSON correctly")

@@ -9,14 +9,12 @@ import re
 
 def reformat(entry):
     for x in entry["meetingsFaculty"]:
-        endTime = x["meetingTime"]["endTime"]
-        beingTime = x["meetingTime"]["beginTime"]
 
         assign = {
             'startDate': x["meetingTime"]["startDate"],
             'endDate': x["meetingTime"]["endDate"],
-            'beginTime': beingTime if beingTime != None else 9999,
-            'endTime': endTime if endTime != None else 9999,
+            'beginTime': x["meetingTime"]["beginTime"],
+            'endTime': x["meetingTime"]["endTime"],
             'hoursWeek': x["meetingTime"]["hoursWeek"],
             'sunday': x["meetingTime"]["sunday"],
             'monday': x["meetingTime"]["monday"],

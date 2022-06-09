@@ -9,8 +9,8 @@ type Schedule struct {
 type Assignment struct {
 	StartDate string  `json:"startDate"`
 	EndDate   string  `json:"endDate"`
-	BeginTime uint    `json:"beginTime"`
-	EndTime   uint    `json:"endtime"`
+	BeginTime string  `json:"beginTime"`
+	EndTime   string  `json:"endtime"`
 	HoursWeek float32 `json:"hoursWeek"`
 	Sunday    bool    `json:"sunday"`
 	Monday    bool    `json:"monday"`
