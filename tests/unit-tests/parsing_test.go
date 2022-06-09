@@ -55,7 +55,11 @@ func TestSmallHistoricalParse(t *testing.T) {
 			"summerTermCourses": []
 		}`)
 
-	testSchedule := structs.ParseHistorical(jsonData)
+	testSchedule, err := structs.ParseHistorical(jsonData)
+
+	if err != nil {
+		t.Error("Schedule parsing failed with error: ", err.Error())
+	}
 
 	if testSchedule.FallCourses == nil {
 		t.Error("Schedule failed to be parsed")
@@ -83,7 +87,11 @@ func TestLargeHistoricalParse(t *testing.T) {
 			"summerTermCourses": []
 		}`)
 
-	testSchedule = structs.ParseHistorical(jsonData)
+	testSchedule, err := structs.ParseHistorical(jsonData)
+
+	if err != nil {
+		t.Error("Schedule parsing failed with error: ", err.Error())
+	}
 
 	if testSchedule.FallCourses == nil {
 		t.Error("Schedule failed to be parsed")
@@ -106,7 +114,11 @@ func TestCourseParse(t *testing.T) {
 			"sequenceNumber": "A01",
 			"courseTitle": "ALGORITHMS+DATA STUCT:I"
 		}]`)
-	result := structs.ParseCourses(jsonData)
+	result, err := structs.ParseCourses(jsonData)
+
+	if err != nil {
+		t.Error("Parsing courses failed with error: ", err.Error())
+	}
 
 	if result[0].CourseNumber != "115" {
 		t.Error("Incorrect CourseNumber")
@@ -189,7 +201,11 @@ func TestJSONGeneration(t *testing.T) {
 		"summerTermCourses":[]
 	}`
 
-	jsonData := structs.StructToJSON(testSchedule)
+	jsonData, err := structs.StructToJSON(testSchedule)
+
+	if err != nil {
+		t.Error("Schedule parsing failed with error: ", err.Error())
+	}
 
 	// Remove whitespace and newlines for testing
 	jsonString = strings.Replace(jsonString, "\n", "", -1)
@@ -199,7 +215,6 @@ func TestJSONGeneration(t *testing.T) {
 		t.Error("Schedule failed to parse to JSON correctly")
 	}
 }
-
 
 func TestProfParse(t *testing.T) {
 	// example input
@@ -225,7 +240,11 @@ func TestProfParse(t *testing.T) {
 				]
 			}
 		]`)
-	result := structs.ParseProfPreferences(jsonData)
+	result, err := structs.ParseProfPreferences(jsonData)
+
+	if err != nil {
+		t.Error("Parsing professor preferences failed with error: ", err.Error())
+	}
 
 	if result[0].DisplayName != "Berg, Celina" {
 		t.Error("Incorrect Prof Name")
