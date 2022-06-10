@@ -13,7 +13,7 @@ func sliceContains(a string, list []string) bool {
 	return false
 }
 
-func BaseSchedule(requestedCourses []structs.Course, historicalSemester []structs.Course) []structs.Course {
+func BaseSemester(requestedCourses []structs.Course, historicalSemester []structs.Course) []structs.Course {
 	var result []structs.Course
 	ignore := []string{"CHEM", "MATH", "PHYS", "STAT", "ECON"} // Not sure if this is comprehensive
 	for _, h := range historicalSemester {
@@ -27,4 +27,27 @@ func BaseSchedule(requestedCourses []structs.Course, historicalSemester []struct
 		}
 	}
 	return result
+}
+
+func BaseSchedule(requestedCourses structs.Schedule, historicalSchedule structs.Schedule) structs.Schedule {
+	// making channels to get return values from goroutines
+	fall := make(chan []structs.Course)
+	spring := make(chan []structs.Course)
+	summer := make(chan []structs.Course)
+
+	go func() {
+		fall <- BaseSemester(requestedCourses.FallCourses, historicalSchedule.FallCourses)
+	}()
+	go func() {
+		spring <- BaseSemester(requestedCourses.SpringCourses, historicalSchedule.SpringCourses)
+	}()
+	go func() {
+		summer <- BaseSemester(requestedCourses.SummerCourses, historicalSchedule.SummerCourses)
+	}()
+
+	return structs.Schedule{
+		FallCourses:   <-fall,
+		SpringCourses: <-spring,
+		SummerCourses: <-summer,
+	}
 }

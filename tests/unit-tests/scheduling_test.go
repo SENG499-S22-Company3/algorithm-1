@@ -3,7 +3,6 @@ package tests
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -105,7 +104,7 @@ func TestSmallScaleBase(t *testing.T) {
 		}]`)
 	testCourses, _ := structs.ParseCourses(courseData)
 
-	result := scheduling.BaseSchedule(testCourses, historical)
+	result := scheduling.BaseSemester(testCourses, historical)
 
 	if len(result) != 2 {
 		t.Error("Incorrect number of courses")
@@ -138,7 +137,7 @@ func TestBaseSchedule(t *testing.T) {
 	testCourses := courseResult.FallCourses
 	jsonFile.Close()
 
-	result := scheduling.BaseSchedule(testCourses, historical)
+	result := scheduling.BaseSemester(testCourses, historical)
 	if !CheckCourse("SENG 265", result) {
 		t.Error("Missing course")
 	}
@@ -163,30 +162,11 @@ func TestBaseScheduleConcurrent(t *testing.T) {
 	testCourses, _ := structs.ParseHistorical(courseData)
 	jsonFile.Close()
 
-	// making channels to get return values from goroutines
-	fall := make(chan []structs.Course)
-	spring := make(chan []structs.Course)
-	summer := make(chan []structs.Course)
+	schedule := scheduling.BaseSchedule(testCourses, historical)
 
-	go func() {
-		fall <- scheduling.BaseSchedule(testCourses.FallCourses, historical.FallCourses)
-	}()
-	go func() {
-		spring <- scheduling.BaseSchedule(testCourses.SpringCourses, historical.SpringCourses)
-	}()
-	go func() {
-		summer <- scheduling.BaseSchedule(testCourses.SummerCourses, historical.SummerCourses)
-	}()
-
-	schedule := structs.Schedule{
-		FallCourses:   <-fall,
-		SpringCourses: <-spring,
-		SummerCourses: <-summer,
-	}
-
-	for _, c := range schedule.SummerCourses {
-		fmt.Println(c.Subject, c.CourseNumber, c.SequenceNumber)
-	}
+	// fmt.Print(len(schedule.FallCourses))
+	// fmt.Print(len(schedule.SummerCourses))
+	// fmt.Print(len(schedule.SpringCourses))
 
 	// verify
 	if len(schedule.FallCourses) != 16 {
