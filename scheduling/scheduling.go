@@ -13,10 +13,10 @@ func sliceContains(a string, list []string) bool {
 	return false
 }
 
-func BaseSchedule(requestedCourses []structs.Course, historicalSymester []structs.Course) []structs.Course {
+func BaseSchedule(requestedCourses []structs.Course, historicalSemester []structs.Course) []structs.Course {
 	var result []structs.Course
 	ignore := []string{"CHEM", "MATH", "PHYS", "STAT", "ECON"} // Not sure if this is comprehensive
-	for _, h := range historicalSymester {
+	for _, h := range historicalSemester {
 		if sliceContains(h.Subject, ignore) {
 			result = append(result, h)
 		}
