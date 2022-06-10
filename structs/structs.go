@@ -1,5 +1,11 @@
 package structs
 
+type Input struct {
+	HistoricData      Schedule    `json:"historicData"`
+	CoursesToSchedule Schedule    `json:"coursesToSchedule"`
+	Professors        []Professor `json:"professors"`
+}
+
 type Schedule struct {
 	FallCourses   []Course `json:"fallTermCourses"`
 	SpringCourses []Course `json:"springTermCourses"`
@@ -7,18 +13,18 @@ type Schedule struct {
 }
 
 type Assignment struct {
-	StartDate string  `json:"startDate"`
-	EndDate   string  `json:"endDate"`
-	BeginTime string  `json:"beginTime"`
-	EndTime   string  `json:"endtime"`
-	HoursWeek float32 `json:"hoursWeek"`
-	Sunday    bool    `json:"sunday"`
-	Monday    bool    `json:"monday"`
-	Tuesday   bool    `json:"tuesday"`
-	Wednesday bool    `json:"wednesday"`
-	Thursday  bool    `json:"thursday"`
-	Friday    bool    `json:"friday"`
-	Saturday  bool    `json:"saturday"`
+	StartDate string  `json:"startDate,omitempty"`
+	EndDate   string  `json:"endDate,omitempty"`
+	BeginTime string  `json:"beginTime,omitempty"`
+	EndTime   string  `json:"endtime,omitempty"`
+	HoursWeek float32 `json:"hoursWeek,omitempty"`
+	Sunday    bool    `json:"sunday,omitempty"`
+	Monday    bool    `json:"monday,omitempty"`
+	Tuesday   bool    `json:"tuesday,omitempty"`
+	Wednesday bool    `json:"wednesday,omitempty"`
+	Thursday  bool    `json:"thursday,omitempty"`
+	Friday    bool    `json:"friday,omitempty"`
+	Saturday  bool    `json:"saturday,omitempty"`
 }
 
 type Course struct {
