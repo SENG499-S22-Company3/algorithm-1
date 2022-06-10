@@ -1,6 +1,7 @@
 package server
 
 import (
+	"algorithm-1/structs"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -21,14 +22,29 @@ func GenerateSchedule(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: Call parsing method and scheduling algorithm
-	// For now, only outputs the body provided (JSON data)
-	// and if it's empty just returns a basic string.
 	if len(reqBody) == 0 {
-		fmt.Fprintf(w, "This will generate a schedule!")
-	} else {
-		fmt.Fprint(w, string(reqBody))
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Request body cannot be empty."))
+		return
 	}
+
+	parsedSchedule, err := structs.ParseHistorical(reqBody)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	schedule2019 := structs.Schedule2019(parsedSchedule)
+
+	marshalledJSON, err := structs.StructToJSON(schedule2019)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	fmt.Fprint(w, string(marshalledJSON))
 }
 
 func CheckSchedule(w http.ResponseWriter, r *http.Request) {
