@@ -2,3 +2,4 @@
 algorithm-1
 
 *.json
+!*-test.json
