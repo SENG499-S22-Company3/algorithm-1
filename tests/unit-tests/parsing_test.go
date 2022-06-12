@@ -2,6 +2,8 @@ package tests
 
 import (
 	"algorithm-1/structs"
+	"io/ioutil"
+	"os"
 	"strings"
 	"testing"
 )
@@ -254,5 +256,30 @@ func TestProfParse(t *testing.T) {
 	}
 	if result[0].Preferences[4].PreferenceNum != 20 {
 		t.Error("Incorrect CourseNumber")
+	}
+}
+
+func TestInputParse(t *testing.T) {
+	jsonFile, err := os.Open("../data/input-test.json")
+	if err != nil {
+		t.Error("File not found")
+	}
+
+	inputData, _ := ioutil.ReadAll(jsonFile) // making byte array
+
+	input, err := structs.PareseInput(inputData)
+
+	if err != nil {
+		t.Error("Parsing input failed with error: ", err.Error())
+	}
+
+	if input.HistoricData.FallCourses[0].CourseNumber != "101" {
+		t.Error("Historical data parsed incorrectly")
+	}
+	if input.CoursesToSchedule.FallCourses[0].CourseNumber != "310" {
+		t.Error("Courses to schedule parsed incorrectly")
+	}
+	if input.Professors[0].DisplayName != "Berg, Celina" {
+		t.Error("Professors parsed incorrectly")
 	}
 }

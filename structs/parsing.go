@@ -64,6 +64,18 @@ func ParseProfPreferences(jsonData []byte) ([]Professor, error) {
 	return profs, nil
 }
 
+func PareseInput(jsonData []byte) (Input, error) {
+	var input Input
+
+	err := json.Unmarshal(jsonData, &input)
+
+	if err != nil {
+		return input, err
+	}
+
+	return input, nil
+}
+
 func StructToJSON(schedule Schedule) ([]byte, error) {
 
 	jsonData, err := json.Marshal(schedule)
