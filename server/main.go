@@ -1,6 +1,7 @@
 package server
 
 import (
+	"algorithm-1/scheduling"
 	"algorithm-1/structs"
 	"fmt"
 	"io/ioutil"
@@ -28,16 +29,16 @@ func GenerateSchedule(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	parsedSchedule, err := structs.ParseHistorical(reqBody)
+	parsedInput, err := structs.ParseInput(reqBody)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
 		return
 	}
 
-	schedule2019 := structs.Schedule2019(parsedSchedule)
+	baseSchedule := scheduling.BaseSchedule(parsedInput.CoursesToSchedule, parsedInput.HistoricData)
 
-	marshalledJSON, err := structs.StructToJSON(schedule2019)
+	marshalledJSON, err := structs.StructToJSON(baseSchedule)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
