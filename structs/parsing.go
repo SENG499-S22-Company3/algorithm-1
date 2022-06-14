@@ -64,7 +64,7 @@ func ParseProfPreferences(jsonData []byte) ([]Professor, error) {
 	return profs, nil
 }
 
-func PareseInput(jsonData []byte) (Input, error) {
+func ParseInput(jsonData []byte) (Input, error) {
 	var input Input
 
 	err := json.Unmarshal(jsonData, &input)

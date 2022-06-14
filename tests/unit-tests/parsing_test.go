@@ -267,7 +267,7 @@ func TestInputParse(t *testing.T) {
 
 	inputData, _ := ioutil.ReadAll(jsonFile) // making byte array
 
-	input, err := structs.PareseInput(inputData)
+	input, err := structs.ParseInput(inputData)
 
 	if err != nil {
 		t.Error("Parsing input failed with error: ", err.Error())
