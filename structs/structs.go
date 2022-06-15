@@ -53,6 +53,8 @@ type Preference struct {
 	Term          string `json:"term,omitempty"`
 }
 
+// Should follow key = start time, value = subject and course number
+// Ex. Calling *.Monday["1130"] returns "CSC 115"
 type Timeslots struct {
 	Sunday    map[string]string
 	Monday    map[string]string
