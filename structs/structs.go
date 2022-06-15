@@ -64,3 +64,20 @@ type Timeslots struct {
 	Friday    map[string][]string
 	Saturday  map[string][]string
 }
+
+type StreamType struct {
+	S1A Timeslots
+	S1B Timeslots
+	S2A Timeslots
+	S2B Timeslots
+	S3A Timeslots
+	S3B Timeslots
+	S4A Timeslots
+	S4B Timeslots
+}
+
+// Should follow key = prof display_name, value = list of courses he's teaching
+// Ex. Calling *.Monday["Zastre"] returns [ courses1, courses2 ]
+type ProfAssignments struct {
+	ProfAssigned map[string][]Course
+}
