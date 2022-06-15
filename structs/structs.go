@@ -52,3 +52,13 @@ type Preference struct {
 	PreferenceNum uint   `json:"preferenceNum,omitempty"`
 	Term          string `json:"term,omitempty"`
 }
+
+type Timeslots struct {
+	Sunday    map[string]string
+	Monday    map[string]string
+	Tuesday   map[string]string
+	Wednesday map[string]string
+	Thursday  map[string]string
+	Friday    map[string]string
+	Saturday  map[string]string
+}
