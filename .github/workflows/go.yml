@@ -11,7 +11,7 @@ env:
 
 jobs:
 
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -22,25 +22,19 @@ jobs:
       with:
         go-version: 1.18
 
-    - name: Build
+    - name: Build Go application
       run: go build -v ./...
 
-    - name: Test
+    - name: Test Go application
       run: go test -v ./tests/...
       
-  build-docker-image-and-push:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      
-    - name: Build image
+    - name: Build Docker image
       run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
       
-    - name: Log in to registry
+    - name: Log in to Github Package registry
       run: echo "${{ secrets.GITHUB_TOKEN}}" | docker login ghcr.io -u $ --password-stdin
       
-    - name: Push image
+    - name: Push image to registry
       run: |
         IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
         
@@ -56,4 +50,3 @@ jobs:
         echo VERSION=$VERSION
         docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
         docker push $IMAGE_ID:$VERSION
-    
