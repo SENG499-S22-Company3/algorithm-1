@@ -91,6 +91,7 @@ func CreateEmptyStreamType() structs.StreamType {
 		S2A: emptyTimeslots,
 		S2B: emptyTimeslots,
 		S3A: emptyTimeslots,
+		S3B: emptyTimeslots,
 		S4A: emptyTimeslots,
 		S4B: emptyTimeslots,
 	}
