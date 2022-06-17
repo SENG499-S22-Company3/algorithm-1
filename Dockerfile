@@ -8,6 +8,8 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
+EXPOSE 8080
+
 FROM scratch as runner
 COPY --from=builder /app/main .
 CMD ["./main"]
