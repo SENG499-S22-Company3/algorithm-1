@@ -1,17 +1,21 @@
-name: Go
+name: Go CI/CD
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+    
+env:
+  IMAGE_NAME: algorithm-1
 
 jobs:
 
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
     - name: Set up Go
       uses: actions/setup-go@v3
@@ -23,3 +27,33 @@ jobs:
 
     - name: Test
       run: go test -v ./tests/...
+      
+  build-docker-image-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Build image
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+      
+    - name: Log in to registry
+      run: echo "${{ secrets.GITHUB_TOKEN}}" | docker login gchr.io -u $ --password-stdin
+      
+    - name: Push image
+      run: |
+        IMAGE_ID=gchr.io/${{ github.repository_owner }}/$IMAGE_NAME
+        
+        # Change all uppercase to lowercase
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+        # Strip git ref prefix from version
+        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+        # Strip "v" prefix from tag name
+        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+        # Use Docker `latest` tag convention
+        [ "$VERSION" == "master" ] && VERSION=latest
+        echo IMAGE_ID=$IMAGE_ID
+        echo VERSION=$VERSION
+        docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+        docker push $IMAGE_ID:$VERSION
+    
