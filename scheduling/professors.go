@@ -2,33 +2,16 @@ package scheduling
 
 import (
 	"algorithm-1/structs"
-	"io/ioutil"
-	"log"
 )
 
-// "professors":[
-//     {
-//         "displayName": "Berg, Celina",
-//         "prefs": {
-// 				"CSC111": 78,
-// 				"CSC115": 20,
-// 				...
-// 			}
-//     },
-// 	...
-// ]
-
-// type ProfMap struct {
-// 	DisplayName map[string]PrefMap
-// }
-
-// type PrefMap struct {
-// 	Preference 	map[string]int
-// }
-
+/*
+	Input:  profs []structs.Professor
+	Output: profsMap map[string]map[string]int, profList []string
+*/
 func mapPreferences(profs []structs.Professor) (map[string]map[string]int, []string){
 	var profsMap = map[string]map[string]int{}
 	var profList []string
+
 	for _, s := range profs {
 		profsMap[s.DisplayName] = map[string]int{}
 		profList = append(profList, s.DisplayName)
@@ -40,20 +23,19 @@ func mapPreferences(profs []structs.Professor) (map[string]map[string]int, []str
 }
 
 /*
-Input: (profList, profsMap, course string)
-Output: (prof string)
+	Input:  profsMap map[string]map[string]int, profList []string, course string
+	Output: prof string
 */
-func assignProf(profsMap map[string]map[string]int, profList []string, course structs.Course) (string){
+func assignProf(profsMap map[string]map[string]int, profList []string, course string) (string){
 	var max int = 0
 	var prof string = "N/A"
-	for _, s := range profList {
-		if max < profsMap[s][course.CourseTitle]{
-
+	
+	for _, p := range profList {
+		if max < profsMap[p][course]{
 			// make sure prof isn't teaching during this time course time
 			// make sure prof isn't teaching too many courses
-
-			max = profsMap[s][course.CourseTitle]
-			prof = s
+			max = profsMap[p][course]
+			prof = p
 		}
 
 		if(max == 195) {
@@ -64,25 +46,19 @@ func assignProf(profsMap map[string]map[string]int, profList []string, course st
 }
 
 /*
-Input: (historical-data, SemesterSchedule, professors)
-Output: (SemesterSchedule)
+	Input: 	historical-data []Course, SemesterSchedule []Course, professors []Professor
+	Output: SemesterSchedule
 */
-func AssignCourseProf() structs.Schedule {
+func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Course, professors []structs.Professor) []structs.Course {
 	
-	var schedule structs.Schedule
-	jsonData, err := ioutil.ReadFile("./tests/data/input-test.json")
-    if err != nil {
-        log.Fatal("Error when opening file: ", err)
-    }
-	input, _ := structs.ParseInput(jsonData)
-	profsMap, profList := mapPreferences(input.Professors)
+	// get list profs and list of prof preferences
+	profsMap, profList := mapPreferences(professors)
 	
-	// for loop through courses needed to be assigned this semester
-	// and assign each of them profs
-	for {
-		prof := assignProf(profsMap, profList, course)
-		// add prof to schedule
+	// for loop through courses needed to be assigned this semester and assign each of them profs
+	for i, c := range semesterSchedule {
+		prof := assignProf(profsMap, profList, c.Subject+c.CourseNumber)
+		semesterSchedule[i].Prof.DisplayName = prof
 	}
 	
-	return schedule
+	return semesterSchedule
 }
