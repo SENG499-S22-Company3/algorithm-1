@@ -51,3 +51,54 @@ func BaseSchedule(requestedCourses structs.Schedule, historicalSchedule structs.
 		SummerCourses: <-summer,
 	}
 }
+
+func CreateEmptyStreamType() structs.StreamType {
+	emptyMTh := map[string]string{
+		"0830": "",
+		"1000": "",
+		"1130": "",
+		"1300": "",
+		"1430": "",
+		"1600": "",
+		"1730": "",
+	}
+
+	emptyTWF := map[string]string{
+		"0830": "",
+		"0930": "",
+		"1030": "",
+		"1130": "",
+		"1230": "",
+		"1330": "",
+		"1430": "",
+		"1530": "",
+		"1630": "",
+		"1730": "",
+	}
+
+	emptyTimeslots := structs.Timeslots{
+		Monday:    emptyMTh,
+		Tuesday:   emptyTWF,
+		Wednesday: emptyTWF,
+		Thursday:  emptyMTh,
+		Friday:    emptyTWF,
+	}
+
+	timeslotMaps := structs.StreamType{
+		S1A: emptyTimeslots,
+		S1B: emptyTimeslots,
+		S2A: emptyTimeslots,
+		S2B: emptyTimeslots,
+		S3A: emptyTimeslots,
+		S4A: emptyTimeslots,
+		S4B: emptyTimeslots,
+	}
+
+	return timeslotMaps
+}
+
+func BaseTimeslotMaps(historicTermCourses []structs.Course) structs.StreamType {
+	timeslotMaps := CreateEmptyStreamType()
+
+	return timeslotMaps
+}
