@@ -22,6 +22,7 @@ func BaseSemester(requestedCourses []structs.Course, historicalSemester []struct
 		}
 		for _, c := range requestedCourses {
 			if c.Subject == h.Subject && c.CourseNumber == h.CourseNumber {
+				h.StreamSequence = c.StreamSequence
 				result = append(result, h)
 			}
 		}
@@ -97,7 +98,7 @@ func CreateEmptyStreamType() structs.StreamType {
 	return timeslotMaps
 }
 
-func BaseTimeslotMaps(historicTermCourses []structs.Course) structs.StreamType {
+func BaseTimeslotMaps(baseTermCourses []structs.Course) structs.StreamType {
 	timeslotMaps := CreateEmptyStreamType()
 
 	return timeslotMaps
