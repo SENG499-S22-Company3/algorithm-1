@@ -56,13 +56,13 @@ type Preference struct {
 // Should follow key = start time, value = list of subject and course number strings
 // Ex. Calling *.Monday["1130"] returns "CSC 115"
 type Timeslots struct {
-	Sunday    map[string][]string
-	Monday    map[string][]string
-	Tuesday   map[string][]string
-	Wednesday map[string][]string
-	Thursday  map[string][]string
-	Friday    map[string][]string
-	Saturday  map[string][]string
+	Sunday    map[string]string
+	Monday    map[string]string
+	Tuesday   map[string]string
+	Wednesday map[string]string
+	Thursday  map[string]string
+	Friday    map[string]string
+	Saturday  map[string]string
 }
 
 type StreamType struct {
