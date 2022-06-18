@@ -467,54 +467,54 @@ func BaseTimeslotMaps(baseTermCourses []structs.Course) (structs.StreamType, str
 
 	for _, course := range baseTermCourses {
 		if course.StreamSequence == "1A" {
-			timeslotMaps.S1A, err = AddMultipleTimeslots(course, timeslotMaps.S1A)
+			err = AddMultipleTimeslots(course, timeslotMaps.S1A)
 		} else if course.StreamSequence == "1B" {
-			timeslotMaps.S1B, err = AddMultipleTimeslots(course, timeslotMaps.S1B)
+			err = AddMultipleTimeslots(course, timeslotMaps.S1B)
 		} else if course.StreamSequence == "2A" {
-			timeslotMaps.S2A, err = AddMultipleTimeslots(course, timeslotMaps.S2A)
+			err = AddMultipleTimeslots(course, timeslotMaps.S2A)
 		} else if course.StreamSequence == "2B" {
-			timeslotMaps.S2B, err = AddMultipleTimeslots(course, timeslotMaps.S2B)
+			err = AddMultipleTimeslots(course, timeslotMaps.S2B)
 		} else if course.StreamSequence == "3A" {
-			timeslotMaps.S3A, err = AddMultipleTimeslots(course, timeslotMaps.S3A)
+			err = AddMultipleTimeslots(course, timeslotMaps.S3A)
 		} else if course.StreamSequence == "3B" {
-			timeslotMaps.S3B, err = AddMultipleTimeslots(course, timeslotMaps.S3B)
+			err = AddMultipleTimeslots(course, timeslotMaps.S3B)
 		} else if course.StreamSequence == "4A" {
-			timeslotMaps.S4A, err = AddMultipleTimeslots(course, timeslotMaps.S4A)
+			err = AddMultipleTimeslots(course, timeslotMaps.S4A)
 		} else if course.StreamSequence == "4B" {
-			timeslotMaps.S4B, err = AddMultipleTimeslots(course, timeslotMaps.S4B)
+			err = AddMultipleTimeslots(course, timeslotMaps.S4B)
 		}
 	}
 
 	return timeslotMaps, err
 }
 
-func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (structs.Timeslots, string) {
+func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) string {
 	err := ""
 
 	if course.Assignment.BeginTime != "" {
 		if course.Assignment.Monday {
-			timeslots.Monday, err = AddTimeslot(course, timeslots.Monday)
+			err = AddTimeslot(course, timeslots.Monday)
 		}
 		if course.Assignment.Tuesday {
-			timeslots.Tuesday, err = AddTimeslot(course, timeslots.Tuesday)
+			err = AddTimeslot(course, timeslots.Tuesday)
 		}
 		if course.Assignment.Wednesday {
-			timeslots.Wednesday, err = AddTimeslot(course, timeslots.Wednesday)
+			err = AddTimeslot(course, timeslots.Wednesday)
 		}
 		if course.Assignment.Thursday {
-			timeslots.Thursday, err = AddTimeslot(course, timeslots.Thursday)
+			err = AddTimeslot(course, timeslots.Thursday)
 		}
 		if course.Assignment.Friday {
-			timeslots.Friday, err = AddTimeslot(course, timeslots.Friday)
+			err = AddTimeslot(course, timeslots.Friday)
 		}
 	} else {
 		// TO DO Handle non-historic courses
 	}
 
-	return timeslots, err
+	return err
 }
 
-func AddTimeslot(course structs.Course, day map[string]string) (map[string]string, string) {
+func AddTimeslot(course structs.Course, day map[string]string) string {
 	err := ""
 
 	if _, isValid := day[course.Assignment.BeginTime]; !isValid {
@@ -525,5 +525,5 @@ func AddTimeslot(course structs.Course, day map[string]string) (map[string]strin
 		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
 	}
 
-	return day, err
+	return err
 }
