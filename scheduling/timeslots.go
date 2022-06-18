@@ -518,7 +518,7 @@ func AddTimeslot(course structs.Course, day map[string]string) (map[string]strin
 	err := ""
 
 	if _, isValid := day[course.Assignment.BeginTime]; !isValid {
-		err = fmt.Sprintf("Error: %v %v is scheduled outside of valid lecture time", course.Subject, course.CourseNumber)
+		err = fmt.Sprintf("Error: %v %v is scheduled during a regular block time at %v", course.Subject, course.CourseNumber, course.Assignment.BeginTime)
 	} else if scheduledCourse := day[course.Assignment.BeginTime]; scheduledCourse != "" {
 		err = fmt.Sprintf("Error: %v %v is scheduled at same time as another required course %v", course.Subject, course.CourseNumber, scheduledCourse)
 	} else {
