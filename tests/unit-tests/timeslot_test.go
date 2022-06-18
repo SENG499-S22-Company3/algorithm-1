@@ -3,6 +3,8 @@ package tests
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
+	"io/ioutil"
+	"os"
 	"testing"
 )
 
@@ -45,7 +47,7 @@ func TestBaseTimeslotMap(t *testing.T) {
 
 	result, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
 
-	if err != "" {
+	if err != nil {
 		t.Error(err)
 	}
 	if result.S2A.Monday["1130"] != "CHEM101" || result.S2A.Thursday["1130"] != "CHEM101" {
@@ -76,11 +78,12 @@ func TestRandomTimeslotAssignment(t *testing.T) {
 	}
 
 	testStreamtype := scheduling.CreateEmptyStreamType()
+	var err error
 
-	err := scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
+	testSchedule.FallCourses, testStreamtype, err = scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
 	isAdded := false
 
-	if err != "" {
+	if err != nil {
 		t.Error(err)
 	}
 	if testCourse.Assignment.BeginTime != "" && testCourse.Assignment.EndTime != "" {
@@ -137,7 +140,7 @@ func TestCantAddConflictingRequiredCourse(t *testing.T) {
 
 	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
 
-	if err == "" {
+	if err == nil {
 		t.Error("Error: Did not catch required course conflict error")
 	}
 }
@@ -176,7 +179,42 @@ func TestCantScheduleClassOutsideTime(t *testing.T) {
 
 	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
 
-	if err == "" {
+	if err == nil {
 		t.Error("Error: Did not catch course being scheduled in improper slot")
+	}
+}
+
+func TestFullRandomAssignment(t *testing.T) {
+	allChanged := true
+
+	jsonFile, err := os.Open("../data/base-courses-test.json")
+	if err != nil {
+		t.Error("Error: Test file not found")
+	}
+
+	courseData, _ := ioutil.ReadAll(jsonFile)
+
+	testSchedule, err := structs.ParseHistorical(courseData)
+
+	if err != nil {
+		t.Error("Error: Course data parsing failed")
+	}
+
+	testStreamtype := scheduling.CreateEmptyStreamType()
+
+	testSchedule.FallCourses, _, err = scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	for _, course := range testSchedule.FallCourses {
+		if course.Assignment.BeginTime == "" || course.Assignment.EndTime == "" {
+			allChanged = false
+		}
+	}
+
+	if !allChanged {
+		t.Error("Error: Some courses in list were not assigned times")
 	}
 }
