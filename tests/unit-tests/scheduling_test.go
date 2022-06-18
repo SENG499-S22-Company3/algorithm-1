@@ -189,3 +189,138 @@ func TestBaseScheduleConcurrent(t *testing.T) {
 		// Shouldn't be included because seng courses aren't present in historical data for summer 2019
 	}
 }
+
+func TestBaseTimeslotMap(t *testing.T) {
+	// Test data
+	testAssignment := structs.Assignment{
+		StartDate: "Sep 05, 2018",
+		EndDate:   "Dec 05, 2018",
+		BeginTime: "1300",
+		EndTime:   "1420",
+		HoursWeek: 3,
+		Sunday:    false,
+		Monday:    true,
+		Tuesday:   false,
+		Wednesday: false,
+		Thursday:  true,
+		Friday:    false,
+		Saturday:  false,
+	}
+
+	testProf := structs.Professor{
+		DisplayName: "JohnSmith",
+	}
+
+	testCourse := structs.Course{
+		Assignment:     testAssignment,
+		Prof:           testProf,
+		CourseNumber:   "101",
+		Subject:        "CHEM",
+		SequenceNumber: "A01",
+		StreamSequence: "2A",
+		CourseTitle:    "Properties of Materials",
+	}
+
+	testSchedule := structs.Schedule{
+		FallCourses:   []structs.Course{testCourse},
+		SpringCourses: []structs.Course{},
+		SummerCourses: []structs.Course{},
+	}
+
+	result, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+
+	if err != "" {
+		t.Error(err)
+	}
+	if result.S2A.Monday["1300"] != "CHEM101" || result.S2A.Thursday["1300"] != "CHEM101" {
+		t.Error("Error: BaseTimeslotMap did not map course successfully")
+	}
+}
+
+func TestCantAddConflictingRequiredCourse(t *testing.T) {
+	// Test data
+	testAssignment := structs.Assignment{
+		StartDate: "Sep 05, 2018",
+		EndDate:   "Dec 05, 2018",
+		BeginTime: "1300",
+		EndTime:   "1420",
+		HoursWeek: 3,
+		Sunday:    false,
+		Monday:    true,
+		Tuesday:   false,
+		Wednesday: false,
+		Thursday:  true,
+		Friday:    false,
+		Saturday:  false,
+	}
+
+	testProf := structs.Professor{
+		DisplayName: "JohnSmith",
+	}
+
+	testCourse := structs.Course{
+		Assignment:     testAssignment,
+		Prof:           testProf,
+		CourseNumber:   "101",
+		Subject:        "CHEM",
+		SequenceNumber: "A01",
+		StreamSequence: "2A",
+		CourseTitle:    "Properties of Materials",
+	}
+
+	testSchedule := structs.Schedule{
+		FallCourses:   []structs.Course{testCourse, testCourse},
+		SpringCourses: []structs.Course{},
+		SummerCourses: []structs.Course{},
+	}
+
+	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+
+	if err == "" {
+		t.Error("Error: Did not catch required course conflict error")
+	}
+}
+
+func TestCantScheduleClassOutsideTime(t *testing.T) {
+	// Test data
+	testAssignment := structs.Assignment{
+		StartDate: "Sep 05, 2018",
+		EndDate:   "Dec 05, 2018",
+		BeginTime: "0300",
+		EndTime:   "0420",
+		HoursWeek: 3,
+		Sunday:    false,
+		Monday:    true,
+		Tuesday:   false,
+		Wednesday: false,
+		Thursday:  true,
+		Friday:    false,
+		Saturday:  false,
+	}
+
+	testProf := structs.Professor{
+		DisplayName: "JohnSmith",
+	}
+
+	testCourse := structs.Course{
+		Assignment:     testAssignment,
+		Prof:           testProf,
+		CourseNumber:   "101",
+		Subject:        "CHEM",
+		SequenceNumber: "A01",
+		StreamSequence: "2A",
+		CourseTitle:    "Properties of Materials",
+	}
+
+	testSchedule := structs.Schedule{
+		FallCourses:   []structs.Course{testCourse},
+		SpringCourses: []structs.Course{},
+		SummerCourses: []structs.Course{},
+	}
+
+	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+
+	if err == "" {
+		t.Error("Error: Did not catch course being scheduled too early error")
+	}
+}
