@@ -1,6 +1,9 @@
 package scheduling
 
-import "algorithm-1/structs"
+import (
+	"algorithm-1/structs"
+	"fmt"
+)
 
 func CreateEmptyStreamType() structs.StreamType {
 	emptyMTh := map[string]string{
@@ -53,51 +56,57 @@ func BaseTimeslotMaps(baseTermCourses []structs.Course) structs.StreamType {
 
 	for _, course := range baseTermCourses {
 		if course.StreamSequence == "1A" {
-			timeslotMaps.S1A = AddTimeslots(course, timeslotMaps.S1A)
+			AddMultipleTimeslots(course, timeslotMaps.S1A)
 		} else if course.StreamSequence == "1B" {
-			timeslotMaps.S1B = AddTimeslots(course, timeslotMaps.S1B)
+			AddMultipleTimeslots(course, timeslotMaps.S1B)
 		} else if course.StreamSequence == "2A" {
-			timeslotMaps.S2A = AddTimeslots(course, timeslotMaps.S2A)
+			AddMultipleTimeslots(course, timeslotMaps.S2A)
 		} else if course.StreamSequence == "2B" {
-			timeslotMaps.S2B = AddTimeslots(course, timeslotMaps.S2B)
+			AddMultipleTimeslots(course, timeslotMaps.S2B)
 		} else if course.StreamSequence == "3A" {
-			timeslotMaps.S3A = AddTimeslots(course, timeslotMaps.S3A)
+			AddMultipleTimeslots(course, timeslotMaps.S3A)
 		} else if course.StreamSequence == "3B" {
-			timeslotMaps.S3B = AddTimeslots(course, timeslotMaps.S3B)
+			AddMultipleTimeslots(course, timeslotMaps.S3B)
 		} else if course.StreamSequence == "4A" {
-			timeslotMaps.S4A = AddTimeslots(course, timeslotMaps.S4A)
+			AddMultipleTimeslots(course, timeslotMaps.S4A)
 		} else if course.StreamSequence == "4B" {
-			timeslotMaps.S4B = AddTimeslots(course, timeslotMaps.S4B)
+			AddMultipleTimeslots(course, timeslotMaps.S4B)
 		}
 	}
 
 	return timeslotMaps
 }
 
-func AddTimeslots(course structs.Course, timeslots structs.Timeslots) structs.Timeslots {
+func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) {
 
 	if course.Assignment.BeginTime != "" {
 		if course.Assignment.Monday {
-			timeslots.Monday[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
+			AddTimeslot(course, timeslots.Monday)
 		}
-
 		if course.Assignment.Tuesday {
-			timeslots.Tuesday[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
+			AddTimeslot(course, timeslots.Tuesday)
 		}
 		if course.Assignment.Wednesday {
-			timeslots.Wednesday[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
+			AddTimeslot(course, timeslots.Wednesday)
 		}
-
 		if course.Assignment.Thursday {
-			timeslots.Thursday[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
+			AddTimeslot(course, timeslots.Thursday)
 		}
-
 		if course.Assignment.Friday {
-			timeslots.Friday[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
+			AddTimeslot(course, timeslots.Friday)
 		}
 	} else {
 		// TO DO Handle non-historic courses
 	}
+}
 
-	return timeslots
+func AddTimeslot(course structs.Course, day map[string]string) {
+
+	if _, isValid := day[course.Assignment.BeginTime]; !isValid {
+		fmt.Printf("Error: %v %v is scheduled outside of valid lecture time", course.Subject, course.CourseNumber)
+	} else if scheduledCourse := day[course.Assignment.BeginTime]; scheduledCourse != "" {
+		fmt.Printf("Error: %v %v is scheduled at same time as another required course %v", course.Subject, course.CourseNumber, scheduledCourse)
+	} else {
+		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
+	}
 }
