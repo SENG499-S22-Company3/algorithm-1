@@ -531,6 +531,9 @@ func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 						if timeslots.Thursday[time] == "" {
 							course = SetCourseTime(course, time, true)
 							timeslots.Monday, err = AddTimeslot(course, timeslots.Monday)
+							if err != nil {
+								break
+							}
 							timeslots.Thursday, err = AddTimeslot(course, timeslots.Thursday)
 							hasBeenAdded = true
 							break
@@ -543,7 +546,13 @@ func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 						if timeslots.Wednesday[time] == "" && timeslots.Friday[time] == "" {
 							course = SetCourseTime(course, time, false)
 							timeslots.Tuesday, err = AddTimeslot(course, timeslots.Tuesday)
+							if err != nil {
+								break
+							}
 							timeslots.Wednesday, err = AddTimeslot(course, timeslots.Wednesday)
+							if err != nil {
+								break
+							}
 							timeslots.Thursday, err = AddTimeslot(course, timeslots.Friday)
 							hasBeenAdded = true
 							break
@@ -559,6 +568,8 @@ func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 
 func AddTimeslot(course structs.Course, day map[string]string) (map[string]string, error) {
 	var err error
+	beginTimeInt, _ := strconv.Atoi(course.Assignment.BeginTime)
+	endTimeInt, _ := strconv.Atoi(course.Assignment.EndTime)
 
 	if _, isValid := day[course.Assignment.BeginTime]; !isValid { // Check if map key exists
 		err = fmt.Errorf("error: %v %v is scheduled during a regular block time at %v", course.Subject, course.CourseNumber, course.Assignment.BeginTime)
@@ -568,11 +579,16 @@ func AddTimeslot(course structs.Course, day map[string]string) (map[string]strin
 		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
 	}
 
+	if endTimeInt-beginTimeInt == 250 || endTimeInt-beginTimeInt == 290 { // Check if three hour course
+		// TO-DO handle 3 hour courses
+	}
+
 	return day, err
 }
 
 func SetCourseTime(course structs.Course, beginTime string, isMTh bool) structs.Course {
 	course.Assignment.BeginTime = beginTime
+	beginMinutes := string(beginTime[len(beginTime)-2]) // Grab last two digits of the time (minutes)
 	beginTimeInt, _ := strconv.Atoi(beginTime)
 
 	if isMTh {
@@ -580,7 +596,11 @@ func SetCourseTime(course structs.Course, beginTime string, isMTh bool) structs.
 		course.Assignment.Monday = true
 		course.Assignment.Thursday = true
 	} else {
-		course.Assignment.EndTime = strconv.Itoa(beginTimeInt + 90)
+		if beginMinutes == "00" {
+			course.Assignment.EndTime = strconv.Itoa(beginTimeInt + 50)
+		} else {
+			course.Assignment.EndTime = strconv.Itoa(beginTimeInt + 90)
+		}
 		course.Assignment.Tuesday = true
 		course.Assignment.Wednesday = true
 		course.Assignment.Friday = true
