@@ -465,7 +465,15 @@ func BaseTimeslotMaps(baseTermCourses []structs.Course) (structs.StreamType, str
 	timeslotMaps := CreateEmptyStreamType()
 	err := ""
 
-	for _, course := range baseTermCourses {
+	err = AddCoursesToStreamMap(baseTermCourses, timeslotMaps)
+
+	return timeslotMaps, err
+}
+
+func AddCoursesToStreamMap(courses []structs.Course, timeslotMaps structs.StreamType) string {
+	err := ""
+
+	for _, course := range courses {
 		if course.StreamSequence == "1A" {
 			err = AddMultipleTimeslots(course, timeslotMaps.S1A)
 		} else if course.StreamSequence == "1B" {
@@ -485,7 +493,7 @@ func BaseTimeslotMaps(baseTermCourses []structs.Course) (structs.StreamType, str
 		}
 	}
 
-	return timeslotMaps, err
+	return err
 }
 
 func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) string {
