@@ -321,6 +321,6 @@ func TestCantScheduleClassOutsideTime(t *testing.T) {
 	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
 
 	if err == "" {
-		t.Error("Error: Did not catch course being scheduled too early error")
+		t.Error("Error: Did not catch course being scheduled in improper slot")
 	}
 }
