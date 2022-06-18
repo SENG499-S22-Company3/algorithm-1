@@ -2,7 +2,18 @@ package scheduling
 
 import (
 	"algorithm-1/structs"
+	"math/rand"
+	"time"
 )
+
+func randomizer(profList []string) []string{
+	rand.Seed(time.Now().UnixMilli())
+	for i := range profList {
+		j := rand.Intn(i + 1)
+		profList[i], profList[j] = profList[j], profList[i]
+	}
+	return profList
+}
 
 /*
 	Input:  profs []structs.Professor
@@ -19,7 +30,8 @@ func mapPreferences(profs []structs.Professor) (map[string]map[string]int, []str
 			profsMap[s.DisplayName][x.CourseNum] = int(x.PreferenceNum)
 		}
 	}
-	return profsMap, profList
+
+	return profsMap, randomizer(profList)
 }
 
 /*
