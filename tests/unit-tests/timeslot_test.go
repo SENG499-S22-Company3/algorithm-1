@@ -59,6 +59,50 @@ func TestBaseTimeslotMap(t *testing.T) {
 	}
 }
 
+func TestRandomTimeslotAssignment(t *testing.T) {
+
+	testCourse := structs.Course{
+		CourseNumber:   "101",
+		Subject:        "CHEM",
+		SequenceNumber: "A01",
+		StreamSequence: "2A",
+		CourseTitle:    "Properties of Materials",
+	}
+
+	testSchedule := structs.Schedule{
+		FallCourses:   []structs.Course{testCourse},
+		SpringCourses: []structs.Course{},
+		SummerCourses: []structs.Course{},
+	}
+
+	testStreamtype := scheduling.CreateEmptyStreamType()
+
+	err := scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
+	isAdded := false
+
+	if err != "" {
+		t.Error(err)
+	}
+	if testCourse.Assignment.BeginTime != "" && testCourse.Assignment.EndTime != "" {
+		t.Error("Error: Course was not assigned to a block")
+	}
+
+	for _, course := range testStreamtype.S2A.Monday {
+		if course == "CHEM101" {
+			isAdded = true
+		}
+	}
+	for _, course := range testStreamtype.S2A.Tuesday {
+		if course == "CHEM101" {
+			isAdded = true
+		}
+	}
+
+	if !isAdded {
+		t.Error("Error: Course not added to timeslot map")
+	}
+}
+
 func TestCantAddConflictingRequiredCourse(t *testing.T) {
 	// Test data
 	testAssignment := structs.Assignment{
@@ -76,13 +120,8 @@ func TestCantAddConflictingRequiredCourse(t *testing.T) {
 		Saturday:  false,
 	}
 
-	testProf := structs.Professor{
-		DisplayName: "JohnSmith",
-	}
-
 	testCourse := structs.Course{
 		Assignment:     testAssignment,
-		Prof:           testProf,
 		CourseNumber:   "101",
 		Subject:        "CHEM",
 		SequenceNumber: "A01",
@@ -120,13 +159,8 @@ func TestCantScheduleClassOutsideTime(t *testing.T) {
 		Saturday:  false,
 	}
 
-	testProf := structs.Professor{
-		DisplayName: "JohnSmith",
-	}
-
 	testCourse := structs.Course{
 		Assignment:     testAssignment,
-		Prof:           testProf,
 		CourseNumber:   "101",
 		Subject:        "CHEM",
 		SequenceNumber: "A01",
