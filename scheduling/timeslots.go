@@ -523,7 +523,7 @@ func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 			timeslots.Friday, err = AddTimeslot(course, timeslots.Friday)
 		}
 	} else {
-		for !hasBeenAdded && count < 10 {
+		for !hasBeenAdded && count < 20 {
 			selection := rand.Intn(2) // Create random integer to decide whether or not to choose MTh, or TWF
 
 			if selection == 0 {
@@ -565,7 +565,7 @@ func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 		}
 	}
 
-	if count == 10 {
+	if count == 20 {
 		err = fmt.Errorf("error: Ran out of slots to assign courses")
 	}
 
