@@ -504,6 +504,7 @@ func AddCoursesToStreamMaps(courses []structs.Course, timeslotMaps structs.Strea
 func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (structs.Course, structs.Timeslots, error) {
 	var err error
 	hasBeenAdded := false
+	count := 0
 
 	if course.Assignment.BeginTime != "" {
 		if course.Assignment.Monday {
@@ -522,7 +523,7 @@ func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 			timeslots.Friday, err = AddTimeslot(course, timeslots.Friday)
 		}
 	} else {
-		for !hasBeenAdded {
+		for !hasBeenAdded && count < 10 {
 			selection := rand.Intn(2) // Create random integer to decide whether or not to choose MTh, or TWF
 
 			if selection == 0 {
@@ -560,7 +561,12 @@ func AddMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 					}
 				}
 			}
+			count++
 		}
+	}
+
+	if count == 10 {
+		err = fmt.Errorf("error: Ran out of slots to assign courses")
 	}
 
 	return course, timeslots, err
