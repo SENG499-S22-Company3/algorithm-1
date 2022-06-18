@@ -195,8 +195,8 @@ func TestBaseTimeslotMap(t *testing.T) {
 	testAssignment := structs.Assignment{
 		StartDate: "Sep 05, 2018",
 		EndDate:   "Dec 05, 2018",
-		BeginTime: "1300",
-		EndTime:   "1420",
+		BeginTime: "1130",
+		EndTime:   "1250",
 		HoursWeek: 3,
 		Sunday:    false,
 		Monday:    true,
@@ -232,8 +232,14 @@ func TestBaseTimeslotMap(t *testing.T) {
 	if err != "" {
 		t.Error(err)
 	}
-	if result.S2A.Monday["1300"] != "CHEM101" || result.S2A.Thursday["1300"] != "CHEM101" {
+	if result.S2A.Monday["1130"] != "CHEM101" || result.S2A.Thursday["1130"] != "CHEM101" {
 		t.Error("Error: BaseTimeslotMap did not map course successfully")
+	}
+	if result.S2A.Tuesday["1130"] != "" || result.S2A.Wednesday["1130"] != "" || result.S2A.Friday["1130"] != "" {
+		t.Error("Error: Course added to wrong days")
+	}
+	if result.S2B.Monday["1130"] != "" {
+		t.Error("Error: Course added to wrong stream map")
 	}
 }
 
