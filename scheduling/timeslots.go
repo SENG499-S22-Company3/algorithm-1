@@ -465,12 +465,12 @@ func BaseTimeslotMaps(baseTermCourses []structs.Course) (structs.StreamType, str
 	timeslotMaps := CreateEmptyStreamType()
 	err := ""
 
-	err = AddCoursesToStreamMap(baseTermCourses, timeslotMaps)
+	err = AddCoursesToStreamMaps(baseTermCourses, timeslotMaps)
 
 	return timeslotMaps, err
 }
 
-func AddCoursesToStreamMap(courses []structs.Course, timeslotMaps structs.StreamType) string {
+func AddCoursesToStreamMaps(courses []structs.Course, timeslotMaps structs.StreamType) string {
 	err := ""
 
 	for _, course := range courses {
