@@ -22,6 +22,7 @@ func BaseSemester(requestedCourses []structs.Course, historicalSemester []struct
 		}
 		for _, c := range requestedCourses {
 			if c.Subject == h.Subject && c.CourseNumber == h.CourseNumber {
+				h.StreamSequence = c.StreamSequence
 				result = append(result, h)
 			}
 		}
