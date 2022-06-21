@@ -6,13 +6,13 @@ import (
 	"time"
 )
 
-var j = 0
+// var j = 0
 
 func randomizer(profList []string) []string{
 	rand.Seed(time.Now().UnixMilli())
 	for i := range profList {
-		j := rand.Intn(i + 1)
-		profList[i], profList[j] = profList[j], profList[i]
+		k := rand.Intn(i + 1)
+		profList[i], profList[k] = profList[k], profList[i]
 	}
 	return profList
 }
@@ -40,7 +40,7 @@ func MapPreferences(profs []structs.Professor) (map[string]map[string]int, []str
 	Input:  profsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course string
 	Output: prof string
 */
-func assignProf(profsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course structs.Course) (string){
+func assignProf(profsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course structs.Course, j int) (string, int){
 	var max int = 0
 	var prof string = "N/A"
 
@@ -70,12 +70,12 @@ func assignProf(profsMap map[string]map[string]int, profList []string, teachingM
 
 		if(max == 7){
 			j = (j + 1) % size
-			return prof
+			return prof, j
 		}
 		j = (j + 1) % size
 	}
 
-	return prof
+	return prof, j
 }
 
 /*
@@ -87,11 +87,11 @@ func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Cour
 	// get list profs and list of prof preferences
 	profsMap, profList := MapPreferences(professors)
 	var teachingMap = map[string]string{}
-	
+	var j = 0
 	// for loop through courses needed to be assigned this semester and assign each of them profs
 	for i, c := range semesterSchedule {
-		prof := assignProf(profsMap, profList, teachingMap, c)
-		
+		var prof string
+		prof, j = assignProf(profsMap, profList, teachingMap, c, j)
 		var d string
 		if(c.Assignment.Monday == true){
 			d = "MTh"+c.Assignment.BeginTime
