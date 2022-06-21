@@ -11,15 +11,15 @@ import (
 
 func TestFullScheduleAssignment(t *testing.T) {
 	jsonData, err := ioutil.ReadFile("../data/input-test.json")
-    if err != nil {
-        log.Fatal("Error when opening input-test.json file: ", err)
-    }
-	
+	if err != nil {
+		log.Fatal("Error when opening input-test.json file: ", err)
+	}
+
 	input, err := structs.ParseInput(jsonData)
 	if err != nil {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
-	
+
 	if input.HistoricData.SpringCourses == nil {
 		t.Error("Input failed to be parsed: fall historical courses should not be null")
 	}
