@@ -2,6 +2,7 @@ package scheduling
 
 import (
 	"algorithm-1/structs"
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -35,18 +36,29 @@ func mapPreferences(profs []structs.Professor) (map[string]map[string]int, []str
 }
 
 /*
-	Input:  profsMap map[string]map[string]int, profList []string, course string
+	Input:  profsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course string
 	Output: prof string
 */
-func assignProf(profsMap map[string]map[string]int, profList []string, course string) (string){
+func assignProf(profsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course structs.Course) (string){
 	var max int = 0
 	var prof string = "N/A"
-	
+
+	var t = course.Assignment.BeginTime
+	var d = "MTh"+t
+	if course.Assignment.Monday == true{
+		d = "TWF"+t
+	}
+	var c = course.Subject+course.CourseNumber
+
 	for _, p := range profList {
-		if max < profsMap[p][course]{
+		if max < profsMap[p][c]{
 			// make sure prof isn't teaching during this time course time
+			if val, ok := teachingMap[p][d]; ok {
+				fmt.Println(p, "can't teach", c , "at", course.Assignment.BeginTime ,"since they are already teaching", val, "at", d)
+				continue
+			}
 			// make sure prof isn't teaching too many courses
-			max = profsMap[p][course]
+			max = profsMap[p][c]
 			prof = p
 		}
 
@@ -65,12 +77,23 @@ func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Cour
 	
 	// get list profs and list of prof preferences
 	profsMap, profList := mapPreferences(professors)
+	// teachingMap[prof][MthstartTime or TWFstartTime] = courseTitle
+	var teachingMap = map[string]map[string]string{}
 	
 	// for loop through courses needed to be assigned this semester and assign each of them profs
 	for i, c := range semesterSchedule {
-		prof := assignProf(profsMap, profList, c.Subject+c.CourseNumber)
+		prof := assignProf(profsMap, profList, teachingMap, c)
+
+		var t = c.Assignment.BeginTime
+		var d = "TWF"+t
+		if(c.Assignment.Monday == true){
+			d = "MTh"+t
+		}		
+		
+		teachingMap[prof] = map[string]string{}
+		teachingMap[prof][d] = c.CourseTitle
 		semesterSchedule[i].Prof.DisplayName = prof
 	}
-	
+
 	return semesterSchedule
 }
