@@ -30,6 +30,7 @@ func TestProfAssignment(t *testing.T) {
 		if c.Prof.DisplayName == "" {
 			t.Error("Professors not assigned to course")
 		}
+		
 
 		if val, pass := profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "N/A" {
 			t.Error(c.Prof.DisplayName, "cannot teach this course since they have no (", val, ") preference.")
