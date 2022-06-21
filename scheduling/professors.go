@@ -6,8 +6,6 @@ import (
 	"time"
 )
 
-// var j = 0
-
 func randomizer(profList []string) []string{
 	rand.Seed(time.Now().UnixMilli())
 	for i := range profList {
