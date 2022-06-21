@@ -48,7 +48,7 @@ func createEmptySequence() structs.Timeslots {
 	}
 }
 
-func createEmptyStreamType() structs.StreamType {
+func CreateEmptyStreamType() structs.StreamType {
 
 	timeslotMaps := structs.StreamType{
 		S1A: createEmptySequence(),
@@ -65,7 +65,7 @@ func createEmptyStreamType() structs.StreamType {
 }
 
 func BaseTimeslotMaps(baseTermCourses []structs.Course) (structs.StreamType, error) {
-	timeslotMaps := createEmptyStreamType()
+	timeslotMaps := CreateEmptyStreamType()
 
 	_, timeslotMaps, err := AddCoursesToStreamMaps(baseTermCourses, timeslotMaps)
 
