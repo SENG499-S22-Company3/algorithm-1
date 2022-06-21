@@ -38,7 +38,7 @@ func MapPreferences(profs []structs.Professor) (map[string]map[string]int, []str
 	Input:  profsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course string
 	Output: prof string
 */
-func assignProf(profsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course structs.Course, j int) (string, int){
+func assignProf(profsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course structs.Course, profPos int) (string, int){
 	var max int = 0
 	var prof string = "N/A"
 
@@ -53,27 +53,27 @@ func assignProf(profsMap map[string]map[string]int, profList []string, teachingM
 	var size = len(profList)
 
 	for i := 0; i < size; i++ {
-		p := profList[j]
+		p := profList[profPos]
 
 		// make sure prof isn't teaching during this time course time
 		if _, skip := teachingMap[p+d]; skip {
-			j = (j + 1) % size
+			profPos = (profPos + 1) % size
 			continue
 		}
 
 		if max < profsMap[p][c]{
 			max = profsMap[p][c]
-			prof = profList[j]
+			prof = profList[profPos]
 		}
 
 		if(max == 7){
-			j = (j + 1) % size
-			return prof, j
+			profPos = (profPos + 1) % size
+			return prof, profPos
 		}
-		j = (j + 1) % size
+		profPos = (profPos + 1) % size
 	}
 
-	return prof, j
+	return prof, profPos
 }
 
 /*
@@ -85,11 +85,11 @@ func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Cour
 	// get list profs and list of prof preferences
 	profsMap, profList := MapPreferences(professors)
 	var teachingMap = map[string]string{}
-	var j = 0
+	var profPos = 0
 	// for loop through courses needed to be assigned this semester and assign each of them profs
 	for i, c := range semesterSchedule {
 		var prof string
-		prof, j = assignProf(profsMap, profList, teachingMap, c, j)
+		prof, profPos = assignProf(profsMap, profList, teachingMap, c, profPos)
 		var d string
 		if(c.Assignment.Monday == true){
 			d = "MTh"+c.Assignment.BeginTime
