@@ -16,6 +16,10 @@ func Root(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Algorithm 1 REST server is alive!")
 }
 
+func HealthCheck(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "OK")
+}
+
 func GenerateSchedule(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -77,6 +81,7 @@ func StartHTTPServer() {
 
 	// Define all routes for REST API
 	http.HandleFunc("/", Root)
+	http.HandleFunc("/healthcheck", HealthCheck)
 	http.HandleFunc("/generate_schedule", GenerateSchedule)
 	http.HandleFunc("/check_schedule", CheckSchedule)
 
