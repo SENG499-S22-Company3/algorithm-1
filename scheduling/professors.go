@@ -2,33 +2,28 @@ package scheduling
 
 import (
 	"algorithm-1/structs"
-	"io/ioutil"
-	"log"
+	"fmt"
+	"math/rand"
+	"time"
 )
 
-// "professors":[
-//     {
-//         "displayName": "Berg, Celina",
-//         "prefs": {
-// 				"CSC111": 78,
-// 				"CSC115": 20,
-// 				...
-// 			}
-//     },
-// 	...
-// ]
+func randomizer(profList []string) []string{
+	rand.Seed(time.Now().UnixMilli())
+	for i := range profList {
+		j := rand.Intn(i + 1)
+		profList[i], profList[j] = profList[j], profList[i]
+	}
+	return profList
+}
 
-// type ProfMap struct {
-// 	DisplayName map[string]PrefMap
-// }
-
-// type PrefMap struct {
-// 	Preference 	map[string]int
-// }
-
+/*
+	Input:  profs []structs.Professor
+	Output: profsMap map[string]map[string]int, profList []string
+*/
 func mapPreferences(profs []structs.Professor) (map[string]map[string]int, []string){
 	var profsMap = map[string]map[string]int{}
 	var profList []string
+
 	for _, s := range profs {
 		profsMap[s.DisplayName] = map[string]int{}
 		profList = append(profList, s.DisplayName)
@@ -36,24 +31,35 @@ func mapPreferences(profs []structs.Professor) (map[string]map[string]int, []str
 			profsMap[s.DisplayName][x.CourseNum] = int(x.PreferenceNum)
 		}
 	}
-	return profsMap, profList
+
+	return profsMap, randomizer(profList)
 }
 
 /*
-Input: (profList, profsMap, course string)
-Output: (prof string)
+	Input:  profsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course string
+	Output: prof string
 */
-func assignProf(profsMap map[string]map[string]int, profList []string, course structs.Course) (string){
+func assignProf(profsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course structs.Course) (string){
 	var max int = 0
 	var prof string = "N/A"
-	for _, s := range profList {
-		if max < profsMap[s][course.CourseTitle]{
 
+	var t = course.Assignment.BeginTime
+	var d = "MTh"+t
+	if course.Assignment.Monday == true{
+		d = "TWF"+t
+	}
+	var c = course.Subject+course.CourseNumber
+
+	for _, p := range profList {
+		if max < profsMap[p][c]{
 			// make sure prof isn't teaching during this time course time
+			if val, ok := teachingMap[p][d]; ok {
+				fmt.Println(p, "can't teach", c , "at", course.Assignment.BeginTime ,"since they are already teaching", val, "at", d)
+				continue
+			}
 			// make sure prof isn't teaching too many courses
-
-			max = profsMap[s][course.CourseTitle]
-			prof = s
+			max = profsMap[p][c]
+			prof = p
 		}
 
 		if(max == 195) {
@@ -64,25 +70,30 @@ func assignProf(profsMap map[string]map[string]int, profList []string, course st
 }
 
 /*
-Input: (historical-data, SemesterSchedule, professors)
-Output: (SemesterSchedule)
+	Input: 	historical-data []Course, SemesterSchedule []Course, professors []Professor
+	Output: SemesterSchedule
 */
-func AssignCourseProf() structs.Schedule {
+func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Course, professors []structs.Professor) []structs.Course {
 	
-	var schedule structs.Schedule
-	jsonData, err := ioutil.ReadFile("./tests/data/input-test.json")
-    if err != nil {
-        log.Fatal("Error when opening file: ", err)
-    }
-	input, _ := structs.ParseInput(jsonData)
-	profsMap, profList := mapPreferences(input.Professors)
+	// get list profs and list of prof preferences
+	profsMap, profList := mapPreferences(professors)
+	// teachingMap[prof][MthstartTime or TWFstartTime] = courseTitle
+	var teachingMap = map[string]map[string]string{}
 	
-	// for loop through courses needed to be assigned this semester
-	// and assign each of them profs
-	for {
-		prof := assignProf(profsMap, profList, course)
-		// add prof to schedule
+	// for loop through courses needed to be assigned this semester and assign each of them profs
+	for i, c := range semesterSchedule {
+		prof := assignProf(profsMap, profList, teachingMap, c)
+
+		var t = c.Assignment.BeginTime
+		var d = "TWF"+t
+		if(c.Assignment.Monday == true){
+			d = "MTh"+t
+		}		
+		
+		teachingMap[prof] = map[string]string{}
+		teachingMap[prof][d] = c.CourseTitle
+		semesterSchedule[i].Prof.DisplayName = prof
 	}
-	
-	return schedule
+
+	return semesterSchedule
 }
