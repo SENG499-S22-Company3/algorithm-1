@@ -20,7 +20,7 @@ func TestFullScheduleAssignment(t *testing.T) {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
 
-	if input.HistoricData.FallCourses == nil {
+	if input.HistoricData.SpringCourses == nil {
 		t.Error("Input failed to be parsed: fall historical courses should not be null")
 	}
 
@@ -36,12 +36,20 @@ func TestFullScheduleAssignment(t *testing.T) {
 	}
 
 	testStreamtype := scheduling.CreateEmptyStreamType()
-	testSchedule.FallCourses, _, err = scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
-	testScheduleCourse := scheduling.AssignCourseProf(input.HistoricData.FallCourses, testSchedule.FallCourses, input.Professors)
+	testSchedule.SpringCourses, _, err = scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testStreamtype)
+	testScheduleCourse := scheduling.AssignCourseProf(input.HistoricData.SpringCourses, testSchedule.SpringCourses, input.Professors)
+	
+	var teachingMap = map[string]map[string]string{}
 
-	// for _,c := range testSchedule.FallCourses{
-	// 	fmt.Println(c.CourseTitle, "in sequence", c.StreamSequence)
-	// 	fmt.Println("\t taught by:", c.Prof.DisplayName)
+	for _,p := range input.Professors{
+		teachingMap[p.DisplayName] = map[string]string{}
+	}
+
+	// profsMap, _ := scheduling.MapPreferences(input.Professors)
+	// fmt.Println("# of courses:", len(testScheduleCourse))
+	// for i,c := range testScheduleCourse{
+	// 	fmt.Println(i, c.CourseTitle, "in sequence", c.StreamSequence)
+	// 	fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:" ,profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber],")" )
 	// 	fmt.Println("\t\t at", c.Assignment.BeginTime ,"to",c.Assignment.EndTime )
 	// 	if(c.Assignment.Monday == true){
 	// 		fmt.Println("\t\t\t on MTh")
@@ -50,13 +58,22 @@ func TestFullScheduleAssignment(t *testing.T) {
 	// 	}
 	// }
 
-	if err != nil {
-		t.Error("Error: Issue in adding courses to stream map")
-	}
-
-	for _, c := range testScheduleCourse {
-		if c.Prof.DisplayName == "" || c.Assignment.BeginTime == "" || c.Assignment.EndTime == "" {
-			t.Error("Schedule not properlly assigned")
+	for _,c := range testScheduleCourse {
+		var d string
+		if(c.Assignment.Monday == true){
+			d = "MTh"+c.Assignment.BeginTime
+		} else {
+			d = "TWF"+c.Assignment.BeginTime
 		}
+		
+		if c.Prof.DisplayName == "" ||  c.Assignment.BeginTime == "" || c.Assignment.EndTime == ""{
+			t.Error("Error: Schedule not properlly assigned")
+		}
+
+		if _, err := teachingMap[c.Prof.DisplayName][d]; err {
+			t.Error("Error: Prof teaching another course at this time.")
+		}
+
+		teachingMap[c.Prof.DisplayName][d] = c.CourseTitle+d
 	}
 }
