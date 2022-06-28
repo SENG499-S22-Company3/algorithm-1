@@ -19,11 +19,11 @@ func TestProfAssignment(t *testing.T) {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
 
-	if input.HistoricData.FallCourses == nil {
+	if input.HardScheduled.FallCourses == nil {
 		t.Error("Input failed to be parsed: fall historical courses should not be null")
 	}
 
-	testScheduleCourse := scheduling.AssignCourseProf(input.HistoricData.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors)
+	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors)
 	profsMap, _ := scheduling.MapPreferences(input.Professors)
 
 	for _,c := range testScheduleCourse {

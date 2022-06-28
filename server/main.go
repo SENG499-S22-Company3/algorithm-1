@@ -20,38 +20,6 @@ func HealthCheck(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "OK")
 }
 
-func GenerateSchedule(w http.ResponseWriter, r *http.Request) {
-	reqBody, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	if len(reqBody) == 0 {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Request body cannot be empty."))
-		return
-	}
-
-	parsedInput, err := structs.ParseInput(reqBody)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(err.Error()))
-		return
-	}
-
-	baseSchedule := scheduling.BaseSchedule(parsedInput.CoursesToSchedule, parsedInput.HistoricData)
-
-	marshalledJSON, err := structs.StructToJSON(baseSchedule)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(err.Error()))
-		return
-	}
-
-	fmt.Fprint(w, string(marshalledJSON))
-}
-
 func Generate(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -74,7 +42,7 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 
 	var schedule structs.Schedule
 
-	schedule.FallCourses = scheduling.Assignments(parsedInput.HistoricData.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors)
+	schedule.FallCourses = scheduling.Assignments(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -82,13 +50,13 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	schedule.SpringCourses = scheduling.Assignments(parsedInput.HistoricData.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors)
+	schedule.SpringCourses = scheduling.Assignments(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
 		return
 	}
-	schedule.SummerCourses = scheduling.Assignments(parsedInput.HistoricData.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors)
+	schedule.SummerCourses = scheduling.Assignments(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
@@ -134,8 +102,7 @@ func StartHTTPServer() {
 	// Define all routes for REST API
 	http.HandleFunc("/", Root)
 	http.HandleFunc("/healthcheck", HealthCheck)
-	http.HandleFunc("/generate", Generate)
-	http.HandleFunc("/generate_schedule", GenerateSchedule)
+	http.HandleFunc("/schedule", Generate)
 	http.HandleFunc("/check_schedule", CheckSchedule)
 
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))

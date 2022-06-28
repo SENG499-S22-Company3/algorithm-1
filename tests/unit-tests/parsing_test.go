@@ -273,7 +273,7 @@ func TestInputParse(t *testing.T) {
 		t.Error("Parsing input failed with error: ", err.Error())
 	}
 
-	if input.HistoricData.FallCourses[0].CourseNumber != "101" {
+	if input.HardScheduled.FallCourses[0].CourseNumber != "101" {
 		t.Error("Historical data parsed incorrectly")
 	}
 	if input.CoursesToSchedule.FallCourses[0].CourseNumber != "310" {
