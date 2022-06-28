@@ -20,7 +20,7 @@ func TestFullScheduleAssignment(t *testing.T) {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
 
-	if input.HistoricData.SpringCourses == nil {
+	if input.HardScheduled.SpringCourses == nil {
 		t.Error("Input failed to be parsed: fall historical courses should not be null")
 	}
 
@@ -37,7 +37,7 @@ func TestFullScheduleAssignment(t *testing.T) {
 
 	testStreamtype := scheduling.CreateEmptyStreamType()
 	testSchedule.SpringCourses, _, err = scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testStreamtype)
-	testScheduleCourse := scheduling.AssignCourseProf(input.HistoricData.SpringCourses, testSchedule.SpringCourses, input.Professors)
+	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors)
 	
 	var teachingMap = map[string]map[string]string{}
 

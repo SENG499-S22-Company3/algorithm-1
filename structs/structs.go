@@ -1,7 +1,7 @@
 package structs
 
 type Input struct {
-	HistoricData      Schedule    `json:"historicData"`
+	HardScheduled     Schedule    `json:"hardScheduled"`
 	CoursesToSchedule Schedule    `json:"coursesToSchedule"`
 	Professors        []Professor `json:"professors"`
 }
