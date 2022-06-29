@@ -45,18 +45,7 @@ func TestFullScheduleAssignment(t *testing.T) {
 		teachingMap[p.DisplayName] = map[string]string{}
 	}
 
-	// profsMap, _ := scheduling.MapPreferences(input.Professors)
-	// fmt.Println("# of courses:", len(testScheduleCourse))
-	// for i,c := range testScheduleCourse{
-	// 	fmt.Println(i, c.CourseTitle, "in sequence", c.StreamSequence)
-	// 	fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:" ,profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber],")" )
-	// 	fmt.Println("\t\t at", c.Assignment.BeginTime ,"to",c.Assignment.EndTime )
-	// 	if(c.Assignment.Monday == true){
-	// 		fmt.Println("\t\t\t on MTh")
-	// 	}else {
-	// 		fmt.Println("\t\t\t on TWF")
-	// 	}
-	// }
+	profsMap, _ := scheduling.MapPreferences(input.Professors)
 
 	for _,c := range testScheduleCourse {
 		var d string
@@ -74,6 +63,21 @@ func TestFullScheduleAssignment(t *testing.T) {
 			t.Error("Error: Prof teaching another course at this time.")
 		}
 
+		if val, pass := profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "TBD" {
+			t.Error(c.Prof.DisplayName, "cannot teach this course since they have no (", val, ") preference.")
+		}
+
 		teachingMap[c.Prof.DisplayName][d] = c.CourseTitle+d
 	}
+
+	// for _,c := range testScheduleCourse{
+	// 	fmt.Println(c.CourseTitle, c.SequenceNumber,"in sequence", c.StreamSequence)
+	// 	fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:" ,profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber],")" )
+	// 	fmt.Println("\t\t at", c.Assignment.BeginTime ,"to",c.Assignment.EndTime )
+	// 	if(c.Assignment.Monday == true){
+	// 		fmt.Println("\t\t\t on MTh")
+	// 	}else {
+	// 		fmt.Println("\t\t\t on TWF")
+	// 	}
+	// }
 }

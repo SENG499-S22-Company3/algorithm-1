@@ -17,30 +17,29 @@ func randomizer(profList []string) []string{
 
 /*
 	Input:  profs []structs.Professor
-	Output: profsMap map[string]map[string]int, profList []string
+	Output: prefsMap map[string]map[string]int, profList []string
 */
 func MapPreferences(profs []structs.Professor) (map[string]map[string]int, []string){
-	var profsMap = map[string]map[string]int{}
+	var prefsMap = map[string]map[string]int{}
 	var profList []string
 
 	for _, s := range profs {
-		profsMap[s.DisplayName] = map[string]int{}
+		prefsMap[s.DisplayName] = map[string]int{}
 		profList = append(profList, s.DisplayName)
 		for _, x := range s.Preferences {
-			profsMap[s.DisplayName][x.CourseNum] = int(x.PreferenceNum)
+			prefsMap[s.DisplayName][x.CourseNum] = int(x.PreferenceNum)
 		}
 	}
-	// return profsMap, profList
-	return profsMap, randomizer(profList)
+	return prefsMap, randomizer(profList)
 }
 
 /*
-	Input:  profsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course string
+	Input:  prefsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course string
 	Output: prof string
 */
-func assignProf(profsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course structs.Course, profPos int) (string, int){
+func assignProf(prefsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course structs.Course, profPos int) (string, int){
 	var max int = 0
-	var prof string = "N/A"
+	var prof string = "TBD"
 
 	var d string
 	if(course.Assignment.Monday == true){
@@ -53,6 +52,7 @@ func assignProf(profsMap map[string]map[string]int, profList []string, teachingM
 	var size = len(profList)
 
 	for i := 0; i < size; i++ {
+		// get professor at index profPos
 		p := profList[profPos]
 
 		// make sure prof isn't teaching during this time course time
@@ -61,11 +61,13 @@ func assignProf(profsMap map[string]map[string]int, profList []string, teachingM
 			continue
 		}
 
-		if max < profsMap[p][c]{
-			max = profsMap[p][c]
+		// check if profs preference is higher then current
+		if max < prefsMap[p][c]{
+			max = prefsMap[p][c]
 			prof = profList[profPos]
 		}
 
+		// if prof has max preference return prof and profPos
 		if(max == 7){
 			profPos = (profPos + 1) % size
 			return prof, profPos
@@ -83,21 +85,35 @@ func assignProf(profsMap map[string]map[string]int, profList []string, teachingM
 func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Course, professors []structs.Professor) []structs.Course {
 	
 	// get list profs and list of prof preferences
-	profsMap, profList := MapPreferences(professors)
+	prefsMap, profList := MapPreferences(professors)
 	var teachingMap = map[string]string{}
+	var courseMap = map[string]string{}
+	var prof string
 	var profPos = 0
+	var d string
+
 	// for loop through courses needed to be assigned this semester and assign each of them profs
 	for i, c := range semesterSchedule {
-		var prof string
-		prof, profPos = assignProf(profsMap, profList, teachingMap, c, profPos)
-		var d string
+		
+		// need to check if professors has taught more then prefered courses this semester
+		if val, skip := courseMap[c.Subject+c.CourseNumber]; skip {
+			prof = val
+			// TODO: increase prof teaching count
+		}else{
+			prof, profPos = assignProf(prefsMap, profList, teachingMap, c, profPos)
+		}
+		
 		if(c.Assignment.Monday == true){
 			d = "MTh"+c.Assignment.BeginTime
 		} else {
 			d = "TWF"+c.Assignment.BeginTime
 		}
-		
-		teachingMap[prof+d] = c.CourseTitle
+
+		// update map used to asssign same prof to different sections of the same course
+		courseMap[c.Subject+c.CourseNumber] = prof  	
+		// update map used to ensure teachers aren't double slotted 
+		teachingMap[prof+d] = c.CourseTitle			
+		// update semester schedule
 		semesterSchedule[i].Prof.DisplayName = prof
 	}
 
