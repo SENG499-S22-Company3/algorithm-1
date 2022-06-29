@@ -68,7 +68,7 @@ func assignProf(prefsMap map[string]map[string]int, profList []string, teachingM
 		}
 
 		// if prof has max preference return prof and profPos
-		if(max == 7){
+		if(max == 6){
 			profPos = (profPos + 1) % size
 			return prof, profPos
 		}
