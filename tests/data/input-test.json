@@ -1113,7 +1113,7 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC115",
@@ -1145,7 +1145,7 @@
         },
         {
           "courseNum": "SENG310",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG350",
@@ -1162,7 +1162,7 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC115",
@@ -1182,7 +1182,7 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC360",
@@ -1194,15 +1194,15 @@
         },
         {
           "courseNum": "SENG310",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG435",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG466",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -1219,15 +1219,15 @@
         },
         {
           "courseNum": "SENG275",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC361",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC460",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -1236,7 +1236,7 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC115",
@@ -1256,15 +1256,15 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC361",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC460",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -1273,7 +1273,7 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC115",
@@ -1281,7 +1281,7 @@
         },
         {
           "courseNum": "CSC225",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC226",
@@ -1289,7 +1289,7 @@
         },
         {
           "courseNum": "CSC230",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG265",
@@ -1305,11 +1305,11 @@
         },
         {
           "courseNum": "CSC360",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC370",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG321",
@@ -1317,7 +1317,7 @@
         },
         {
           "courseNum": "SENG421",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -1326,11 +1326,11 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC115",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC225",
@@ -1342,7 +1342,7 @@
         },
         {
           "courseNum": "CSC230",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG275",
@@ -1354,7 +1354,7 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC360",
@@ -1366,7 +1366,7 @@
         },
         {
           "courseNum": "SENG310",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG321",
@@ -1390,7 +1390,7 @@
         },
         {
           "courseNum": "SENG435",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG466",
@@ -1407,15 +1407,15 @@
       "prefs": [
         {
           "courseNum": "CSC115",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC226",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG275",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -1424,11 +1424,11 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC115",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC230",
@@ -1440,7 +1440,7 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -1449,15 +1449,15 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC230",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG265",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC355",
@@ -1473,11 +1473,11 @@
         },
         {
           "courseNum": "SENG321",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG350",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG360",
@@ -1493,7 +1493,7 @@
         },
         {
           "courseNum": "SENG401",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG421",
@@ -1534,7 +1534,7 @@
         },
         {
           "courseNum": "CSC360",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -1556,7 +1556,7 @@
         },
         {
           "courseNum": "CSC115",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC225",
@@ -1568,7 +1568,7 @@
         },
         {
           "courseNum": "SENG371",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -1597,7 +1597,7 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC360",
@@ -1605,11 +1605,11 @@
         },
         {
           "courseNum": "CSC361",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC370",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG371",
@@ -1646,19 +1646,19 @@
         },
         {
           "courseNum": "SENG350",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG360",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG401",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG421",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -1667,7 +1667,7 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC115",
@@ -1687,7 +1687,7 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC360",
@@ -1699,15 +1699,15 @@
         },
         {
           "courseNum": "SENG310",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG435",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG466",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -1732,7 +1732,7 @@
         },
         {
           "courseNum": "SENG265",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC355",
@@ -1744,7 +1744,7 @@
         },
         {
           "courseNum": "SENG310",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG321",
@@ -1768,7 +1768,7 @@
         },
         {
           "courseNum": "SENG466",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -1789,7 +1789,7 @@
         },
         {
           "courseNum": "SENG275",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC355",
@@ -1802,23 +1802,23 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC115",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC225",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC226",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC230",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG265",
@@ -1834,7 +1834,7 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC360",
@@ -1867,7 +1867,7 @@
         },
         {
           "courseNum": "SENG310",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG321",
@@ -1879,11 +1879,11 @@
         },
         {
           "courseNum": "SENG435",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG466",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -1900,11 +1900,11 @@
         },
         {
           "courseNum": "SENG310",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG435",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -1917,11 +1917,11 @@
         },
         {
           "courseNum": "CSC226",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG371",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG421",
@@ -1938,7 +1938,7 @@
         },
         {
           "courseNum": "CSC115",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC225",
@@ -1946,11 +1946,11 @@
         },
         {
           "courseNum": "CSC226",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG275",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC355",
@@ -1962,7 +1962,7 @@
         },
         {
           "courseNum": "SENG421",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -1975,15 +1975,15 @@
         },
         {
           "courseNum": "CSC115",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC226",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC230",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG275",
@@ -1991,7 +1991,7 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC361",
@@ -2024,15 +2024,15 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC115",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC225",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC226",
@@ -2044,11 +2044,11 @@
         },
         {
           "courseNum": "CSC320",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC360",
@@ -2077,15 +2077,15 @@
         },
         {
           "courseNum": "CSC225",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC320",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC360",
@@ -2123,11 +2123,11 @@
         },
         {
           "courseNum": "CSC226",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG371",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG421",
@@ -2140,15 +2140,15 @@
       "prefs": [
         {
           "courseNum": "CSC226",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG275",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG421",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -2169,11 +2169,11 @@
         },
         {
           "courseNum": "CSC370",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG371",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -2202,7 +2202,7 @@
         },
         {
           "courseNum": "CSC370",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG371",
@@ -2227,7 +2227,7 @@
         },
         {
           "courseNum": "SENG321",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC460",
@@ -2244,15 +2244,15 @@
       "prefs": [
         {
           "courseNum": "CSC111",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC225",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC230",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG265",
@@ -2260,11 +2260,11 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC360",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG360",
@@ -2289,11 +2289,11 @@
         },
         {
           "courseNum": "CSC115",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC225",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC226",
@@ -2301,7 +2301,7 @@
         },
         {
           "courseNum": "CSC230",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG265",
@@ -2313,11 +2313,11 @@
         },
         {
           "courseNum": "CSC355",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "CSC360",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "CSC370",
@@ -2334,15 +2334,15 @@
       "prefs": [
         {
           "courseNum": "ECE260",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE299",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE360",
@@ -2379,7 +2379,7 @@
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE380",
@@ -2408,7 +2408,7 @@
         },
         {
           "courseNum": "ECE255",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE260",
@@ -2420,7 +2420,7 @@
         },
         {
           "courseNum": "ECE320",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE355",
@@ -2428,7 +2428,7 @@
         },
         {
           "courseNum": "ECE356",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE403",
@@ -2449,19 +2449,19 @@
       "prefs": [
         {
           "courseNum": "ECE241",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE242",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE255",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE299",
@@ -2469,7 +2469,7 @@
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE320",
@@ -2477,15 +2477,15 @@
         },
         {
           "courseNum": "ECE350",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE355",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE356",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE399",
@@ -2493,15 +2493,15 @@
         },
         {
           "courseNum": "ECE403",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE410",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE455",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE458",
@@ -2514,15 +2514,15 @@
       "prefs": [
         {
           "courseNum": "ECE216",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE220",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE260",
@@ -2534,11 +2534,11 @@
         },
         {
           "courseNum": "ECE300",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE320",
@@ -2546,19 +2546,19 @@
         },
         {
           "courseNum": "ECE330",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE340",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE350",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE365",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -2571,7 +2571,7 @@
         },
         {
           "courseNum": "ECE260",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE299",
@@ -2579,11 +2579,11 @@
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE399",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE403",
@@ -2620,15 +2620,15 @@
         },
         {
           "courseNum": "ECE350",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE458",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE463",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -2637,7 +2637,7 @@
       "prefs": [
         {
           "courseNum": "ECE241",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE250",
@@ -2645,7 +2645,7 @@
         },
         {
           "courseNum": "ECE255",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE310",
@@ -2653,11 +2653,11 @@
         },
         {
           "courseNum": "ECE355",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE455",
@@ -2691,7 +2691,7 @@
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE255",
@@ -2703,7 +2703,7 @@
         },
         {
           "courseNum": "ECE455",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE458",
@@ -2732,11 +2732,11 @@
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE350",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE360",
@@ -2777,27 +2777,27 @@
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE365",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE399",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE458",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE463",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE499",
-          "preferenceNum": 6
+          "preferenceNum": 5
         }
       ]
     },
@@ -2806,15 +2806,15 @@
       "prefs": [
         {
           "courseNum": "ECE241",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE255",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE260",
@@ -2838,11 +2838,11 @@
         },
         {
           "courseNum": "ECE355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE365",
@@ -2850,7 +2850,7 @@
         },
         {
           "courseNum": "ECE463",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE499",
@@ -2863,11 +2863,11 @@
       "prefs": [
         {
           "courseNum": "ECE216",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE220",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE250",
@@ -2887,7 +2887,7 @@
         },
         {
           "courseNum": "ECE320",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE330",
@@ -2899,7 +2899,7 @@
         },
         {
           "courseNum": "ECE350",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE380",
@@ -2924,7 +2924,7 @@
         },
         {
           "courseNum": "ECE403",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -2933,11 +2933,11 @@
       "prefs": [
         {
           "courseNum": "ECE241",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE242",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE250",
@@ -2945,19 +2945,19 @@
         },
         {
           "courseNum": "ECE255",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE355",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE356",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE455",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE499",
@@ -2965,7 +2965,7 @@
         },
         {
           "courseNum": "SENG468",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -2978,11 +2978,11 @@
         },
         {
           "courseNum": "ECE220",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE260",
@@ -2994,31 +2994,31 @@
         },
         {
           "courseNum": "ECE320",
-          "preferenceNum": 6
+          "preferenceNum": 5
         },
         {
           "courseNum": "ECE330",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE340",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE350",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE380",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE399",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -3031,31 +3031,31 @@
         },
         {
           "courseNum": "ECE260",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE299",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE330",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE403",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE499",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -3068,7 +3068,7 @@
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE403",
@@ -3080,11 +3080,11 @@
         },
         {
           "courseNum": "SENG426",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG468",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG499",
@@ -3101,7 +3101,7 @@
         },
         {
           "courseNum": "ECE220",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE250",
@@ -3117,7 +3117,7 @@
         },
         {
           "courseNum": "ECE320",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE330",
@@ -3129,7 +3129,7 @@
         },
         {
           "courseNum": "ECE380",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -3138,19 +3138,19 @@
       "prefs": [
         {
           "courseNum": "ECE242",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE255",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE330",
@@ -3162,7 +3162,7 @@
         },
         {
           "courseNum": "ECE356",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE399",
@@ -3191,11 +3191,11 @@
       "prefs": [
         {
           "courseNum": "ECE241",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE242",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE250",
@@ -3203,27 +3203,27 @@
         },
         {
           "courseNum": "ECE255",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE355",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE356",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE455",
-          "preferenceNum": 5
+          "preferenceNum": 4
         }
       ]
     },
@@ -3253,11 +3253,11 @@
         },
         {
           "courseNum": "ECE300",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE320",
@@ -3265,7 +3265,7 @@
         },
         {
           "courseNum": "ECE330",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE355",
@@ -3277,15 +3277,15 @@
         },
         {
           "courseNum": "ECE380",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE455",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "SENG440",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -3294,15 +3294,15 @@
       "prefs": [
         {
           "courseNum": "ECE216",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE220",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE299",
@@ -3310,11 +3310,11 @@
         },
         {
           "courseNum": "ECE320",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE340",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE370",
@@ -3327,19 +3327,19 @@
       "prefs": [
         {
           "courseNum": "ECE216",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE330",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE340",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE360",
@@ -3347,7 +3347,7 @@
         },
         {
           "courseNum": "ECE370",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE458",
@@ -3364,19 +3364,19 @@
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE299",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE300",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE330",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE340",
@@ -3384,19 +3384,19 @@
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE365",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE370",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE380",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE399",
@@ -3404,15 +3404,15 @@
         },
         {
           "courseNum": "ECE410",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE488",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE499",
-          "preferenceNum": 7
+          "preferenceNum": 6
         }
       ]
     },
@@ -3425,7 +3425,7 @@
         },
         {
           "courseNum": "SENG426",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "SENG499",
@@ -3442,15 +3442,15 @@
         },
         {
           "courseNum": "ECE250",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE260",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE310",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE330",
@@ -3458,23 +3458,23 @@
         },
         {
           "courseNum": "ECE340",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE350",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE360",
-          "preferenceNum": 7
+          "preferenceNum": 6
         },
         {
           "courseNum": "ECE399",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE403",
-          "preferenceNum": 5
+          "preferenceNum": 4
         },
         {
           "courseNum": "ECE458",

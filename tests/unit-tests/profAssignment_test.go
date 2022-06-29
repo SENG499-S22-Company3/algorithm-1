@@ -31,14 +31,13 @@ func TestProfAssignment(t *testing.T) {
 			t.Error("Professors not assigned to course")
 		}
 		
-
-		if val, pass := profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "N/A" {
+		if val, pass := profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "TBD" {
 			t.Error(c.Prof.DisplayName, "cannot teach this course since they have no (", val, ") preference.")
 		}
 	}
 
 	// for _,c := range testScheduleCourse{
-	// 	fmt.Println(c.CourseTitle, "in sequence", c.StreamSequence)
+	// 	fmt.Println(c.CourseTitle, c.SequenceNumber,"in sequence", c.StreamSequence)
 	// 	fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:" ,profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber],")" )
 	// 	fmt.Println("\t\t at", c.Assignment.BeginTime ,"to",c.Assignment.EndTime )
 	// 	if(c.Assignment.Monday == true){
