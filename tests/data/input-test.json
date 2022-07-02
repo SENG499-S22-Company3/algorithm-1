@@ -1110,6 +1110,9 @@
   "professors": [
     {
       "displayName": "Berg, Celina",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1159,6 +1162,9 @@
     },
     {
       "displayName": "Bird, Bill",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1208,6 +1214,9 @@
     },
     {
       "displayName": "Chester, Sean",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1233,6 +1242,9 @@
     },
     {
       "displayName": "Corless, Jason",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1270,6 +1282,9 @@
     },
     {
       "displayName": "Damian, Daniela",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1323,6 +1338,9 @@
     },
     {
       "displayName": "Ernst, Neil",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1404,6 +1422,9 @@
     },
     {
       "displayName": "Estey, Anthony",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC115",
@@ -1421,6 +1442,9 @@
     },
     {
       "displayName": "Ganti, Sudhakar",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1446,6 +1470,9 @@
     },
     {
       "displayName": "German, Daniel",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1511,6 +1538,9 @@
     },
     {
       "displayName": "Haworth, Brandon",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1540,6 +1570,9 @@
     },
     {
       "displayName": "Jabbari, Hosna",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1549,6 +1582,9 @@
     },
     {
       "displayName": "Jackson, LillAnne",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1574,6 +1610,9 @@
     },
     {
       "displayName": "Kapron, Bruce",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1619,6 +1658,9 @@
     },
     {
       "displayName": "King, Valerie",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1664,6 +1706,9 @@
     },
     {
       "displayName": "Koroth, Sajin",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1713,6 +1758,9 @@
     },
     {
       "displayName": "Little, Rich",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1774,6 +1822,9 @@
     },
     {
       "displayName": "Mehta, Nishant",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1799,6 +1850,9 @@
     },
     {
       "displayName": "Muller, Hausi",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1844,6 +1898,9 @@
     },
     {
       "displayName": "Nacenta, Miguel",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1889,6 +1946,9 @@
     },
     {
       "displayName": "Numanagi\u0107, Ibrahim",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1910,6 +1970,9 @@
     },
     {
       "displayName": "Pan, Jianping",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC115",
@@ -1931,6 +1994,9 @@
     },
     {
       "displayName": "Perin, Charles",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -1968,6 +2034,9 @@
     },
     {
       "displayName": "Schneider, Teseo",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -2021,6 +2090,9 @@
     },
     {
       "displayName": "Somanath, Sowmya",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -2070,6 +2142,9 @@
     },
     {
       "displayName": "Srinivasan, Venkatesh",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -2099,6 +2174,9 @@
     },
     {
       "displayName": "Stege, Ulrike",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC115",
@@ -2116,6 +2194,9 @@
     },
     {
       "displayName": "Storey, Margaret-Anne",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC115",
@@ -2137,6 +2218,9 @@
     },
     {
       "displayName": "Summers, Cecilia",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC226",
@@ -2154,6 +2238,9 @@
     },
     {
       "displayName": "Thomo, Alex",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -2179,6 +2266,9 @@
     },
     {
       "displayName": "Tzanetakis, George",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC115",
@@ -2216,6 +2306,9 @@
     },
     {
       "displayName": "Weber, Jens",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC230",
@@ -2241,6 +2334,9 @@
     },
     {
       "displayName": "Wu, Kui",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -2282,6 +2378,9 @@
     },
     {
       "displayName": "Zastre, Michael",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "CSC111",
@@ -2331,6 +2430,9 @@
     },
     {
       "displayName": "Adams, Michael",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE260",
@@ -2360,6 +2462,9 @@
     },
     {
       "displayName": "Agathoklis, Panajotis",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE250",
@@ -2397,6 +2502,9 @@
     },
     {
       "displayName": "AlTawy, Riham",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE241",
@@ -2446,6 +2554,9 @@
     },
     {
       "displayName": "Baniasadi, Amirali",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE241",
@@ -2511,6 +2622,9 @@
     },
     {
       "displayName": "Bornemann, Jens",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE216",
@@ -2564,6 +2678,9 @@
     },
     {
       "displayName": "Branzan Albu, Alexandra",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE255",
@@ -2605,6 +2722,9 @@
     },
     {
       "displayName": "Cai, Lin",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE260",
@@ -2634,6 +2754,9 @@
     },
     {
       "displayName": "Capson, David",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE241",
@@ -2667,6 +2790,9 @@
     },
     {
       "displayName": "Darcie, Ted",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE216",
@@ -2684,6 +2810,9 @@
     },
     {
       "displayName": "Dimopoulos, Nikitas",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE241",
@@ -2717,6 +2846,9 @@
     },
     {
       "displayName": "Dong, Xiaodai",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE250",
@@ -2754,6 +2886,9 @@
     },
     {
       "displayName": "Driessen, Peter",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE255",
@@ -2803,6 +2938,9 @@
     },
     {
       "displayName": "Gebali, Fayez",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE241",
@@ -2860,6 +2998,9 @@
     },
     {
       "displayName": "Gordon, Reuven",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE216",
@@ -2909,6 +3050,9 @@
     },
     {
       "displayName": "Gulliver, Aaron",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE260",
@@ -2930,6 +3074,9 @@
     },
     {
       "displayName": "Li, Kin Fun",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE241",
@@ -2971,6 +3118,9 @@
     },
     {
       "displayName": "Lu, Tao",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE216",
@@ -3024,6 +3174,9 @@
     },
     {
       "displayName": "McGuire, Michael",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE250",
@@ -3061,6 +3214,9 @@
     },
     {
       "displayName": "Neville, Stephen",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE355",
@@ -3094,6 +3250,9 @@
     },
     {
       "displayName": "Papadopoulos, Christo",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE216",
@@ -3135,6 +3294,9 @@
     },
     {
       "displayName": "Popli, Dr. Navneet",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE242",
@@ -3188,6 +3350,9 @@
     },
     {
       "displayName": "Rakhmatov, Daler",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE241",
@@ -3229,6 +3394,9 @@
     },
     {
       "displayName": "Saidaminov, Makhsud",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE220",
@@ -3242,6 +3410,9 @@
     },
     {
       "displayName": "Sima, Mihai",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE250",
@@ -3291,6 +3462,9 @@
     },
     {
       "displayName": "Smith, Levi",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE216",
@@ -3324,6 +3498,9 @@
     },
     {
       "displayName": "So, Poman",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE216",
@@ -3357,6 +3534,9 @@
     },
     {
       "displayName": "Thirumarai Chelvan, Ilamparithi",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE216",
@@ -3418,6 +3598,9 @@
     },
     {
       "displayName": "Traore, Issa",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE458",
@@ -3435,6 +3618,9 @@
     },
     {
       "displayName": "Yang, Hong-Chuan",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "prefs": [
         {
           "courseNum": "ECE216",

@@ -37,7 +37,7 @@ func TestFullScheduleAssignment(t *testing.T) {
 
 	testStreamtype := scheduling.CreateEmptyStreamType()
 	testSchedule.SpringCourses, _, err = scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testStreamtype)
-	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors)
+	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors, "Spring")
 	
 	var teachingMap = map[string]map[string]string{}
 
@@ -45,7 +45,7 @@ func TestFullScheduleAssignment(t *testing.T) {
 		teachingMap[p.DisplayName] = map[string]string{}
 	}
 
-	profsMap, _ := scheduling.MapPreferences(input.Professors)
+	profsMap, _, _ := scheduling.MapPreferences(input.Professors, "Spring")
 
 	for _,c := range testScheduleCourse {
 		var d string
