@@ -7,11 +7,6 @@ import re
     USE: python pre-process.py <jsonfile> > output.json
 """
 
-def reformat(entry):
-
-
-    return data
-
 def main():
     with open(sys.argv[1],encoding='utf8') as f:
         data = json.load(f)
@@ -20,20 +15,20 @@ def main():
     springTerm = []
     summerTerm = []
 
-    for entry in data['historicData']['fallTermCourses']:
+    for entry in data['hardScheduled']['fallTermCourses']:
         if entry['subject'] in ["MATH", "ENGR", "CHEM", "PHYS", "ECON"]:
             fallTerm.append(entry)
 
-    for entry in data['historicData']['springTermCourses']:
+    for entry in data['hardScheduled']['springTermCourses']:
         if entry['subject'] in ["MATH", "ENGR", "CHEM", "PHYS", "ECON"]:
             springTerm.append(entry)
 
-    for entry in data['historicData']['summerTermCourses']:
+    for entry in data['hardScheduled']['summerTermCourses']:
         if entry['subject'] in ["MATH", "ENGR", "CHEM", "PHYS", "ECON"]:
             summerTerm.append(entry)
 
     input = {
-        "historicData": {
+        "hardScheduled": {
             "fallTermCourses": fallTerm,
             "springTermCourses": springTerm,
             "summerTermCourses": summerTerm
