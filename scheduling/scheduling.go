@@ -2,6 +2,11 @@ package scheduling
 
 import (
 	"algorithm-1/structs"
+	"fmt"
+	"runtime"
+	"time"
+
+	ga "github.com/tomcraven/goga"
 )
 
 func sliceContains(a string, list []string) bool {
@@ -53,18 +58,53 @@ func BaseSchedule(requestedCourses structs.Schedule, hardSchedule structs.Schedu
 	}
 }
 
-func Assignments(hardScheduledCourses []structs.Course, requestedCourses []structs.Course, professors []structs.Professor, term string) ([]structs.Course, error) {
+func Assignments(hardScheduledCourses []structs.Course, requestedCourses []structs.Course, professors []structs.Professor, term string) []structs.Course {
 
-	timeslotMap, err := BaseTimeslotMaps(hardScheduledCourses, term)
-	if err != nil {
-		return nil, err
-	}
-	requestedCourses, _, err = AddCoursesToStreamMaps(Split(requestedCourses), timeslotMap, term)
-	if err != nil {
-		return nil, err
-	}
+	timeslotMap, _ := BaseTimeslotMaps(hardScheduledCourses, term)
+	requestedCourses, _, _ = AddCoursesToStreamMaps(Split(requestedCourses), timeslotMap, term)
 	requestedCourses = AssignCourseProf(hardScheduledCourses, requestedCourses, professors, term)
 	requestedCourses = append(requestedCourses, hardScheduledCourses...)
 
-	return requestedCourses, err
+	return requestedCourses
+}
+
+func Optimize() {
+	simulation := ScheduleSimulation{
+		NumberOfSimulations: 100,
+		PopulationSize:      20,
+		NumberOfProfs:       3,
+		NumberOfCourses:     3,
+	}
+
+	// mater defines how to combine genomes
+	mater := ga.NewMater(
+		[]ga.MaterFunctionProbability{
+			{P: 1.0, F: ga.TwoPointCrossover},
+			{P: 1.0, F: ga.Mutate},
+			{P: 1.0, F: ga.UniformCrossover, UseElite: true},
+		},
+	)
+
+	// selector defines how to select genomes from which the elite is being taken
+	selector := ga.NewSelector(
+		[]ga.SelectorFunctionProbability{
+			{P: 1.0, F: ga.Roulette},
+		},
+	)
+
+	algorithm := ga.NewGeneticAlgorithm()
+	algorithm.Simulator = &simulation
+	algorithm.EliteConsumer = &simulation
+	algorithm.BitsetCreate = &simulation
+	algorithm.Selector = selector
+	algorithm.Mater = mater
+
+	numThreads := 4
+	runtime.GOMAXPROCS(numThreads)
+	algorithm.Init(simulation.PopulationSize, numThreads)
+
+	startTime := time.Now()
+	algorithm.Simulate()
+	fmt.Println(time.Since(startTime))
+
 }
