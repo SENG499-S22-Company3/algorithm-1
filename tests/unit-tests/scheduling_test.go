@@ -3,6 +3,7 @@ package tests
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -105,6 +106,7 @@ func TestSmallScaleBase(t *testing.T) {
 	testCourses, _ := structs.ParseCourses(courseData)
 
 	result := scheduling.BaseSemester(testCourses, historical)
+	fmt.Println(result)
 
 	if len(result) != 2 {
 		t.Error("Incorrect number of courses")
@@ -188,4 +190,10 @@ func TestBaseScheduleConcurrent(t *testing.T) {
 		t.Error("Course should not be present")
 		// Shouldn't be included because seng courses aren't present in historical data for summer 2019
 	}
+}
+
+func TestGenetic(t *testing.T) {
+	fmt.Println("starting ga test")
+	scheduling.Optimize()
+	fmt.Println("ending ga test")
 }
