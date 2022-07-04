@@ -2,6 +2,11 @@ package scheduling
 
 import (
 	"algorithm-1/structs"
+	"fmt"
+	"runtime"
+	"time"
+
+	ga "github.com/tomcraven/goga"
 )
 
 func sliceContains(a string, list []string) bool {
@@ -53,11 +58,52 @@ func BaseSchedule(requestedCourses structs.Schedule, historicalSchedule structs.
 	}
 }
 
-func Assignments(historicalSemester []structs.Course, requestedCourses []structs.Course, professors []structs.Professor) ([]structs.Course){
-	
+func Assignments(historicalSemester []structs.Course, requestedCourses []structs.Course, professors []structs.Professor) []structs.Course {
+
 	timeslotFallMap, _ := BaseTimeslotMaps(historicalSemester)
 	requestedCourses, _, _ = AddCoursesToStreamMaps(Split(requestedCourses), timeslotFallMap)
 	requestedCourses = AssignCourseProf(historicalSemester, requestedCourses, professors)
 
 	return requestedCourses
+}
+
+func Optimize() {
+	simulation := ScheduleSimulation{
+		NumberOfSimulations: 100,
+		PopulationSize:      20,
+		NumberOfProfs:       3,
+		NumberOfCourses:     3,
+	}
+
+	// mater defines how to combine genomes
+	mater := ga.NewMater(
+		[]ga.MaterFunctionProbability{
+			{P: 1.0, F: ga.TwoPointCrossover},
+			{P: 1.0, F: ga.Mutate},
+			{P: 1.0, F: ga.UniformCrossover, UseElite: true},
+		},
+	)
+
+	// selector defines how to select genomes from which the elite is being taken
+	selector := ga.NewSelector(
+		[]ga.SelectorFunctionProbability{
+			{P: 1.0, F: ga.Roulette},
+		},
+	)
+
+	algorithm := ga.NewGeneticAlgorithm()
+	algorithm.Simulator = &simulation
+	algorithm.EliteConsumer = &simulation
+	algorithm.BitsetCreate = &simulation
+	algorithm.Selector = selector
+	algorithm.Mater = mater
+
+	numThreads := 4
+	runtime.GOMAXPROCS(numThreads)
+	algorithm.Init(simulation.PopulationSize, numThreads)
+
+	startTime := time.Now()
+	algorithm.Simulate()
+	fmt.Println(time.Since(startTime))
+
 }
