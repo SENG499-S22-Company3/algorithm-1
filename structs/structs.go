@@ -81,10 +81,3 @@ type StreamType struct {
 type ProfAssignments struct {
 	ProfAssigned map[string][]Course
 }
-
-func (s Schedule) GetFitness() int {
-
-	// TODO calculate fitness of schedule
-
-	return 0
-}
