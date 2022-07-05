@@ -143,17 +143,17 @@ func ScheduleConstraintsCheck(term string,
 		}
 
 		if c.Prof.DisplayName == "" || c.Assignment.BeginTime == "" || c.Assignment.EndTime == "" {
-			err = fmt.Errorf("error: %v Schedule not properlly assigned", term)
+			err = fmt.Errorf("error: %v Schedule missing %v %v timeslot and/or prof,   ", term, c.Subject, c.CourseNumber)
 			break
 		}
 
 		if _, found := teachingMap[c.Prof.DisplayName][d]; found {
-			err = fmt.Errorf("error: %v teaching another %v course at %v", c.Prof.DisplayName, term, d)
+			err = fmt.Errorf("error: %v teaching another %v course at %v,   ", c.Prof.DisplayName, term, d)
 			break
 		}
 
 		if val, pass := prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "TBD" {
-			err = fmt.Errorf(c.Prof.DisplayName, "cannot teach this "+term+" course since they have no (", val, ") preference.")
+			err = fmt.Errorf(c.Prof.DisplayName, "cannot teach this "+term+" course since they have no (", val, ") preference,   ")
 			break
 		}
 
