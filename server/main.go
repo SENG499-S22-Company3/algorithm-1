@@ -72,13 +72,14 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 }
 
 // Given a schedule, hard requirement checks are done to confirm none are violated
+// Send schedule object in the "hardScheduled" place. The coursesToSchedule will be ignored so it can just be empty, "professors" will be used to make sure constraints are satisfied
 func CheckSchedule(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "No body parameters provided")
 	}
 
-	parsedSchedule, err := structs.ParseHistorical(reqBody)
+	parsedInput, err := structs.ParseInput(reqBody)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
@@ -87,25 +88,39 @@ func CheckSchedule(w http.ResponseWriter, r *http.Request) {
 
 	requirementsViolated := false
 
-	// Check for timeslot violations
-	_, err = scheduling.BaseTimeslotMaps(parsedSchedule.FallCourses)
+	// Check for professor and basic violations
+	err = scheduling.ScheduleConstraintsCheck("Fall", parsedInput.HardScheduled.FallCourses, parsedInput)
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true
 	}
-	_, err = scheduling.BaseTimeslotMaps(parsedSchedule.SpringCourses)
+	err = scheduling.ScheduleConstraintsCheck("Spring", parsedInput.HardScheduled.SpringCourses, parsedInput)
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true
 	}
-	_, err = scheduling.BaseTimeslotMaps(parsedSchedule.SummerCourses)
+	err = scheduling.ScheduleConstraintsCheck("Summer", parsedInput.HardScheduled.SummerCourses, parsedInput)
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true
 	}
 
-	// Check for professor violations
-	// TO-DO
+	// Check for timeslot violations
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.FallCourses)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+		requirementsViolated = true
+	}
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SpringCourses)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+		requirementsViolated = true
+	}
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SummerCourses)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+		requirementsViolated = true
+	}
 
 	if !requirementsViolated {
 		fmt.Fprintf(w, "Schedule given is valid")
