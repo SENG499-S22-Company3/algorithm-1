@@ -5,6 +5,7 @@
         "courseNumber": "101",
         "subject": "CHEM",
         "sequenceNumber": "A01",
+        "streamSequence": "2A",
         "courseTitle": "Properties of Materials",
         "meetingTime": {
           "startDate": "Sep 05, 2018",
@@ -25,6 +26,7 @@
         "courseNumber": "101",
         "subject": "CHEM",
         "sequenceNumber": "A02",
+        "streamSequence": "2A",
         "courseTitle": "Properties of Materials",
         "meetingTime": {
           "startDate": "Sep 05, 2018",
@@ -45,6 +47,7 @@
         "courseNumber": "101",
         "subject": "CHEM",
         "sequenceNumber": "A03",
+        "streamSequence": "2A",
         "courseTitle": "Properties of Materials",
         "meetingTime": {
           "startDate": "Sep 05, 2018",
@@ -65,6 +68,7 @@
         "courseNumber": "110",
         "subject": "PHYS",
         "sequenceNumber": "A01",
+        "streamSequence": "1A",
         "courseTitle": "Introductory Physics I",
         "meetingTime": {
           "startDate": "Sep 05, 2018",
@@ -85,46 +89,7 @@
         "courseNumber": "110",
         "subject": "PHYS",
         "sequenceNumber": "A02",
-        "courseTitle": "Introductory Physics I",
-        "meetingTime": {
-          "startDate": "Nov 17, 2018",
-          "endDate": "Nov 17, 2018",
-          "beginTime": "1400",
-          "endTime": "1530",
-          "hoursWeek": 1.5,
-          "sunday": false,
-          "monday": false,
-          "tuesday": false,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": true
-        }
-      },
-      {
-        "courseNumber": "110",
-        "subject": "PHYS",
-        "sequenceNumber": "A03",
-        "courseTitle": "Introductory Physics I",
-        "meetingTime": {
-          "startDate": "Nov 17, 2018",
-          "endDate": "Nov 17, 2018",
-          "beginTime": "1400",
-          "endTime": "1530",
-          "hoursWeek": 1.5,
-          "sunday": false,
-          "monday": false,
-          "tuesday": false,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": true
-        }
-      },
-      {
-        "courseNumber": "110",
-        "subject": "PHYS",
-        "sequenceNumber": "A04",
+        "streamSequence": "1A",
         "courseTitle": "Introductory Physics I",
         "meetingTime": {
           "startDate": "Nov 17, 2018",
@@ -147,6 +112,7 @@
         "courseNumber": "150",
         "subject": "CHEM",
         "sequenceNumber": "A01",
+        "streamSequence": "2A",
         "courseTitle": "Engineering Chemistry",
         "meetingTime": {
           "startDate": "Jan 07, 2019",
@@ -167,6 +133,7 @@
         "courseNumber": "120",
         "subject": "ENGR",
         "sequenceNumber": "A01",
+        "streamSequence": "1B",
         "courseTitle": "Design and Communication II",
         "meetingTime": {
           "startDate": "Jan 07, 2019",
@@ -187,206 +154,7 @@
         "courseNumber": "120",
         "subject": "ENGR",
         "sequenceNumber": "A02",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1430",
-          "endTime": "1520",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A03",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1530",
-          "endTime": "1620",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A04",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1430",
-          "endTime": "1520",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A05",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1430",
-          "endTime": "1520",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A06",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1430",
-          "endTime": "1520",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A07",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1530",
-          "endTime": "1620",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A08",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1530",
-          "endTime": "1620",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A09",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1530",
-          "endTime": "1620",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A10",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1430",
-          "endTime": "1520",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A11",
-        "courseTitle": "Design and Communication II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1530",
-          "endTime": "1620",
-          "hoursWeek": 1,
-          "sunday": false,
-          "monday": false,
-          "tuesday": true,
-          "wednesday": false,
-          "thursday": false,
-          "friday": false,
-          "saturday": false
-        }
-      },
-      {
-        "courseNumber": "120",
-        "subject": "ENGR",
-        "sequenceNumber": "A12",
+        "streamSequence": "1B",
         "courseTitle": "Design and Communication II",
         "meetingTime": {
           "startDate": "Jan 07, 2019",
@@ -407,6 +175,7 @@
         "courseNumber": "141",
         "subject": "ENGR",
         "sequenceNumber": "A01",
+        "streamSequence": "1B",
         "courseTitle": "Engineering Mechanics",
         "meetingTime": {
           "startDate": "Jan 07, 2019",
@@ -427,6 +196,7 @@
         "courseNumber": "141",
         "subject": "ENGR",
         "sequenceNumber": "A02",
+        "streamSequence": "1B",
         "courseTitle": "Engineering Mechanics",
         "meetingTime": {
           "startDate": "Jan 07, 2019",
@@ -447,6 +217,7 @@
         "courseNumber": "101",
         "subject": "MATH",
         "sequenceNumber": "A01",
+        "streamSequence": "1B",
         "courseTitle": "Calculus II",
         "meetingTime": {
           "startDate": "Jan 07, 2019",
@@ -467,6 +238,7 @@
         "courseNumber": "101",
         "subject": "MATH",
         "sequenceNumber": "A02",
+        "streamSequence": "1B",
         "courseTitle": "Calculus II",
         "meetingTime": {
           "startDate": "Jan 07, 2019",
@@ -487,6 +259,7 @@
         "courseNumber": "101",
         "subject": "MATH",
         "sequenceNumber": "A03",
+        "streamSequence": "1B",
         "courseTitle": "Calculus II",
         "meetingTime": {
           "startDate": "Jan 07, 2019",
@@ -507,6 +280,7 @@
         "courseNumber": "101",
         "subject": "MATH",
         "sequenceNumber": "A04",
+        "streamSequence": "1B",
         "courseTitle": "Calculus II",
         "meetingTime": {
           "startDate": "Jan 07, 2019",
@@ -522,26 +296,6 @@
           "friday": true,
           "saturday": false
         }
-      },
-      {
-        "courseNumber": "101",
-        "subject": "MATH",
-        "sequenceNumber": "A05",
-        "courseTitle": "Calculus II",
-        "meetingTime": {
-          "startDate": "Jan 07, 2019",
-          "endDate": "Apr 05, 2019",
-          "beginTime": "1530",
-          "endTime": "1620",
-          "hoursWeek": 3,
-          "sunday": false,
-          "monday": true,
-          "tuesday": false,
-          "wednesday": true,
-          "thursday": true,
-          "friday": false,
-          "saturday": false
-        }
       }
     ],
     "summerTermCourses": [
@@ -549,6 +303,7 @@
         "courseNumber": "180",
         "subject": "ECON",
         "sequenceNumber": "A01",
+        "streamSequence": "2B",
         "courseTitle": "Introduction to Principles of Microeconomics and Financial Project Evaluation",
         "meetingTime": {
           "startDate": "May 13, 2019",
