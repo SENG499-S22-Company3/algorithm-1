@@ -175,8 +175,8 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 
 func addTimeslot(course structs.Course, day map[string]string) (map[string]string, error) {
 	var err error
-	beginTimeInt, _ := strconv.Atoi(course.Assignment.BeginTime)
-	endTimeInt, _ := strconv.Atoi(course.Assignment.EndTime)
+	//beginTimeInt, _ := strconv.Atoi(course.Assignment.BeginTime)
+	//endTimeInt, _ := strconv.Atoi(course.Assignment.EndTime)
 
 	if _, isValid := day[course.Assignment.BeginTime]; !isValid { // Check if map key exists
 		err = fmt.Errorf("error: %v %v is scheduled during a regular block time at %v", course.Subject, course.CourseNumber, course.Assignment.BeginTime)
@@ -185,10 +185,11 @@ func addTimeslot(course structs.Course, day map[string]string) (map[string]strin
 	} else {
 		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
 	}
-
-	if endTimeInt-beginTimeInt == 250 || endTimeInt-beginTimeInt == 290 { // Check if three hour course
-		// TO-DO handle 3 hour courses
-	}
+	/*
+		if endTimeInt-beginTimeInt == 250 || endTimeInt-beginTimeInt == 290 { // Check if three hour course
+			// TO-DO handle 3 hour courses
+		}
+	*/
 
 	return day, err
 }
