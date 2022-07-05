@@ -47,10 +47,13 @@ func TestSplitCourses(t *testing.T) {
         }]`)
 
 	courses, err := structs.ParseCourses(jsonData)
-	courses = scheduling.Split(courses)
-
-	if err != nil {
+  if err != nil {
 		t.Error("Parsing courses failed with error: ", err.Error())
 	}
+
+	courses = scheduling.Split(courses)
+  if len(courses) != 10 {
+    t.Error("Courses slice should be of len 10 not size ", len(courses))
+  } 
 
 }
