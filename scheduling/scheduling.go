@@ -67,12 +67,13 @@ func Assignments(historicalSemester []structs.Course, requestedCourses []structs
 	return requestedCourses
 }
 
-func Optimize() {
+func Optimize(schedule structs.Schedule, professors []structs.Professor) {
+	// simulation for fall semester
 	simulation := ScheduleSimulation{
 		NumberOfSimulations: 100,
 		PopulationSize:      20,
-		NumberOfProfs:       3,
-		NumberOfCourses:     3,
+		BaseSchedule:        schedule.FallCourses,
+		ProfList:            professors,
 	}
 
 	// mater defines how to combine genomes
