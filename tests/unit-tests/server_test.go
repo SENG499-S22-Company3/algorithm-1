@@ -4,6 +4,7 @@ import (
 	"algorithm-1/server"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 )
 
@@ -25,4 +26,30 @@ func TestRootRoute(t *testing.T) {
 	if actual_response != expected_response {
 		t.Errorf("got %q, want %q", actual_response, expected_response)
 	}
+}
+
+func TestCheckSchdulePass(t *testing.T) {
+	// Setup
+	jsonFile, err := os.Open("../data/working-schedule-test.json")
+	if err != nil {
+		t.Error("File not found")
+	}
+
+	request, _ := http.NewRequest(http.MethodPost, "/CheckSchedule", jsonFile)
+	response := httptest.NewRecorder()
+
+	// Act
+	server.CheckSchedule(response, request)
+
+	// Assert
+	actual_response := response.Body.String()
+	expected_response := "Schedule given is valid"
+
+	if actual_response != expected_response {
+		t.Errorf("got %q, want %q", actual_response, expected_response)
+	}
+}
+
+func TestCheckScheduleFail(t *testing.T) {
+	// TO-DO add failure tests
 }
