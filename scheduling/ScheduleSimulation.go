@@ -11,68 +11,19 @@ import (
 type ScheduleSimulation struct {
 	simulationCount     int
 	NumberOfSimulations int
-	NumberOfProfs       int
-	NumberOfCourses     int
 	PopulationSize      int
+	BaseSchedule        []structs.Course
+	ProfList            []structs.Professor
 }
 
-// this probably shouldn't really go here?
-func NewSchedule(genome ga.Genome, employees int, days int) []structs.Course {
-	// for each employee go over the bitset and extract the current shift assigment for the whole period of time
-	bits := genome.GetBits()
-	return bitsToStruct(bits)
-}
+// This function converts bits to a schedule
+func NewSchedule(genome ga.Genome, courses []structs.Course, profs []structs.Professor) []structs.Course {
+	bitset := genome.GetBits()
 
-func setUpBitset() {
-
-}
-
-// will need to actually convert bits to a schedule
-func bitsToStruct(bitset *ga.Bitset) []structs.Course {
-	c1 := structs.Course{
-		CourseNumber:   "310",
-		Subject:        "SENG",
-		SequenceNumber: "A01",
-		StreamSequence: "2A",
-		CourseTitle:    "Human Computer Interaction",
-	}
-	c2 := structs.Course{
-		CourseNumber:   "370",
-		Subject:        "CSC",
-		SequenceNumber: "A01",
-		StreamSequence: "2A",
-		CourseTitle:    "Database Systems",
-	}
-	c3 := structs.Course{
-		CourseNumber:   "361",
-		Subject:        "CSC",
-		SequenceNumber: "A01",
-		StreamSequence: "2A",
-		CourseTitle:    "Computer Communications and Networks",
-	}
-	c4 := structs.Course{
-		CourseNumber:   "320",
-		Subject:        "CSC",
-		SequenceNumber: "A01",
-		StreamSequence: "2A",
-		CourseTitle:    "Fundamentals of Computer Science",
-	}
-	p1 := structs.Professor{
-		DisplayName: "A",
-	}
-	p2 := structs.Professor{
-		DisplayName: "B",
-	}
-	p3 := structs.Professor{
-		DisplayName: "C",
-	}
-	p4 := structs.Professor{
-		DisplayName: "D",
-	}
+	//numberCourses = len(courses)
+	//numberProfs = len(profs)
 
 	times := []string{"0830", "1000", "1130", "1300"}
-	courses := []structs.Course{c1, c2, c3, c4}
-	profs := []structs.Professor{p1, p2, p3, p4}
 
 	bits := bitset.GetAll()
 	for i, j := 0, 0; i < len(bits); i, j = i+4, j+1 {
@@ -120,36 +71,87 @@ func (sim *ScheduleSimulation) OnBeginSimulation() {
 
 // Simulate assigns a fitness value to the given genome
 func (sim *ScheduleSimulation) Simulate(genome ga.Genome) {
-	schedule := NewSchedule(genome, sim.NumberOfProfs, sim.NumberOfCourses)
+	schedule := NewSchedule(genome, sim.BaseSchedule, sim.ProfList)
 	fitness := GetFitness(schedule)
 	(genome).SetFitness(fitness)
 }
 
 func GetFitness(s []structs.Course) int {
+	// hard coded scoring for example
 	score := 0
-	if s[0].CourseNumber == "310" {
+	// brute force that the times are different
+	if s[0].Assignment.BeginTime != s[1].Assignment.BeginTime {
 		score += 10
 	}
-	if s[1].CourseNumber == "370" {
+	if s[0].Assignment.BeginTime != s[2].Assignment.BeginTime {
 		score += 10
 	}
-	if s[2].CourseNumber == "361" {
+	if s[0].Assignment.BeginTime != s[3].Assignment.BeginTime {
 		score += 10
 	}
+	if s[1].Assignment.BeginTime != s[2].Assignment.BeginTime {
+		score += 10
+	}
+	if s[1].Assignment.BeginTime != s[3].Assignment.BeginTime {
+		score += 10
+	}
+	if s[2].Assignment.BeginTime != s[3].Assignment.BeginTime {
+		score += 10
+	}
+
+	// brute force the profs are all different
+	if s[0].Prof.DisplayName != s[1].Prof.DisplayName {
+		score += 10
+	}
+	if s[0].Prof.DisplayName != s[2].Prof.DisplayName {
+		score += 10
+	}
+	if s[0].Prof.DisplayName != s[3].Prof.DisplayName {
+		score += 10
+	}
+	if s[1].Prof.DisplayName != s[2].Prof.DisplayName {
+		score += 10
+	}
+	if s[1].Prof.DisplayName != s[3].Prof.DisplayName {
+		score += 10
+	}
+	if s[2].Prof.DisplayName != s[3].Prof.DisplayName {
+		score += 10
+	}
+
+	// adding preference to score
+	score += int(s[3].Prof.Preferences[0].PreferenceNum)
 
 	return score
 }
 
 // OnElite prints the current elite on every simulation iteration
-func (r *ScheduleSimulation) OnElite(genome ga.Genome) {
-	schedule := NewSchedule(genome, r.NumberOfProfs, r.NumberOfCourses)
-	fmt.Printf("** [%d] simulation **\n", r.simulationCount)
-	fmt.Print("solution: ")
-	fmt.Println(schedule)
+func (sim *ScheduleSimulation) OnElite(genome ga.Genome) {
+	schedule := NewSchedule(genome, sim.BaseSchedule, sim.ProfList)
+
+	fmt.Println("***********************")
+	fmt.Printf("** [%d] simulation **\n", sim.simulationCount)
+	fmt.Println("solution: ")
+	//fmt.Println(schedule)
+	prettyPrintSemester(schedule)
 	//fmt.Print("bits: ")
 	//fmt.Println(genome.GetBits().GetAll())
 	fmt.Print("fitness: ")
 	fmt.Println(GetFitness(schedule))
+	fmt.Println("***********************")
+}
+
+func prettyPrintSemester(s []structs.Course) {
+	for _, c := range s {
+		fmt.Print(c.Subject)
+		fmt.Print(c.CourseNumber)
+		fmt.Print(", ")
+		fmt.Print(c.Prof.DisplayName)
+		fmt.Print(", ")
+		fmt.Print(c.Assignment.BeginTime)
+		fmt.Println()
+		fmt.Println("---------------------------------")
+	}
 }
 
 // ExitFunc defines when to stop the simulation
