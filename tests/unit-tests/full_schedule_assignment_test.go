@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func getInput(t *testing.T) (structs.Schedule, structs.Input) {
+func getInput(t *testing.T) (structs.Schedule, structs.Input){
 	jsonData, err := ioutil.ReadFile("../data/input-test.json")
 	if err != nil {
 		log.Fatal("Error when opening input-test.json file: ", err)
@@ -38,14 +38,14 @@ func getInput(t *testing.T) (structs.Schedule, structs.Input) {
 	return testSchedule, input
 }
 
-func printAssignments(testScheduleCourse []structs.Course, prefsMap map[string]map[string]int) {
-	for _, c := range testScheduleCourse {
-		fmt.Println(c.CourseTitle, c.SequenceNumber, "in sequence", c.StreamSequence)
-		fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:", prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber], ")")
-		fmt.Println("\t\t at", c.Assignment.BeginTime, "to", c.Assignment.EndTime)
-		if c.Assignment.Monday == true {
+func printAssignments(testScheduleCourse []structs.Course, prefsMap map[string]map[string]int){
+	for _,c := range testScheduleCourse{
+		fmt.Println(c.CourseTitle, c.SequenceNumber,"in sequence", c.StreamSequence)
+		fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:", prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber],")" )
+		fmt.Println("\t\t at", c.Assignment.BeginTime ,"to",c.Assignment.EndTime )
+		if(c.Assignment.Monday == true){
 			fmt.Println("\t\t\t on MTh")
-		} else {
+		}else {
 			fmt.Println("\t\t\t on TWF")
 		}
 	}

@@ -36,6 +36,8 @@ type Course struct {
 	StreamSequence    string     `json:"streamSequence,omitempty"`
 	Assignment        Assignment `json:"meetingTime"`
 	Prof              Professor  `json:"prof,omitempty"`
+	CourseCapacity    uint       `json:"courseCapacity,omitempty"`
+	NumSections       uint       `json:"numSections,omitempty"`
 }
 
 type Professor struct {
