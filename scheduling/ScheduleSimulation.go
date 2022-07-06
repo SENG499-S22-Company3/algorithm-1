@@ -3,6 +3,7 @@ package scheduling
 import (
 	"algorithm-1/structs"
 	"fmt"
+	"math"
 	"math/rand"
 
 	ga "github.com/tomcraven/goga"
@@ -12,36 +13,49 @@ type ScheduleSimulation struct {
 	simulationCount     int
 	NumberOfSimulations int
 	PopulationSize      int
-	BaseSchedule        []structs.Course
+	BaseSemester        []structs.Course
+	NumberOfCourses     int
 	ProfList            []structs.Professor
+	NumberOfProfs       int
+	SectionBitWidth     int
 }
 
+// timeslots: 1 bits for day | 4 bits for time
+const timeslotBitWidth = 5
+
 // This function converts bits to a schedule
-func NewSchedule(genome ga.Genome, courses []structs.Course, profs []structs.Professor) []structs.Course {
+func NewSchedule(genome ga.Genome, sim ScheduleSimulation) []structs.Course {
+	courses := sim.BaseSemester
+	profs := sim.ProfList
 	bitset := genome.GetBits()
 
-	//numberCourses = len(courses)
-	//numberProfs = len(profs)
-
-	times := []string{"0830", "1000", "1130", "1300"}
+	times := []string{"0830", "1000", "1130", "1300", "1430", "1600", "1730",
+		"0930", "1030", "1130", "1230", "1330", "1430", "1530", "1630", "1730"}
 
 	bits := bitset.GetAll()
-	for i, j := 0, 0; i < len(bits); i, j = i+4, j+1 {
-		var assignment []int
-		if i > len(bits)-4 {
-			assignment = bits[i:]
-		} else {
-			assignment = bits[i : i+4]
+	for i, j := 0, 0; i < len(bits); i, j = i+sim.SectionBitWidth, j+1 {
+		assignment := bits[i : i+sim.SectionBitWidth]
+
+		// decoding section of bits into timeslot and prof indexes
+		// first bit determines day A or day B
+		dayIndex := assignment[0]
+		// next few bits are the timeslot
+		timeIndex := bitsToNumber(assignment[1:timeslotBitWidth])
+		// rest of the bits are the prof
+		profIndex := bitsToNumber(assignment[timeslotBitWidth:])
+
+		// need to be careful of invalid indexes
+		if profIndex < sim.NumberOfProfs {
+			courses[j].Prof = profs[profIndex]
 		}
-
-		// decoding 4 bits into prof and timesot
-		profIndex := assignment[0]*2 + assignment[1]
-		timeIndex := assignment[2]*2 + assignment[3]
-
-		courses[j].Prof = profs[profIndex]
 		time := times[timeIndex]
+
 		courses[j].Assignment = structs.Assignment{
-			Monday:    true,
+			Monday:    dayIndex == 1,
+			Tuesday:   dayIndex == 0,
+			Wednesday: dayIndex == 0,
+			Thursday:  dayIndex == 1,
+			Friday:    dayIndex == 0,
 			BeginTime: time,
 		}
 
@@ -50,10 +64,22 @@ func NewSchedule(genome ga.Genome, courses []structs.Course, profs []structs.Pro
 	return courses
 }
 
-// Go initializes a random roster
-func (s ScheduleSimulation) Go() ga.Bitset {
-	//size := s.NumberOfCourses * s.NumberOfProfs * 3
-	size := 16 // this is long enough to fit 4 4bit assignments (2 bits for prof and 2 bits fo time)
+// takes array of bits and turns it into an int
+// ex {1,1,1,1} becomes 15 since 1111 in binary is 15
+func bitsToNumber(bits []int) int {
+	length := len(bits)
+	scale := int(math.Pow(2, float64(length-1)))
+	sum := 0
+	for _, b := range bits {
+		sum += scale * b
+		scale /= 2
+	}
+	return sum
+}
+
+// Go initializes a random schedule
+func (sim ScheduleSimulation) Go() ga.Bitset {
+	size := sim.NumberOfCourses * sim.SectionBitWidth
 	bitset := ga.Bitset{}
 	bitset.Create(size)
 	for i := 0; i < size; i++ {
@@ -71,7 +97,7 @@ func (sim *ScheduleSimulation) OnBeginSimulation() {
 
 // Simulate assigns a fitness value to the given genome
 func (sim *ScheduleSimulation) Simulate(genome ga.Genome) {
-	schedule := NewSchedule(genome, sim.BaseSchedule, sim.ProfList)
+	schedule := NewSchedule(genome, *sim)
 	fitness := GetFitness(schedule)
 	(genome).SetFitness(fitness)
 }
@@ -127,7 +153,7 @@ func GetFitness(s []structs.Course) int {
 
 // OnElite prints the current elite on every simulation iteration
 func (sim *ScheduleSimulation) OnElite(genome ga.Genome) {
-	schedule := NewSchedule(genome, sim.BaseSchedule, sim.ProfList)
+	schedule := NewSchedule(genome, *sim)
 
 	fmt.Println("***********************")
 	fmt.Printf("** [%d] simulation **\n", sim.simulationCount)
@@ -144,13 +170,15 @@ func (sim *ScheduleSimulation) OnElite(genome ga.Genome) {
 func prettyPrintSemester(s []structs.Course) {
 	for _, c := range s {
 		fmt.Print(c.Subject)
-		fmt.Print(c.CourseNumber)
-		fmt.Print(", ")
+		fmt.Print(c.CourseNumber, "\t")
+		fmt.Print(c.Assignment.BeginTime, "\t")
+		fmt.Print(c.Assignment.Monday, " ")
+		fmt.Print(c.Assignment.Tuesday, " ")
+		fmt.Print(c.Assignment.Wednesday, " ")
+		fmt.Print(c.Assignment.Thursday, " ")
+		fmt.Print(c.Assignment.Friday, "\t")
 		fmt.Print(c.Prof.DisplayName)
-		fmt.Print(", ")
-		fmt.Print(c.Assignment.BeginTime)
 		fmt.Println()
-		fmt.Println("---------------------------------")
 	}
 }
 
