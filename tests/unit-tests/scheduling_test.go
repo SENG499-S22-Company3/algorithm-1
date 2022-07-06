@@ -193,77 +193,20 @@ func TestBaseScheduleConcurrent(t *testing.T) {
 }
 
 func TestGenetic(t *testing.T) {
-	courses := []structs.Course{
-		{
-			CourseNumber:   "310",
-			Subject:        "SENG",
-			SequenceNumber: "A01",
-			StreamSequence: "2A",
-			CourseTitle:    "Human Computer Interaction",
-		},
-		{
-			CourseNumber:   "370",
-			Subject:        "CSC",
-			SequenceNumber: "A01",
-			StreamSequence: "2A",
-			CourseTitle:    "Database Systems",
-		},
-		{
-			CourseNumber:   "361",
-			Subject:        "CSC",
-			SequenceNumber: "A01",
-			StreamSequence: "2A",
-			CourseTitle:    "Computer Communications and Networks",
-		},
-		{
-			CourseNumber:   "320",
-			Subject:        "CSC",
-			SequenceNumber: "A01",
-			StreamSequence: "2A",
-			CourseTitle:    "Fundamentals of Computer Science",
-		},
+	// preparing test data
+	jsonData, err := ioutil.ReadFile("../data/input-test.json")
+	if err != nil {
+		t.Error("Error when opening input-test.json file: ", err)
 	}
-	schedule := structs.Schedule{
-		FallCourses: courses,
+
+	input, err := structs.ParseInput(jsonData)
+	if err != nil {
+		t.Error("Input parsing failed with error: ", err.Error())
 	}
-	professors := []structs.Professor{
-		{
-			DisplayName: "Damian, Daniela",
-			Preferences: []structs.Preference{
-				{
-					CourseNum:     "CSC320",
-					PreferenceNum: 1,
-				},
-			},
-		},
-		{
-			DisplayName: "Bird, Bill",
-			Preferences: []structs.Preference{
-				{
-					CourseNum:     "CSC320",
-					PreferenceNum: 100,
-				},
-			},
-		},
-		{
-			DisplayName: "German, Daniel",
-			Preferences: []structs.Preference{
-				{
-					CourseNum:     "CSC320",
-					PreferenceNum: 10,
-				},
-			},
-		},
-		{
-			DisplayName: "Little, Rich",
-			Preferences: []structs.Preference{
-				{
-					CourseNum:     "CSC320",
-					PreferenceNum: 20,
-				},
-			},
-		},
-	}
+
+	schedule := input.CoursesToSchedule
+	professors := input.Professors
+
 	fmt.Println("starting ga test")
 	scheduling.Optimize(schedule, professors)
 	fmt.Println("ending ga test")
