@@ -3,6 +3,7 @@ package scheduling
 import (
 	"algorithm-1/structs"
 	"fmt"
+	"math"
 	"runtime"
 	"time"
 
@@ -68,12 +69,19 @@ func Assignments(historicalSemester []structs.Course, requestedCourses []structs
 }
 
 func Optimize(schedule structs.Schedule, professors []structs.Professor) {
+	// calculating how many bits to enumerate the profs
+	professorBitWidth := int(math.Log2(float64(len(professors))) + 1)
+	sectionBitWidth := (professorBitWidth + 5) // 5 extra bits for timeslots
+
 	// simulation for fall semester
 	simulation := ScheduleSimulation{
 		NumberOfSimulations: 100,
 		PopulationSize:      20,
-		BaseSchedule:        schedule.FallCourses,
+		BaseSemester:        schedule.FallCourses,
+		NumberOfCourses:     len(schedule.FallCourses),
 		ProfList:            professors,
+		NumberOfProfs:       len(professors),
+		SectionBitWidth:     sectionBitWidth,
 	}
 
 	// mater defines how to combine genomes
