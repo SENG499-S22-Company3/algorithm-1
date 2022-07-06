@@ -287,8 +287,9 @@ func TestGenetic(t *testing.T) {
 		FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors),
 	}
 	professors := input.Professors
+	prefMap, _ := scheduling.MapPreferences(professors)
 
 	fmt.Println("starting ga test")
-	scheduling.Optimize(schedule, professors)
+	scheduling.Optimize(schedule, professors, prefMap)
 	fmt.Println("ending ga test")
 }

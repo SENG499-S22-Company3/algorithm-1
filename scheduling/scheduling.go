@@ -68,20 +68,21 @@ func Assignments(historicalSemester []structs.Course, requestedCourses []structs
 	return requestedCourses
 }
 
-func Optimize(schedule structs.Schedule, professors []structs.Professor) {
+func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap map[string]map[string]int) {
 	// calculating how many bits to enumerate the profs
 	professorBitWidth := int(math.Log2(float64(len(professors)-1)) + 1)
 	sectionBitWidth := (professorBitWidth + 5) // 5 extra bits for timeslots
 
 	// simulation for fall semester
 	simulation := ScheduleSimulation{
-		NumberOfSimulations: 100,
-		PopulationSize:      20,
+		NumberOfSimulations: 50,
+		PopulationSize:      1000,
 		BaseSemester:        schedule.FallCourses,
 		NumberOfCourses:     len(schedule.FallCourses),
 		ProfList:            professors,
 		NumberOfProfs:       len(professors),
 		SectionBitWidth:     sectionBitWidth,
+		PreferenceMap:       prefMap,
 	}
 
 	// mater defines how to combine genomes
@@ -89,6 +90,7 @@ func Optimize(schedule structs.Schedule, professors []structs.Professor) {
 		[]ga.MaterFunctionProbability{
 			{P: 1.0, F: ga.TwoPointCrossover},
 			{P: 1.0, F: ga.Mutate},
+			{P: 1.0, F: ga.OnePointCrossover},
 			{P: 1.0, F: ga.UniformCrossover, UseElite: true},
 		},
 	)

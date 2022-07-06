@@ -4,6 +4,7 @@ import (
 	"algorithm-1/structs"
 	"fmt"
 	"math"
+	"sort"
 
 	ga "github.com/tomcraven/goga"
 )
@@ -17,6 +18,7 @@ type ScheduleSimulation struct {
 	ProfList            []structs.Professor
 	NumberOfProfs       int
 	SectionBitWidth     int
+	PreferenceMap       map[string]map[string]int
 }
 
 // timeslots: 1 bit for day | 4 bits for time
@@ -148,57 +150,99 @@ func (sim *ScheduleSimulation) OnBeginSimulation() {
 // Simulate assigns a fitness value to the given genome
 func (sim *ScheduleSimulation) Simulate(genome ga.Genome) {
 	schedule := NewSchedule(genome, *sim)
-	fitness := GetFitness(schedule)
+	fitness := GetFitness(schedule, sim)
 	(genome).SetFitness(fitness)
 }
 
-func GetFitness(s []structs.Course) int {
+func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
 	// hard coded scoring for example
 	score := 0
-	// brute force that the times are different
-	if s[0].Assignment.BeginTime != s[1].Assignment.BeginTime {
-		score += 10
-	}
-	if s[0].Assignment.BeginTime != s[2].Assignment.BeginTime {
-		score += 10
-	}
-	if s[0].Assignment.BeginTime != s[3].Assignment.BeginTime {
-		score += 10
-	}
-	if s[1].Assignment.BeginTime != s[2].Assignment.BeginTime {
-		score += 10
-	}
-	if s[1].Assignment.BeginTime != s[3].Assignment.BeginTime {
-		score += 10
-	}
-	if s[2].Assignment.BeginTime != s[3].Assignment.BeginTime {
-		score += 10
-	}
 
-	// brute force the profs are all different
-	if s[0].Prof.DisplayName != s[1].Prof.DisplayName {
-		score += 10
-	}
-	if s[0].Prof.DisplayName != s[2].Prof.DisplayName {
-		score += 10
-	}
-	if s[0].Prof.DisplayName != s[3].Prof.DisplayName {
-		score += 10
-	}
-	if s[1].Prof.DisplayName != s[2].Prof.DisplayName {
-		score += 10
-	}
-	if s[1].Prof.DisplayName != s[3].Prof.DisplayName {
-		score += 10
-	}
-	if s[2].Prof.DisplayName != s[3].Prof.DisplayName {
-		score += 10
-	}
+	var teachingMap = map[string]string{}
+	timeslotMaps, _ := BaseTimeslotMaps(s)
 
-	// adding preference to score
-	score += int(s[3].Prof.Preferences[0].PreferenceNum)
+	for _, c := range s {
+
+		// professors checks
+		prof := c.Prof.DisplayName
+		var d string
+		if c.Assignment.Monday {
+			d = "MTh" + c.Assignment.BeginTime
+		} else {
+			d = "TWF" + c.Assignment.BeginTime
+		}
+
+		if _, timeConflict := teachingMap[prof+d]; timeConflict {
+			return 0
+		}
+		teachingMap[prof+d] = c.CourseTitle
+		score += int(sim.PreferenceMap[prof][(c.Subject + c.CourseNumber)])
+
+		// timeslots checks
+		if c.StreamSequence == "1A" {
+			score, timeslotMaps.S1A = checkStream(c, timeslotMaps.S1A, score)
+		} else if c.StreamSequence == "1B" {
+			score, timeslotMaps.S1B = checkStream(c, timeslotMaps.S1B, score)
+		} else if c.StreamSequence == "2A" {
+			score, timeslotMaps.S2A = checkStream(c, timeslotMaps.S2A, score)
+		} else if c.StreamSequence == "2B" {
+			score, timeslotMaps.S2B = checkStream(c, timeslotMaps.S2B, score)
+		} else if c.StreamSequence == "3A" {
+			score, timeslotMaps.S3A = checkStream(c, timeslotMaps.S3A, score)
+		} else if c.StreamSequence == "3B" {
+			score, timeslotMaps.S3B = checkStream(c, timeslotMaps.S3B, score)
+		} else if c.StreamSequence == "4A" {
+			score, timeslotMaps.S4A = checkStream(c, timeslotMaps.S4A, score)
+		} else if c.StreamSequence == "4B" {
+			score, timeslotMaps.S4B = checkStream(c, timeslotMaps.S4B, score)
+		}
+
+		if score == 0 {
+			return 0
+		}
+	}
 
 	return score
+}
+
+func checkStream(course structs.Course, timeslots structs.Timeslots, score int) (int, structs.Timeslots) {
+	if course.Assignment.Monday {
+		// fmt.Println("Monday:",  timeslots.Monday)
+		timeslots.Monday, score = checkConflict(course, timeslots.Monday, score)
+	}
+	if course.Assignment.Tuesday {
+		// fmt.Println("Tuesday:", timeslots.Tuesday)
+		timeslots.Tuesday, score = checkConflict(course, timeslots.Tuesday, score)
+	}
+	if course.Assignment.Wednesday {
+		// fmt.Println("Wednesday:", timeslots.Wednesday)
+		timeslots.Wednesday, score = checkConflict(course, timeslots.Wednesday, score)
+	}
+	if course.Assignment.Thursday {
+		// fmt.Println("Thursday:", timeslots.Thursday)
+		timeslots.Thursday, score = checkConflict(course, timeslots.Thursday, score)
+	}
+	if course.Assignment.Friday {
+		// fmt.Println("Friday:", timeslots.Friday)
+		timeslots.Friday, score = checkConflict(course, timeslots.Friday, score)
+	}
+	return score, timeslots
+}
+
+func checkConflict(course structs.Course, day map[string]string, score int) (map[string]string, int) {
+
+	if _, isValid := day[course.Assignment.BeginTime]; !isValid { // Check if map key exists
+		fmt.Println("Error not valid")
+		score = 0
+	} else if scheduledCourse := day[course.Assignment.BeginTime]; scheduledCourse != "" { // Check if there is already a course there
+		fmt.Println("Error already scheduled")
+		score = 0
+	} else {
+		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
+		score = score + 1
+	}
+
+	return day, score
 }
 
 // OnElite prints the current elite on every simulation iteration
@@ -210,14 +254,21 @@ func (sim *ScheduleSimulation) OnElite(genome ga.Genome) {
 	fmt.Println("solution: ")
 	prettyPrintSemester(schedule)
 	fmt.Print("fitness: ")
-	fmt.Println(GetFitness(schedule))
+	fmt.Println(GetFitness(schedule, sim))
 	fmt.Println("***********************")
 }
 
 func prettyPrintSemester(s []structs.Course) {
-	for _, c := range s {
-		fmt.Print(c.Subject)
+
+	sort.SliceStable(s, func(i, j int) bool {
+		return s[i].StreamSequence < s[j].StreamSequence
+	})
+
+	for i, c := range s {
+		fmt.Print(i, "\t", c.Subject)
 		fmt.Print(c.CourseNumber, "\t")
+		fmt.Print(c.SequenceNumber, " ")
+		fmt.Print(c.StreamSequence, "\t")
 		fmt.Print(c.Assignment.BeginTime, "\t")
 		fmt.Print(c.Assignment.Monday, " ")
 		fmt.Print(c.Assignment.Tuesday, " ")
