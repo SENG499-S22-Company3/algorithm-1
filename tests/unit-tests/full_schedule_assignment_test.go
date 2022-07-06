@@ -57,7 +57,7 @@ func TestFallScheduleAssignment(t *testing.T) {
 	testStreamtype := scheduling.CreateEmptyStreamType()
 	testSchedule.FallCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.FallCourses, testSchedule.FallCourses, input.Professors)
-	err := scheduling.ScheduleConstraintsCheck("Fall", testScheduleCourse, input)
+	err := scheduling.ScheduleConstraintsCheck("Fall", testScheduleCourse, input.Professors)
 
 	if err != nil {
 		t.Error(err)
@@ -70,7 +70,7 @@ func TestSpringScheduleAssignment(t *testing.T) {
 	testStreamtype := scheduling.CreateEmptyStreamType()
 	testSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testStreamtype)
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors)
-	err := scheduling.ScheduleConstraintsCheck("Spring", testScheduleCourse, input)
+	err := scheduling.ScheduleConstraintsCheck("Spring", testScheduleCourse, input.Professors)
 
 	if err != nil {
 		t.Error(err)
@@ -83,7 +83,7 @@ func TestSummerScheduleAssignment(t *testing.T) {
 	testStreamtype := scheduling.CreateEmptyStreamType()
 	testSchedule.SummerCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.SummerCourses, testStreamtype)
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SummerCourses, testSchedule.SummerCourses, input.Professors)
-	err := scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input)
+	err := scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input.Professors)
 
 	if err != nil {
 		t.Error(err)
