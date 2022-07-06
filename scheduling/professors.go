@@ -2,11 +2,12 @@ package scheduling
 
 import (
 	"algorithm-1/structs"
+	"fmt"
 	"math/rand"
 	"time"
 )
 
-func randomizer(profList []string) []string{
+func randomizer(profList []string) []string {
 	rand.Seed(time.Now().UnixMilli())
 	for i := range profList {
 		k := rand.Intn(i + 1)
@@ -19,7 +20,7 @@ func randomizer(profList []string) []string{
 	Input:  profs []structs.Professor
 	Output: prefsMap map[string]map[string]int, profList []string
 */
-func MapPreferences(profs []structs.Professor) (map[string]map[string]int, []string){
+func MapPreferences(profs []structs.Professor) (map[string]map[string]int, []string) {
 	var prefsMap = map[string]map[string]int{}
 	var profList []string
 
@@ -37,18 +38,18 @@ func MapPreferences(profs []structs.Professor) (map[string]map[string]int, []str
 	Input:  prefsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course string
 	Output: prof string
 */
-func assignProf(prefsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course structs.Course, profPos int) (string, int){
+func assignProf(prefsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course structs.Course, profPos int) (string, int) {
 	var max int = 0
 	var prof string = "TBD"
 
 	var d string
-	if(course.Assignment.Monday == true){
-		d = "MTh"+course.Assignment.BeginTime
+	if course.Assignment.Monday {
+		d = "MTh" + course.Assignment.BeginTime
 	} else {
-		d = "TWF"+course.Assignment.BeginTime
+		d = "TWF" + course.Assignment.BeginTime
 	}
-		
-	var c = course.Subject+course.CourseNumber
+
+	var c = course.Subject + course.CourseNumber
 	var size = len(profList)
 
 	for i := 0; i < size; i++ {
@@ -62,13 +63,13 @@ func assignProf(prefsMap map[string]map[string]int, profList []string, teachingM
 		}
 
 		// check if profs preference is higher then current
-		if max < prefsMap[p][c]{
+		if max < prefsMap[p][c] {
 			max = prefsMap[p][c]
 			prof = profList[profPos]
 		}
 
 		// if prof has max preference return prof and profPos
-		if(max == 6){
+		if max == 6 {
 			profPos = (profPos + 1) % size
 			return prof, profPos
 		}
@@ -83,7 +84,7 @@ func assignProf(prefsMap map[string]map[string]int, profList []string, teachingM
 	Output: SemesterSchedule
 */
 func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Course, professors []structs.Professor) []structs.Course {
-	
+
 	// get list profs and list of prof preferences
 	prefsMap, profList := MapPreferences(professors)
 	var teachingMap = map[string]string{}
@@ -94,28 +95,70 @@ func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Cour
 
 	// for loop through courses needed to be assigned this semester and assign each of them profs
 	for i, c := range semesterSchedule {
-		
+
 		// need to check if professors has taught more then prefered courses this semester
 		if val, skip := courseMap[c.Subject+c.CourseNumber]; skip {
 			prof = val
 			// TODO: increase prof teaching count
-		}else{
+		} else {
 			prof, profPos = assignProf(prefsMap, profList, teachingMap, c, profPos)
 		}
-		
-		if(c.Assignment.Monday == true){
-			d = "MTh"+c.Assignment.BeginTime
+
+		if c.Assignment.Monday {
+			d = "MTh" + c.Assignment.BeginTime
 		} else {
-			d = "TWF"+c.Assignment.BeginTime
+			d = "TWF" + c.Assignment.BeginTime
 		}
 
 		// update map used to asssign same prof to different sections of the same course
-		courseMap[c.Subject+c.CourseNumber] = prof  	
-		// update map used to ensure teachers aren't double slotted 
-		teachingMap[prof+d] = c.CourseTitle			
+		courseMap[c.Subject+c.CourseNumber] = prof
+		// update map used to ensure teachers aren't double slotted
+		teachingMap[prof+d] = c.CourseTitle
 		// update semester schedule
 		semesterSchedule[i].Prof.DisplayName = prof
 	}
 
 	return semesterSchedule
+}
+
+func ScheduleConstraintsCheck(term string,
+	testScheduleCourse []structs.Course,
+	input structs.Input) error {
+
+	var teachingMap = map[string]map[string]string{}
+	var d string
+	var err error
+
+	for _, p := range input.Professors {
+		teachingMap[p.DisplayName] = map[string]string{}
+	}
+
+	prefsMap, _ := MapPreferences(input.Professors)
+
+	for _, c := range testScheduleCourse {
+		if c.Assignment.Monday {
+			d = "MTh" + c.Assignment.BeginTime
+		} else {
+			d = "TWF" + c.Assignment.BeginTime
+		}
+
+		if c.Prof.DisplayName == "" || c.Assignment.BeginTime == "" || c.Assignment.EndTime == "" {
+			err = fmt.Errorf("error: %v Schedule missing %v %v timeslot and/or prof,   ", term, c.Subject, c.CourseNumber)
+			break
+		}
+
+		if _, found := teachingMap[c.Prof.DisplayName][d]; found {
+			err = fmt.Errorf("error: %v teaching another %v course at %v,   ", c.Prof.DisplayName, term, d)
+			break
+		}
+
+		if val, pass := prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "TBD" {
+			err = fmt.Errorf(c.Prof.DisplayName, "cannot teach this "+term+" course since they have no (", val, ") preference,   ")
+			break
+		}
+
+		teachingMap[c.Prof.DisplayName][d] = c.CourseTitle + d
+	}
+
+	return err
 }

@@ -96,6 +96,10 @@ func AddCoursesToStreamMaps(courses []structs.Course, timeslotMaps structs.Strea
 			updatedCourse, timeslotMaps.S4B, err = addMultipleTimeslots(course, timeslotMaps.S4B)
 		}
 
+		if err != nil {
+			break
+		}
+
 		updatedCourses = append(updatedCourses, updatedCourse)
 	}
 
@@ -155,7 +159,7 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 							if err != nil {
 								break
 							}
-							timeslots.Thursday, err = addTimeslot(course, timeslots.Friday)
+							timeslots.Friday, err = addTimeslot(course, timeslots.Friday)
 							hasBeenAdded = true
 							break
 						}
@@ -175,20 +179,21 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 
 func addTimeslot(course structs.Course, day map[string]string) (map[string]string, error) {
 	var err error
-	beginTimeInt, _ := strconv.Atoi(course.Assignment.BeginTime)
-	endTimeInt, _ := strconv.Atoi(course.Assignment.EndTime)
+	//beginTimeInt, _ := strconv.Atoi(course.Assignment.BeginTime)
+	//endTimeInt, _ := strconv.Atoi(course.Assignment.EndTime)
 
 	if _, isValid := day[course.Assignment.BeginTime]; !isValid { // Check if map key exists
-		err = fmt.Errorf("error: %v %v is scheduled during a regular block time at %v", course.Subject, course.CourseNumber, course.Assignment.BeginTime)
+		err = fmt.Errorf("error: %v %v is scheduled outside a regular block time at %v   ", course.Subject, course.CourseNumber, course.Assignment.BeginTime)
 	} else if scheduledCourse := day[course.Assignment.BeginTime]; scheduledCourse != "" { // Check if there is already a course there
-		err = fmt.Errorf("error: %v %v is scheduled at same time as another required course %v", course.Subject, course.CourseNumber, scheduledCourse)
+		err = fmt.Errorf("error: %v %v is scheduled at same time as another required course %v,   ", course.Subject, course.CourseNumber, scheduledCourse)
 	} else {
 		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
 	}
-
-	if endTimeInt-beginTimeInt == 250 || endTimeInt-beginTimeInt == 290 { // Check if three hour course
-		// TO-DO handle 3 hour courses
-	}
+	/*
+		if endTimeInt-beginTimeInt == 250 || endTimeInt-beginTimeInt == 290 { // Check if three hour course
+			// TO-DO handle 3 hour courses
+		}
+	*/
 
 	return day, err
 }
