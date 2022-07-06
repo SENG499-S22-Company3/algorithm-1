@@ -43,13 +43,12 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 	var schedule structs.Schedule
 
 	schedule.FallCourses = scheduling.Assignments(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors)
-
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
 		return
 	}
-	
+
 	schedule.SpringCourses = scheduling.Assignments(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -72,19 +71,61 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, string(marshalledJSON))
 }
 
+// Given a schedule, hard requirement checks are done to confirm none are violated
+// Send schedule object in the "hardScheduled" place. The coursesToSchedule will be ignored so it can just be empty, "professors" will be used to make sure constraints are satisfied
 func CheckSchedule(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "No body parameters provided")
 	}
 
-	// TODO: Call parsing method and scheduling checking
-	// method. For now, only outputs the body provided
-	// (JSON data), and if it's empty just returns a basic string.
-	if len(reqBody) == 0 {
-		fmt.Fprintf(w, "This will check a schedule is valid!")
+	parsedInput, err := structs.ParseInput(reqBody)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	requirementsViolated := false
+
+	// Check for professor and basic violations
+	err = scheduling.ScheduleConstraintsCheck("Fall", parsedInput.HardScheduled.FallCourses, parsedInput)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+		requirementsViolated = true
+	}
+	err = scheduling.ScheduleConstraintsCheck("Spring", parsedInput.HardScheduled.SpringCourses, parsedInput)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+		requirementsViolated = true
+	}
+	err = scheduling.ScheduleConstraintsCheck("Summer", parsedInput.HardScheduled.SummerCourses, parsedInput)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+		requirementsViolated = true
+	}
+
+	// Check for timeslot violations
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.FallCourses)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+		requirementsViolated = true
+	}
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SpringCourses)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+		requirementsViolated = true
+	}
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SummerCourses)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+		requirementsViolated = true
+	}
+
+	if !requirementsViolated {
+		fmt.Fprintf(w, "Schedule given is valid")
 	} else {
-		fmt.Fprint(w, string(reqBody))
+		fmt.Fprint(w, "Schedule given has some violations that should be resolved")
 	}
 }
 
