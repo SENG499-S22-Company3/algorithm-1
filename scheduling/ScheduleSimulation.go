@@ -20,19 +20,17 @@ type ScheduleSimulation struct {
 	SectionBitWidth     int
 }
 
-// timeslots: 1 bits for day | 4 bits for time
+// timeslots: 1 bit for day | 4 bits for time
 const timeslotBitWidth = 5
 
 // This function converts bits to a schedule
 func NewSchedule(genome ga.Genome, sim ScheduleSimulation) []structs.Course {
 	courses := sim.BaseSemester
 	profs := sim.ProfList
-	bitset := genome.GetBits()
-
 	times := []string{"0830", "1000", "1130", "1300", "1430", "1600", "1730",
 		"0930", "1030", "1130", "1230", "1330", "1430", "1530", "1630", "1730"}
 
-	bits := bitset.GetAll()
+	bits := genome.GetBits().GetAll()
 	for i, j := 0, 0; i < len(bits); i, j = i+sim.SectionBitWidth, j+1 {
 		assignment := bits[i : i+sim.SectionBitWidth]
 
@@ -48,6 +46,7 @@ func NewSchedule(genome ga.Genome, sim ScheduleSimulation) []structs.Course {
 		if profIndex < sim.NumberOfProfs {
 			courses[j].Prof = profs[profIndex]
 		}
+
 		time := times[timeIndex]
 
 		courses[j].Assignment = structs.Assignment{
@@ -58,14 +57,13 @@ func NewSchedule(genome ga.Genome, sim ScheduleSimulation) []structs.Course {
 			Friday:    dayIndex == 0,
 			BeginTime: time,
 		}
-
 	}
 
 	return courses
 }
 
 // takes array of bits and turns it into an int
-// ex {1,1,1,1} becomes 15 since 1111 in binary is 15
+// ex {1,1,1,1} becomes 15 since 1111 in binary is 15 in decimal
 func bitsToNumber(bits []int) int {
 	length := len(bits)
 	scale := int(math.Pow(2, float64(length-1)))
@@ -77,7 +75,7 @@ func bitsToNumber(bits []int) int {
 	return sum
 }
 
-// Go initializes a random schedule
+// Initializes a random schedule to start with
 func (sim ScheduleSimulation) Go() ga.Bitset {
 	size := sim.NumberOfCourses * sim.SectionBitWidth
 	bitset := ga.Bitset{}
