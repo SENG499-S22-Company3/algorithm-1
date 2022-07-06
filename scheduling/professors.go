@@ -2,11 +2,12 @@ package scheduling
 
 import (
 	"algorithm-1/structs"
+	"fmt"
 	"math/rand"
 	"time"
 )
 
-func randomizer(profList []string) []string{
+func randomizer(profList []string) []string {
 	rand.Seed(time.Now().UnixMilli())
 	for i := range profList {
 		k := rand.Intn(i + 1)
@@ -71,13 +72,13 @@ func assignProf(prefsMap map[string]map[string]int,
 	var prof string = "TBD"
 
 	var d string
-	if(course.Assignment.Monday == true){
-		d = "MTh"+course.Assignment.BeginTime
+	if course.Assignment.Monday {
+		d = "MTh" + course.Assignment.BeginTime
 	} else {
-		d = "TWF"+course.Assignment.BeginTime
+		d = "TWF" + course.Assignment.BeginTime
 	}
-		
-	var c = course.Subject+course.CourseNumber
+
+	var c = course.Subject + course.CourseNumber
 	var size = len(profList)
 
 	for i := 0; i < size; i++ {
@@ -98,7 +99,7 @@ func assignProf(prefsMap map[string]map[string]int,
 		}
 
 		// if prof has max preference return prof and profPos
-		if(max == 6){
+		if max == 6 {
 			profPos = (profPos + 1) % size
 			return prof, profPos
 		}
@@ -128,7 +129,7 @@ func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Cour
 
 	// for loop through courses needed to be assigned this semester and assign each of them profs
 	for i, c := range semesterSchedule {
-		
+
 		// need to check if professors has taught more then prefered courses this semester
 		if val, exists := courseMap[c.Subject+c.CourseNumber]; exists && teachingCount[val] < teachingPrefMax[val] {
 			prof = val
@@ -155,4 +156,47 @@ func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Cour
 	}
 
 	return semesterSchedule
+}
+
+func ScheduleConstraintsCheck(term string, testScheduleCourse []structs.Course, input structs.Input) error {
+
+	var teachingMap = map[string]map[string]string{}
+	var d string
+	var err error
+
+	for _, p := range input.Professors {
+		teachingMap[p.DisplayName] = map[string]string{}
+	}
+
+	prefsMap, _, _ := MapPreferences(input.Professors, term)
+
+	for _, c := range testScheduleCourse {
+		if c.Assignment.Monday {
+			d = "MTh" + c.Assignment.BeginTime
+		} else {
+			d = "TWF" + c.Assignment.BeginTime
+		}
+
+		if c.Prof.DisplayName == "" || c.Assignment.BeginTime == "" || c.Assignment.EndTime == "" {
+			err = fmt.Errorf("error: %v Schedule missing %v %v timeslot and/or prof,   ", term, c.Subject, c.CourseNumber)
+			break
+		}
+
+		if _, found := teachingMap[c.Prof.DisplayName][d]; found {
+			err = fmt.Errorf("error: %v teaching another %v course at %v,   ", c.Prof.DisplayName, term, d)
+			break
+		}
+
+		if val, pass := prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "TBD" {
+			err = fmt.Errorf(c.Prof.DisplayName, "cannot teach this "+term+" course since they have no (", val, ") preference,   ")
+			break
+		}
+
+		teachingMap[c.Prof.DisplayName][d] = c.CourseTitle + d
+
+		// need to add prefered number of courses to teach a semester logic once this feature
+		// is put in production
+	}
+
+	return err
 }

@@ -3,13 +3,14 @@ package tests
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"testing"
 )
 
-func TestFullScheduleAssignment(t *testing.T) {
+func getInput(t *testing.T) (structs.Schedule, structs.Input){
 	jsonData, err := ioutil.ReadFile("../data/input-test.json")
 	if err != nil {
 		log.Fatal("Error when opening input-test.json file: ", err)
@@ -34,50 +35,57 @@ func TestFullScheduleAssignment(t *testing.T) {
 	if err != nil {
 		t.Error("Error: Course data parsing failed")
 	}
+	return testSchedule, input
+}
 
-	testStreamtype := scheduling.CreateEmptyStreamType()
-	testSchedule.SpringCourses, _, err = scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testStreamtype)
-	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors, "Spring")
-	
-	var teachingMap = map[string]map[string]string{}
-
-	for _,p := range input.Professors{
-		teachingMap[p.DisplayName] = map[string]string{}
-	}
-
-	profsMap, _, _ := scheduling.MapPreferences(input.Professors, "Spring")
-
-	for _,c := range testScheduleCourse {
-		var d string
+func printAssignments(testScheduleCourse []structs.Course, prefsMap map[string]map[string]int){
+	for _,c := range testScheduleCourse{
+		fmt.Println(c.CourseTitle, c.SequenceNumber,"in sequence", c.StreamSequence)
+		fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:", prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber],")" )
+		fmt.Println("\t\t at", c.Assignment.BeginTime ,"to",c.Assignment.EndTime )
 		if(c.Assignment.Monday == true){
-			d = "MTh"+c.Assignment.BeginTime
-		} else {
-			d = "TWF"+c.Assignment.BeginTime
+			fmt.Println("\t\t\t on MTh")
+		}else {
+			fmt.Println("\t\t\t on TWF")
 		}
-		
-		if c.Prof.DisplayName == "" ||  c.Assignment.BeginTime == "" || c.Assignment.EndTime == ""{
-			t.Error("Error: Schedule not properlly assigned")
-		}
-
-		if _, err := teachingMap[c.Prof.DisplayName][d]; err {
-			t.Error("Error: Prof teaching another course at this time.")
-		}
-
-		if val, pass := profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "TBD" {
-			t.Error(c.Prof.DisplayName, "cannot teach this course since they have no (", val, ") preference.")
-		}
-
-		teachingMap[c.Prof.DisplayName][d] = c.CourseTitle+d
 	}
+}
 
-	// for _,c := range testScheduleCourse{
-	// 	fmt.Println(c.CourseTitle, c.SequenceNumber,"in sequence", c.StreamSequence)
-	// 	fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:" ,profsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber],")" )
-	// 	fmt.Println("\t\t at", c.Assignment.BeginTime ,"to",c.Assignment.EndTime )
-	// 	if(c.Assignment.Monday == true){
-	// 		fmt.Println("\t\t\t on MTh")
-	// 	}else {
-	// 		fmt.Println("\t\t\t on TWF")
-	// 	}
-	// }
+func TestFallScheduleAssignment(t *testing.T) {
+
+	testSchedule, input := getInput(t)
+	testStreamtype := scheduling.CreateEmptyStreamType()
+	testSchedule.FallCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
+	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.FallCourses, testSchedule.FallCourses, input.Professors, "Fall")
+	err := scheduling.ScheduleConstraintsCheck("Fall", testScheduleCourse, input)
+
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func TestSpringScheduleAssignment(t *testing.T) {
+
+	testSchedule, input := getInput(t)
+	testStreamtype := scheduling.CreateEmptyStreamType()
+	testSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testStreamtype)
+	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors, "Spring")
+	err := scheduling.ScheduleConstraintsCheck("Spring", testScheduleCourse, input)
+
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func TestSummerScheduleAssignment(t *testing.T) {
+
+	testSchedule, input := getInput(t)
+	testStreamtype := scheduling.CreateEmptyStreamType()
+	testSchedule.SummerCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.SummerCourses, testStreamtype)
+	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SummerCourses, testSchedule.SummerCourses, input.Professors, "Summer")
+	err := scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input)
+
+	if err != nil {
+		t.Error(err)
+	}
 }
