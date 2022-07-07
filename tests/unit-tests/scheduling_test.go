@@ -211,3 +211,82 @@ func TestGenetic(t *testing.T) {
 	scheduling.Optimize(schedule, professors)
 	fmt.Println("ending ga test")
 }
+
+func TestSmallGenetic(t *testing.T) {
+	// preparing test data
+	courses := []structs.Course{
+		{
+			CourseNumber:   "310",
+			Subject:        "SENG",
+			SequenceNumber: "A01",
+			StreamSequence: "2A",
+			CourseTitle:    "Human Computer Interaction",
+		},
+		{
+			CourseNumber:   "370",
+			Subject:        "CSC",
+			SequenceNumber: "A01",
+			StreamSequence: "2A",
+			CourseTitle:    "Database Systems",
+		},
+		{
+			CourseNumber:   "361",
+			Subject:        "CSC",
+			SequenceNumber: "A01",
+			StreamSequence: "2A",
+			CourseTitle:    "Computer Communications and Networks",
+		},
+		{
+			CourseNumber:   "320",
+			Subject:        "CSC",
+			SequenceNumber: "A01",
+			StreamSequence: "2A",
+			CourseTitle:    "Fundamentals of Computer Science",
+		},
+	}
+	schedule := structs.Schedule{
+		FallCourses: courses,
+	}
+	professors := []structs.Professor{
+		{
+			DisplayName: "Damian, Daniela",
+			Preferences: []structs.Preference{
+				{
+					CourseNum:     "CSC320",
+					PreferenceNum: 1,
+				},
+			},
+		},
+		{
+			DisplayName: "Bird, Bill",
+			Preferences: []structs.Preference{
+				{
+					CourseNum:     "CSC320",
+					PreferenceNum: 100,
+				},
+			},
+		},
+		{
+			DisplayName: "German, Daniel",
+			Preferences: []structs.Preference{
+				{
+					CourseNum:     "CSC320",
+					PreferenceNum: 10,
+				},
+			},
+		},
+		{
+			DisplayName: "Little, Rich",
+			Preferences: []structs.Preference{
+				{
+					CourseNum:     "CSC320",
+					PreferenceNum: 20,
+				},
+			},
+		},
+	}
+
+	fmt.Println("starting ga test")
+	scheduling.Optimize(schedule, professors)
+	fmt.Println("ending ga test")
+}
