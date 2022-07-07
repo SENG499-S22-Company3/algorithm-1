@@ -3,6 +3,7 @@ package tests
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -189,8 +190,8 @@ func TestCantScheduleCourseWithoutStreamSequence(t *testing.T) {
 	testAssignment := structs.Assignment{
 		StartDate: "Sep 05, 2018",
 		EndDate:   "Dec 05, 2018",
-		BeginTime: "0300",
-		EndTime:   "0420",
+		BeginTime: "1300",
+		EndTime:   "1420",
 		HoursWeek: 3,
 		Sunday:    false,
 		Monday:    true,
@@ -217,6 +218,29 @@ func TestCantScheduleCourseWithoutStreamSequence(t *testing.T) {
 	}
 
 	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+
+	if err == nil {
+		t.Error("Error: Did not catch course being scheduled without stream sequence")
+	}
+}
+
+func TestStreamOverflow(t *testing.T) {
+	// Test data
+	jsonFile, err := os.Open("../data/overflow-courses-test.json")
+	if err != nil {
+		t.Error("Error: Test file not found")
+	}
+
+	courseData, _ := ioutil.ReadAll(jsonFile)
+
+	testSchedule, err := structs.ParseHistorical(courseData)
+	if err != nil {
+		t.Error("Error: Parsing data from JSON to schedule object failed")
+	}
+
+	_, err = scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+
+	fmt.Print(err.Error())
 
 	if err == nil {
 		t.Error("Error: Did not catch course being scheduled without stream sequence")
