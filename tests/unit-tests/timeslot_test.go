@@ -184,6 +184,45 @@ func TestCantScheduleClassOutsideTime(t *testing.T) {
 	}
 }
 
+func TestCantScheduleCourseWithoutStreamSequence(t *testing.T) {
+	// Test data
+	testAssignment := structs.Assignment{
+		StartDate: "Sep 05, 2018",
+		EndDate:   "Dec 05, 2018",
+		BeginTime: "0300",
+		EndTime:   "0420",
+		HoursWeek: 3,
+		Sunday:    false,
+		Monday:    true,
+		Tuesday:   false,
+		Wednesday: false,
+		Thursday:  true,
+		Friday:    false,
+		Saturday:  false,
+	}
+
+	testCourse := structs.Course{
+		Assignment:     testAssignment,
+		CourseNumber:   "101",
+		Subject:        "CHEM",
+		SequenceNumber: "A01",
+		StreamSequence: "",
+		CourseTitle:    "Properties of Materials",
+	}
+
+	testSchedule := structs.Schedule{
+		FallCourses:   []structs.Course{testCourse},
+		SpringCourses: []structs.Course{},
+		SummerCourses: []structs.Course{},
+	}
+
+	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+
+	if err == nil {
+		t.Error("Error: Did not catch course being scheduled without stream sequence")
+	}
+}
+
 func TestFullRandomAssignment(t *testing.T) {
 	allChanged := true
 
