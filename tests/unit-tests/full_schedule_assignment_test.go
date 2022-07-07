@@ -58,10 +58,17 @@ func TestFallScheduleAssignment(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	testSchedule.FallCourses, _, _ = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype)
+	testSchedule.FallCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype)
+	if err != nil {
+		t.Error(err)
+	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.FallCourses, testSchedule.FallCourses, input.Professors)
 	err = scheduling.ScheduleConstraintsCheck("Fall", testScheduleCourse, input.Professors)
-
+	if err != nil {
+		t.Error(err)
+	}
+	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.FallCourses...)
+	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
 	if err != nil {
 		t.Error(err)
 	}
@@ -74,10 +81,17 @@ func TestSpringScheduleAssignment(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	testSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SpringCourses), testStreamtype)
+	testSchedule.SpringCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SpringCourses), testStreamtype)
+	if err != nil {
+		t.Error(err)
+	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors)
 	err = scheduling.ScheduleConstraintsCheck("Spring", testScheduleCourse, input.Professors)
-
+	if err != nil {
+		t.Error(err)
+	}
+	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SpringCourses...)
+	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
 	if err != nil {
 		t.Error(err)
 	}
@@ -90,10 +104,17 @@ func TestSummerScheduleAssignment(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	testSchedule.SummerCourses, _, _ = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SummerCourses), testStreamtype)
+	testSchedule.SummerCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SummerCourses), testStreamtype)
+	if err != nil {
+		t.Error(err)
+	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SummerCourses, testSchedule.SummerCourses, input.Professors)
 	err = scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input.Professors)
-
+	if err != nil {
+		t.Error(err)
+	}
+	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SummerCourses...)
+	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
 	if err != nil {
 		t.Error(err)
 	}
