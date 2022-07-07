@@ -159,7 +159,11 @@ func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
 	score := 0
 
 	var teachingMap = map[string]string{}
-	timeslotMaps, _ := BaseTimeslotMaps(s)
+	_, err := BaseTimeslotMaps(s)
+
+	if err != nil {
+		return 0
+	}
 
 	for _, c := range s {
 
@@ -179,72 +183,10 @@ func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
 			// fmt.Println("Prof Time Conflict")
 			score += -1
 		}
-
-		// timeslots checks
-		if c.StreamSequence == "1A" {
-			score, timeslotMaps.S1A = checkStream(c, timeslotMaps.S1A, score)
-		} else if c.StreamSequence == "1B" {
-			score, timeslotMaps.S1B = checkStream(c, timeslotMaps.S1B, score)
-		} else if c.StreamSequence == "2A" {
-			score, timeslotMaps.S2A = checkStream(c, timeslotMaps.S2A, score)
-		} else if c.StreamSequence == "2B" {
-			score, timeslotMaps.S2B = checkStream(c, timeslotMaps.S2B, score)
-		} else if c.StreamSequence == "3A" {
-			score, timeslotMaps.S3A = checkStream(c, timeslotMaps.S3A, score)
-		} else if c.StreamSequence == "3B" {
-			score, timeslotMaps.S3B = checkStream(c, timeslotMaps.S3B, score)
-		} else if c.StreamSequence == "4A" {
-			score, timeslotMaps.S4A = checkStream(c, timeslotMaps.S4A, score)
-		} else if c.StreamSequence == "4B" {
-			score, timeslotMaps.S4B = checkStream(c, timeslotMaps.S4B, score)
-		}
-
-		if score == 0 {
-			return 0
-		}
+		score += 10
 	}
 
 	return score
-}
-
-func checkStream(course structs.Course, timeslots structs.Timeslots, score int) (int, structs.Timeslots) {
-	if course.Assignment.Monday {
-		// fmt.Println("Monday:",  timeslots.Monday)
-		timeslots.Monday, score = checkConflict(course, timeslots.Monday, score)
-	}
-	if course.Assignment.Tuesday {
-		// fmt.Println("Tuesday:", timeslots.Tuesday)
-		timeslots.Tuesday, score = checkConflict(course, timeslots.Tuesday, score)
-	}
-	if course.Assignment.Wednesday {
-		// fmt.Println("Wednesday:", timeslots.Wednesday)
-		timeslots.Wednesday, score = checkConflict(course, timeslots.Wednesday, score)
-	}
-	if course.Assignment.Thursday {
-		// fmt.Println("Thursday:", timeslots.Thursday)
-		timeslots.Thursday, score = checkConflict(course, timeslots.Thursday, score)
-	}
-	if course.Assignment.Friday {
-		// fmt.Println("Friday:", timeslots.Friday)
-		timeslots.Friday, score = checkConflict(course, timeslots.Friday, score)
-	}
-	return score, timeslots
-}
-
-func checkConflict(course structs.Course, day map[string]string, score int) (map[string]string, int) {
-
-	if _, isValid := day[course.Assignment.BeginTime]; !isValid { // Check if map key exists
-		// fmt.Println("Error not valid")
-		score += 0
-	} else if scheduledCourse := day[course.Assignment.BeginTime]; scheduledCourse != "" { // Check if there is already a course there
-		// fmt.Println("Error already scheduled")
-		score += 0
-	} else {
-		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
-		score += 1
-	}
-
-	return day, score
 }
 
 // OnElite prints the current elite on every simulation iteration
