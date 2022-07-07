@@ -56,7 +56,7 @@ func BaseSchedule(requestedCourses structs.Schedule, historicalSchedule structs.
 func Assignments(historicalSemester []structs.Course, requestedCourses []structs.Course, professors []structs.Professor) ([]structs.Course){
 	
 	timeslotFallMap, _ := BaseTimeslotMaps(historicalSemester)
-	requestedCourses, _, _ = AddCoursesToStreamMaps(requestedCourses, timeslotFallMap)
+	requestedCourses, _, _ = AddCoursesToStreamMaps(Split(requestedCourses), timeslotFallMap)
 	requestedCourses = AssignCourseProf(historicalSemester, requestedCourses, professors)
 
 	return requestedCourses

@@ -80,7 +80,7 @@ func TestRandomTimeslotAssignment(t *testing.T) {
 	testStreamtype := scheduling.CreateEmptyStreamType()
 	var err error
 
-	testSchedule.FallCourses, testStreamtype, err = scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
+	testSchedule.FallCourses, testStreamtype, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype)
 	isAdded := false
 
 	if err != nil {
@@ -202,7 +202,7 @@ func TestFullRandomAssignment(t *testing.T) {
 
 	testStreamtype := scheduling.CreateEmptyStreamType()
 
-	testSchedule.FallCourses, _, err = scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
+	testSchedule.FallCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype)
 
 	if err != nil {
 		t.Error(err)

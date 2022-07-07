@@ -40,7 +40,7 @@ func getInput(t *testing.T) (structs.Schedule, structs.Input){
 
 func printAssignments(testScheduleCourse []structs.Course, prefsMap map[string]map[string]int){
 	for _,c := range testScheduleCourse{
-		fmt.Println(c.CourseTitle, c.SequenceNumber,"in sequence", c.StreamSequence)
+		fmt.Println(c.Subject, c.CourseNumber, c.CourseTitle, c.SequenceNumber,"in sequence", c.StreamSequence)
 		fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:", prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber],")" )
 		fmt.Println("\t\t at", c.Assignment.BeginTime ,"to",c.Assignment.EndTime )
 		if(c.Assignment.Monday == true){
@@ -55,7 +55,7 @@ func TestFallScheduleAssignment(t *testing.T) {
 
 	testSchedule, input := getInput(t)
 	testStreamtype := scheduling.CreateEmptyStreamType()
-	testSchedule.FallCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testStreamtype)
+	testSchedule.FallCourses, _, _ = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype)
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.FallCourses, testSchedule.FallCourses, input.Professors)
 	err := scheduling.ScheduleConstraintsCheck("Fall", testScheduleCourse, input)
 
@@ -68,7 +68,7 @@ func TestSpringScheduleAssignment(t *testing.T) {
 
 	testSchedule, input := getInput(t)
 	testStreamtype := scheduling.CreateEmptyStreamType()
-	testSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testStreamtype)
+	testSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SpringCourses), testStreamtype)
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors)
 	err := scheduling.ScheduleConstraintsCheck("Spring", testScheduleCourse, input)
 
@@ -81,7 +81,7 @@ func TestSummerScheduleAssignment(t *testing.T) {
 
 	testSchedule, input := getInput(t)
 	testStreamtype := scheduling.CreateEmptyStreamType()
-	testSchedule.SummerCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.SummerCourses, testStreamtype)
+	testSchedule.SummerCourses, _, _ = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SummerCourses), testStreamtype)
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SummerCourses, testSchedule.SummerCourses, input.Professors)
 	err := scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input)
 
