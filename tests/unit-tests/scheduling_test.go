@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"algorithm-1/genetic"
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
 	"io/ioutil"
@@ -188,4 +189,8 @@ func TestBaseScheduleConcurrent(t *testing.T) {
 		t.Error("Course should not be present")
 		// Shouldn't be included because seng courses aren't present in historical data for summer 2019
 	}
+}
+
+func TestGeneticAlg(t *testing.T) {
+	genetic.RunGeneticAlg()
 }
