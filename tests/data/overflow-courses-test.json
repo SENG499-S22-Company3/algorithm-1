@@ -125,13 +125,6 @@
         "sequenceNumber": "A01",
         "courseTitle": "Microprocessor-Based Systems",
         "StreamSequence": "2B"
-      },
-      {
-        "courseNumber": "260",
-        "subject": "ECE",
-        "sequenceNumber": "A01",
-        "courseTitle": "Continuous-Time Signals and Systems",
-        "StreamSequence": "2B"
       }
     ],
     "springTermCourses": [],
