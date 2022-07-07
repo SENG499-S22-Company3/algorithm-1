@@ -51,7 +51,6 @@ func RunGeneticAlg(requestBody structs.Input, term string) {
 			fmt.Println(err)
 			return
 		} else {
-			goodSchedule = append(goodSchedule, input.HardScheduled.SpringCourses...)
 			for _, course := range goodSchedule {
 				fmt.Printf("%+v \n\n", course)
 			}
