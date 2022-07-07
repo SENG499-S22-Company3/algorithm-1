@@ -192,26 +192,6 @@ func TestBaseScheduleConcurrent(t *testing.T) {
 	}
 }
 
-func TestGenetic(t *testing.T) {
-	// preparing test data
-	jsonData, err := ioutil.ReadFile("../data/input-test.json")
-	if err != nil {
-		t.Error("Error when opening input-test.json file: ", err)
-	}
-
-	input, err := structs.ParseInput(jsonData)
-	if err != nil {
-		t.Error("Input parsing failed with error: ", err.Error())
-	}
-
-	schedule := input.CoursesToSchedule
-	professors := input.Professors
-
-	fmt.Println("starting ga test")
-	scheduling.Optimize(schedule, professors)
-	fmt.Println("ending ga test")
-}
-
 func TestSmallGenetic(t *testing.T) {
 	// preparing test data
 	courses := []structs.Course{
@@ -285,6 +265,28 @@ func TestSmallGenetic(t *testing.T) {
 			},
 		},
 	}
+
+	fmt.Println("starting ga test")
+	scheduling.Optimize(schedule, professors)
+	fmt.Println("ending ga test")
+}
+
+func TestGenetic(t *testing.T) {
+	// preparing test data
+	jsonData, err := ioutil.ReadFile("../data/input-test.json")
+	if err != nil {
+		t.Error("Error when opening input-test.json file: ", err)
+	}
+
+	input, err := structs.ParseInput(jsonData)
+	if err != nil {
+		t.Error("Input parsing failed with error: ", err.Error())
+	}
+
+	schedule := structs.Schedule{
+		FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors),
+	}
+	professors := input.Professors
 
 	fmt.Println("starting ga test")
 	scheduling.Optimize(schedule, professors)
