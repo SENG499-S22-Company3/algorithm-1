@@ -4,7 +4,6 @@ import (
 	"algorithm-1/structs"
 	"fmt"
 	"math"
-	"math/rand"
 
 	ga "github.com/tomcraven/goga"
 )
@@ -75,14 +74,16 @@ func bitsToNumber(bits []int) int {
 	return sum
 }
 
-func scheduleToBitset(semester []structs.Course, profs []structs.Professor) []int {
+func scheduleToBitset(sim ScheduleSimulation) []int {
+	semester := sim.BaseSemester
+	profs := sim.ProfList
 	var times = map[string]int{
-		"0830" : 0, "1000" : 1, "1130" : 2, "1300" : 3, "1430" : 4, "1600" : 5, "1730" : 6,
-		"0930" : 7, "1030" : 8, "1230" : 10, "1330" : 11, "1530" : 13, "1630" : 14,
+		"0830": 0, "1000": 1, "1130": 2, "1300": 3, "1430": 4, "1600": 5, "1730": 6,
+		"0930": 7, "1030": 8, "1230": 10, "1330": 11, "1530": 13, "1630": 14,
 	}
 
 	var bits []int
-	for _, course := range(semester) {
+	for _, course := range semester {
 		var day int
 		if course.Assignment.Monday {
 			day = 1
@@ -90,9 +91,9 @@ func scheduleToBitset(semester []structs.Course, profs []structs.Professor) []in
 			day = 0
 		}
 
-		time := numberToBits(times[course.Assignment.BeginTime])
+		time := numberToBits(times[course.Assignment.BeginTime], 4)
 
-		prof := numberToBits(getProfIndex(course.Prof.DisplayName, profs))
+		prof := numberToBits(getProfIndex(course.Prof.DisplayName, profs), sim.SectionBitWidth-timeslotBitWidth)
 
 		bits = append(bits, day)
 		bits = append(bits, time...)
@@ -102,31 +103,37 @@ func scheduleToBitset(semester []structs.Course, profs []structs.Professor) []in
 	return bits
 }
 
-func numberToBits(num int) []int {
+func numberToBits(num int, length int) []int {
 	var bitset []int
-	binary := fmt.Sprintf("%b", num)
-	for i, bit := range(binary) {
-		bitset[i] = int(bit) - '0'
+	binary := fmt.Sprintf("%b", num) // turns an int into binary string
+	for i := 0; i < len(binary); i++ {
+		bitset = append(bitset, int(binary[i])-'0') // turning the string into []int
+	}
+	for len(bitset) != length {
+		bitset = append([]int{0}, bitset...) // prepending 0's to fit desired length
 	}
 	return bitset
 }
 
+// returns the index in the given slice where the prof with the given name is located
 func getProfIndex(name string, profs []structs.Professor) int {
-	for i, p := range(profs) {
+	for i, p := range profs {
 		if p.DisplayName == name {
 			return i
 		}
 	}
-	return -1
+	return -1 // returns -1 if the prof is not found
 }
 
-// Initializes a random schedule to start with
+// Initializes the bitset with an initial schedule
 func (sim ScheduleSimulation) Go() ga.Bitset {
 	size := sim.NumberOfCourses * sim.SectionBitWidth
 	bitset := ga.Bitset{}
 	bitset.Create(size)
+	//if sim.c
+	bits := scheduleToBitset(sim)
 	for i := 0; i < size; i++ {
-		bitset.Set(i, rand.Intn(2))
+		bitset.Set(i, bits[i])
 	}
 	return bitset
 }
@@ -201,10 +208,7 @@ func (sim *ScheduleSimulation) OnElite(genome ga.Genome) {
 	fmt.Println("***********************")
 	fmt.Printf("** [%d] simulation **\n", sim.simulationCount)
 	fmt.Println("solution: ")
-	//fmt.Println(schedule)
 	prettyPrintSemester(schedule)
-	//fmt.Print("bits: ")
-	//fmt.Println(genome.GetBits().GetAll())
 	fmt.Print("fitness: ")
 	fmt.Println(GetFitness(schedule))
 	fmt.Println("***********************")
