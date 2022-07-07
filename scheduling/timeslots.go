@@ -94,6 +94,8 @@ func AddCoursesToStreamMaps(courses []structs.Course, timeslotMaps structs.Strea
 			updatedCourse, timeslotMaps.S4A, err = addMultipleTimeslots(course, timeslotMaps.S4A)
 		} else if course.StreamSequence == "4B" {
 			updatedCourse, timeslotMaps.S4B, err = addMultipleTimeslots(course, timeslotMaps.S4B)
+		} else {
+			err = fmt.Errorf("error: %v %v has no stream sequence value", course.Subject, course.CourseNumber)
 		}
 
 		if err != nil {
