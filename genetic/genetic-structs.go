@@ -5,7 +5,6 @@ import (
 	"algorithm-1/structs"
 	"math/rand"
 	"strings"
-	"time"
 
 	"github.com/MaxHalford/eaopt"
 	"github.com/jinzhu/copier"
@@ -142,12 +141,6 @@ func MakeSemester(rng *rand.Rand) eaopt.Genome {
 	testSem := make(Semester, len(testScheduleCourse))
 
 	copy(testSem, testScheduleCourse)
-
-	rand.Seed(time.Now().UnixNano())
-	for i := len(testSem) - 1; i > 0; i-- { // Fisher–Yates shuffle
-		j := rand.Intn(i + 1)
-		testSem[i], testSem[j] = testSem[j], testSem[i]
-	}
 
 	return testSem
 }
