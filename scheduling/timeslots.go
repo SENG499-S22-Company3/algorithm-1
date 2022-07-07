@@ -172,7 +172,7 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 		}
 	}
 
-	if count == 20 {
+	if count >= 20 {
 		err = fmt.Errorf("error: Ran out of slots to assign courses")
 	}
 
