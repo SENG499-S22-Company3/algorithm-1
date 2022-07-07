@@ -3,10 +3,7 @@ package genetic
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
-	"fmt"
-	"io/ioutil"
 	"math/rand"
-	"os"
 	"strings"
 	"time"
 
@@ -135,39 +132,11 @@ func (sem Semester) Crossover(q eaopt.Genome, rng *rand.Rand) {
 // MakeSemester creates a random semester
 func MakeSemester(rng *rand.Rand) eaopt.Genome {
 
-	jsonData, err := ioutil.ReadFile("../../tests/data/input-test.json")
-	if err != nil {
-		fmt.Println("Error when opening input-test.json file: ")
-		return nil
-	}
+	input := getInput()
 
-	input, err := structs.ParseInput(jsonData)
-	if err != nil {
-		fmt.Println("Input parsing failed with error: ")
-		return nil
-	}
-
-	// if input.HistoricData.SpringCourses == nil {
-	// 	fmt.Println("Input failed to be parsed: fall historical courses should not be null")
-	// }
-
-	jsonFile, err := os.Open("../../tests/data/base-courses-test.json")
-
-	if err != nil {
-		fmt.Println("Error: Test file not found")
-		return nil
-	}
-
-	courseData, _ := ioutil.ReadAll(jsonFile)
-	testSchedule, err := structs.ParseHistorical(courseData)
-	if err != nil {
-		fmt.Println("Error: Course data parsing failed")
-		return nil
-	}
-
-	testStreamtype := scheduling.CreateEmptyStreamType()
-	testSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testStreamtype)
-	testScheduleCourse := scheduling.AssignCourseProf(testSchedule.SpringCourses, testSchedule.SpringCourses, input.Professors)
+	testStreamtype, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.SpringCourses)
+	input.CoursesToSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(input.CoursesToSchedule.SpringCourses, testStreamtype)
+	testScheduleCourse := scheduling.AssignCourseProf(input.CoursesToSchedule.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors)
 
 	testSem := make(Semester, len(testScheduleCourse))
 
@@ -178,15 +147,6 @@ func MakeSemester(rng *rand.Rand) eaopt.Genome {
 		j := rand.Intn(i + 1)
 		testSem[i], testSem[j] = testSem[j], testSem[i]
 	}
-
-	//for i := 0; i < len(testSem); i++ {
-	//fmt.Print(testSem)
-	//}
-
-	//fmt.Println()
-	//fmt.Println()
-
-	//newClone := schedule.SpringCourses.Evaluate()
 
 	return testSem
 }
