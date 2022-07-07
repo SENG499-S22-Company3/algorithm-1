@@ -75,6 +75,51 @@ func bitsToNumber(bits []int) int {
 	return sum
 }
 
+func scheduleToBitset(semester []structs.Course, profs []structs.Professor) []int {
+	var times = map[string]int{
+		"0830" : 0, "1000" : 1, "1130" : 2, "1300" : 3, "1430" : 4, "1600" : 5, "1730" : 6,
+		"0930" : 7, "1030" : 8, "1230" : 10, "1330" : 11, "1530" : 13, "1630" : 14,
+	}
+
+	var bits []int
+	for _, course := range(semester) {
+		var day int
+		if course.Assignment.Monday {
+			day = 1
+		} else {
+			day = 0
+		}
+
+		time := numberToBits(times[course.Assignment.BeginTime])
+
+		prof := numberToBits(getProfIndex(course.Prof.DisplayName, profs))
+
+		bits = append(bits, day)
+		bits = append(bits, time...)
+		bits = append(bits, prof...)
+	}
+
+	return bits
+}
+
+func numberToBits(num int) []int {
+	var bitset []int
+	binary := fmt.Sprintf("%b", num)
+	for i, bit := range(binary) {
+		bitset[i] = int(bit) - '0'
+	}
+	return bitset
+}
+
+func getProfIndex(name string, profs []structs.Professor) int {
+	for i, p := range(profs) {
+		if p.DisplayName == name {
+			return i
+		}
+	}
+	return -1
+}
+
 // Initializes a random schedule to start with
 func (sim ScheduleSimulation) Go() ga.Bitset {
 	size := sim.NumberOfCourses * sim.SectionBitWidth
