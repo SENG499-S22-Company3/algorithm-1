@@ -67,7 +67,7 @@ func CreateEmptyStreamType() structs.StreamType {
 func BaseTimeslotMaps(baseTermCourses []structs.Course) (structs.StreamType, error) {
 	timeslotMaps := CreateEmptyStreamType()
 
-	_, timeslotMaps, err := AddCoursesToStreamMaps(baseTermCourses, timeslotMaps)
+	_, timeslotMaps, err := AddCoursesToStreamMaps(Split(baseTermCourses), timeslotMaps)
 
 	return timeslotMaps, err
 }
