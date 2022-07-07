@@ -89,10 +89,10 @@ func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap
 	// mater defines how to combine genomes
 	mater := ga.NewMater(
 		[]ga.MaterFunctionProbability{
-			{P: 1.0, F: ga.TwoPointCrossover},
+			{P: 0.5, F: ga.TwoPointCrossover},
 			{P: 1.0, F: ga.Mutate},
-			{P: 1.0, F: ga.OnePointCrossover},
-			{P: 1.0, F: ga.UniformCrossover, UseElite: true},
+			{P: 0.5, F: ga.OnePointCrossover},
+			{P: 0.5, F: ga.UniformCrossover, UseElite: true},
 		},
 	)
 
