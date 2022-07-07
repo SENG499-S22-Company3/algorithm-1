@@ -228,8 +228,8 @@
         "meetingTime": {
           "startDate": "Jan 07, 2019",
           "endDate": "Apr 05, 2019",
-          "beginTime": "1530",
-          "endTime": "1650",
+          "beginTime": "1430",
+          "endTime": "1550",
           "hoursWeek": 3,
           "sunday": false,
           "monday": true,
