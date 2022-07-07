@@ -10,7 +10,11 @@ import (
 	"fmt"
 )
 
-func RunGeneticAlg() {
+var input structs.Input
+
+func RunGeneticAlg(requestBody structs.Input, term string) {
+
+	input = requestBody
 
 	var ga, err = eaopt.NewDefaultGAConfig().NewGA()
 
@@ -47,6 +51,7 @@ func RunGeneticAlg() {
 			fmt.Println(err)
 			return
 		} else {
+			goodSchedule = append(goodSchedule, input.HardScheduled.SpringCourses...)
 			for _, course := range goodSchedule {
 				fmt.Printf("%+v \n\n", course)
 			}
@@ -62,4 +67,8 @@ func RunGeneticAlg() {
 	fmt.Println()
 	fmt.Println()
 
+}
+
+func getInput() structs.Input {
+	return input
 }
