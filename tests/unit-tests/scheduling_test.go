@@ -192,5 +192,18 @@ func TestBaseScheduleConcurrent(t *testing.T) {
 }
 
 func TestGeneticAlg(t *testing.T) {
-	genetic.RunGeneticAlg()
+	var input structs.Input
+	term := "Spring"
+
+	jsonData, err := ioutil.ReadFile("../data/input-test.json")
+	if err != nil {
+		t.Error("Error when opening input-test.json file: ", err)
+	}
+
+	input, err = structs.ParseInput(jsonData)
+	if err != nil {
+		t.Error("Input parsing failed with error: ", err.Error())
+	}
+
+	genetic.RunGeneticAlg(input, term)
 }
