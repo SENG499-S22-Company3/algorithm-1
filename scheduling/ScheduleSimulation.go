@@ -172,11 +172,13 @@ func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
 			d = "TWF" + c.Assignment.BeginTime
 		}
 
-		if _, timeConflict := teachingMap[prof+d]; timeConflict {
-			return 0
-		}
 		teachingMap[prof+d] = c.CourseTitle
 		score += int(sim.PreferenceMap[prof][(c.Subject + c.CourseNumber)])
+
+		if _, timeConflict := teachingMap[prof+d]; timeConflict {
+			// fmt.Println("Prof Time Conflict")
+			score += -1
+		}
 
 		// timeslots checks
 		if c.StreamSequence == "1A" {
@@ -232,14 +234,14 @@ func checkStream(course structs.Course, timeslots structs.Timeslots, score int) 
 func checkConflict(course structs.Course, day map[string]string, score int) (map[string]string, int) {
 
 	if _, isValid := day[course.Assignment.BeginTime]; !isValid { // Check if map key exists
-		fmt.Println("Error not valid")
-		score = 0
+		// fmt.Println("Error not valid")
+		score += 0
 	} else if scheduledCourse := day[course.Assignment.BeginTime]; scheduledCourse != "" { // Check if there is already a course there
-		fmt.Println("Error already scheduled")
-		score = 0
+		// fmt.Println("Error already scheduled")
+		score += 0
 	} else {
 		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
-		score = score + 1
+		score += 1
 	}
 
 	return day, score
