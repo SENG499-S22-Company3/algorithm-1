@@ -3,7 +3,6 @@ package tests
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -239,8 +238,6 @@ func TestStreamOverflow(t *testing.T) {
 	}
 
 	_, err = scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
-
-	fmt.Print(err.Error())
 
 	if err == nil {
 		t.Error("Error: Did not catch course being scheduled without stream sequence")
