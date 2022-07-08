@@ -3,7 +3,6 @@ package tests
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
