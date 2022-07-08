@@ -132,7 +132,6 @@ func (sim ScheduleSimulation) Go() ga.Bitset {
 	size := sim.NumberOfCourses * sim.SectionBitWidth
 	bitset := ga.Bitset{}
 	bitset.Create(size)
-	//if sim.c
 	bits := scheduleToBitset(sim)
 	for i := 0; i < size; i++ {
 		bitset.Set(i, bits[i])
@@ -155,19 +154,19 @@ func (sim *ScheduleSimulation) Simulate(genome ga.Genome) {
 }
 
 func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
-	// hard coded scoring for example
 	score := 0
 
-	var teachingMap = map[string]string{}
-	_, err := BaseTimeslotMaps(s)
-
-	if err != nil {
+	// timeslot checks
+	if _, err := BaseTimeslotMaps(s); err != nil {
 		return 0
+	} else {
+		score += 50
 	}
 
+	// professors checks
+	var teachingMap = map[string]string{}
 	for _, c := range s {
 
-		// professors checks
 		prof := c.Prof.DisplayName
 		var d string
 		if c.Assignment.Monday {
@@ -175,15 +174,12 @@ func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
 		} else {
 			d = "TWF" + c.Assignment.BeginTime
 		}
-
-		teachingMap[prof+d] = c.CourseTitle
 		score += int(sim.PreferenceMap[prof][(c.Subject + c.CourseNumber)])
-
 		if _, timeConflict := teachingMap[prof+d]; timeConflict {
-			// fmt.Println("Prof Time Conflict")
-			score += -1
+			return 0
 		}
-		score += 10
+		teachingMap[prof+d] = c.CourseTitle
+
 	}
 
 	return score
