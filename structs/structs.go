@@ -7,16 +7,16 @@ type Input struct {
 }
 
 type Schedule struct {
-	FallCourses   []Course `json:"fallTermCourses"`
-	SpringCourses []Course `json:"springTermCourses"`
-	SummerCourses []Course `json:"summerTermCourses"`
+	FallCourses   []Course `json:"fallCourses"`
+	SpringCourses []Course `json:"springCourses"`
+	SummerCourses []Course `json:"summerCourses"`
 }
 
 type Assignment struct {
 	StartDate string  `json:"startDate"`
 	EndDate   string  `json:"endDate"`
 	BeginTime string  `json:"beginTime"`
-	EndTime   string  `json:"endtime"`
+	EndTime   string  `json:"endTime"`
 	HoursWeek float32 `json:"hoursWeek"`
 	Sunday    bool    `json:"sunday"`
 	Monday    bool    `json:"monday"`
@@ -28,22 +28,20 @@ type Assignment struct {
 }
 
 type Course struct {
-	CourseNumber      string     `json:"courseNumber"`
-	Subject           string     `json:"subject"`
-	SequenceNumber    string     `json:"sequenceNumber"`
-	CourseTitle       string     `json:"courseTitle"`
-	RequiredEquipment []string   `json:"requiredEquipment,omitempty"`
-	StreamSequence    string     `json:"streamSequence,omitempty"`
-	Assignment        Assignment `json:"meetingTime"`
-	Prof              Professor  `json:"prof,omitempty"`
-	CourseCapacity    uint       `json:"courseCapacity,omitempty"`
-	NumSections       uint       `json:"numSections,omitempty"`
+	CourseNumber   string     `json:"courseNumber"`
+	Subject        string     `json:"subject"`
+	SequenceNumber string     `json:"sequenceNumber"`
+	CourseTitle    string     `json:"courseTitle"`
+	StreamSequence string     `json:"streamSequence,omitempty"`
+	Assignment     Assignment `json:"assignment"`
+	Prof           Professor  `json:"prof,omitempty"`
+	CourseCapacity uint       `json:"courseCapacity,omitempty"`
+	NumSections    uint       `json:"numSections,omitempty"`
 }
 
 type Professor struct {
-	Preferences       []Preference `json:"prefs,omitempty"`
+	Preferences       []Preference `json:"preferences,omitempty"`
 	DisplayName       string       `json:"displayName,omitempty"`
-	RequiredEquipment []string     `json:"requiredEquipment,omitempty"`
 	FallTermCourses   uint         `json:"fallTermCourses,omitempty"`
 	SpringTermCourses uint         `json:"springTermCourses,omitempty"`
 	SummerTermCourses uint         `json:"summerTermCourses,omitempty"`
