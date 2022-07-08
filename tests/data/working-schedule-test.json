@@ -1,13 +1,13 @@
 {
   "hardScheduled": {
-    "fallTermCourses": [
+    "fallCourses": [
       {
         "courseNumber": "310",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "streamSequence": "2B",
         "courseTitle": "HCI",
-        "meetingTime": {
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "1300",
@@ -31,7 +31,7 @@
         "sequenceNumber": "A01",
         "streamSequence": "2B",
         "courseTitle": "Test",
-        "meetingTime": {
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "1330",
@@ -55,7 +55,7 @@
         "sequenceNumber": "A01",
         "streamSequence": "1A",
         "courseTitle": "Test",
-        "meetingTime": {
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "1300",
@@ -76,14 +76,14 @@
     ]
   },
   "coursesToSchedule": {
-    "fallTermCourses": [],
-    "springTermCourses": [],
-    "summerTermCourses": []
+    "fallCourses": [],
+    "springCourses": [],
+    "summerCourses": []
   },
   "professors": [
     {
       "displayName": "Bird, Bill",
-      "prefs": [
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 4
@@ -132,7 +132,7 @@
     },
     {
       "displayName": "Chester, Sean",
-      "prefs": [
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -157,7 +157,7 @@
     },
     {
       "displayName": "Corless, Jason",
-      "prefs": [
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 6

@@ -14,7 +14,7 @@ func TestSplitCourses(t *testing.T) {
           "subject": "SENG",
           "sequenceNumber": "A01",
           "courseTitle": "Intro to Software Development",
-          "StreamSequence": "2B",
+          "streamSequence": "2B",
           "numSections": 0,
           "courseCapacity": 477
         },
@@ -23,7 +23,7 @@ func TestSplitCourses(t *testing.T) {
           "subject": "SENG",
           "sequenceNumber": "A01",
           "courseTitle": "Algorithms and Data Structures II",
-          "StreamSequence": "3A",
+          "streamSequence": "3A",
           "numSections": 1,
           "courseCapacity": 225
           },
@@ -32,7 +32,7 @@ func TestSplitCourses(t *testing.T) {
           "subject": "CSC",
           "sequenceNumber": "A01",
           "courseTitle": "Algorithms and Data Structures I",
-          "StreamSequence": "2B",
+          "streamSequence": "2B",
           "numSections": 2,
           "courseCapacity": 345
         },
@@ -41,20 +41,20 @@ func TestSplitCourses(t *testing.T) {
           "subject": "CSC",
           "sequenceNumber": "A01",
           "courseTitle": "Fundamentals of Programming with Engineering Applications",
-          "StreamSequence": "1A",
+          "streamSequence": "1A",
           "numSections": 3,
           "courseCapacity": 436
         }]`)
 
 	courses, err := structs.ParseCourses(jsonData)
-  if err != nil {
+	if err != nil {
 		t.Error("Parsing courses failed with error: ", err.Error())
 	}
 
 	courses = scheduling.Split(courses)
 
-  if len(courses) != 10 {
-    t.Error("Courses slice should be of len 10 not size ", len(courses))
-  } 
+	if len(courses) != 10 {
+		t.Error("Courses slice should be of len 10 not size ", len(courses))
+	}
 
 }
