@@ -3,8 +3,6 @@ package genetic
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
-	"fmt"
-	"io/ioutil"
 	"math/rand"
 	//"os"
 	"strings"
@@ -157,31 +155,16 @@ func (sem Semester) Crossover(q eaopt.Genome, rng *rand.Rand) {
 // MakeSemester creates a random semester
 func MakeSemester(rng *rand.Rand) eaopt.Genome {
 
-	jsonData, err := ioutil.ReadFile("./tests/data/input-test.json")
-	if err != nil {
-		fmt.Println("Error when opening input-test.json file: ")
-		return nil
-	}
+	input := getInput()
 
-	input, err := structs.ParseInput(jsonData)
-	if err != nil {
-		fmt.Println("Input parsing failed with error: ")
-		return nil
-	}
-
-	if input.CoursesToSchedule.SpringCourses == nil {
-		fmt.Println("Input failed to be parsed: spring courses to schedule should not be null")
-	}
-
-	testStreamtype := scheduling.CreateEmptyStreamType()
+	testStreamtype, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.SpringCourses)
 	input.CoursesToSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(input.CoursesToSchedule.SpringCourses, testStreamtype)
 	testScheduleCourse := scheduling.AssignCourseProf(input.CoursesToSchedule.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors)
+	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SpringCourses...)
 
 	testSem := make(Semester, len(testScheduleCourse))
 
 	copy(testSem, testScheduleCourse)
-
-
 
 	return testSem
 }

@@ -10,7 +10,11 @@ import (
 	"fmt"
 )
 
-func RunGeneticAlg() {
+var input structs.Input
+
+func RunGeneticAlg(requestBody structs.Input, term string) {
+
+	input = requestBody
 
 	var ga, err = eaopt.NewDefaultGAConfig().NewGA()
 
@@ -64,4 +68,8 @@ func RunGeneticAlg() {
 	fmt.Println()
 	fmt.Println()
 
+}
+
+func getInput() structs.Input {
+	return input
 }
