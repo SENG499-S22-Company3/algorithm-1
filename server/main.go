@@ -89,17 +89,17 @@ func CheckSchedule(w http.ResponseWriter, r *http.Request) {
 	requirementsViolated := false
 
 	// Check for professor and basic violations
-	err = scheduling.ScheduleConstraintsCheck("Fall", parsedInput.HardScheduled.FallCourses, parsedInput)
+	err = scheduling.ScheduleConstraintsCheck("Fall", parsedInput.HardScheduled.FallCourses, parsedInput.Professors)
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true
 	}
-	err = scheduling.ScheduleConstraintsCheck("Spring", parsedInput.HardScheduled.SpringCourses, parsedInput)
+	err = scheduling.ScheduleConstraintsCheck("Spring", parsedInput.HardScheduled.SpringCourses, parsedInput.Professors)
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true
 	}
-	err = scheduling.ScheduleConstraintsCheck("Summer", parsedInput.HardScheduled.SummerCourses, parsedInput)
+	err = scheduling.ScheduleConstraintsCheck("Summer", parsedInput.HardScheduled.SummerCourses, parsedInput.Professors)
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true

@@ -1,0 +1,133 @@
+{
+    "fallTermCourses": [
+      {
+        "courseNumber": "310",
+        "subject": "SENG",
+        "sequenceNumber": "A01",
+        "courseTitle": "Human Computer Interaction",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "370",
+        "subject": "CSC",
+        "sequenceNumber": "A01",
+        "courseTitle": "Database Systems",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "361",
+        "subject": "CSC",
+        "sequenceNumber": "A01",
+        "courseTitle": "Computer Communications and Networks",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "360",
+        "subject": "CSC",
+        "sequenceNumber": "A01",
+        "courseTitle": "Operating Systems",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "320",
+        "subject": "CSC",
+        "sequenceNumber": "A01",
+        "courseTitle": "Fundamentals of Computer Science",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "230",
+        "subject": "CSC",
+        "sequenceNumber": "A01",
+        "courseTitle": "Introduction to Computer Architecture",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "226",
+        "subject": "CSC",
+        "sequenceNumber": "A01",
+        "courseTitle": "Algorithms and Data Structures II",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "225",
+        "subject": "CSC",
+        "sequenceNumber": "A01",
+        "courseTitle": "Algorithms and Data Structures I",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "115",
+        "subject": "CSC",
+        "sequenceNumber": "A01",
+        "courseTitle": "Fundamentals of Programming II",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "111",
+        "subject": "CSC",
+        "sequenceNumber": "A01",
+        "courseTitle": "Fundamentals of Programming with Engineering Applications",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "111",
+        "subject": "CSC",
+        "sequenceNumber": "A02",
+        "courseTitle": "Fundamentals of Programming with Engineering Applications",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "399",
+        "subject": "ECE",
+        "sequenceNumber": "A01",
+        "courseTitle": "Design Project I",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "380",
+        "subject": "ECE",
+        "sequenceNumber": "A01",
+        "courseTitle": "Electronic Circuit II",
+        "StreamSequence": "2B"      
+      },
+      {
+        "courseNumber": "370",
+        "subject": "ECE",
+        "sequenceNumber": "A01",
+        "courseTitle": "Electromechanical Energy Conversion",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "365",
+        "subject": "ECE",
+        "sequenceNumber": "A01",
+        "courseTitle": "Applied Electronics and Electrical Machines",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "360",
+        "subject": "ECE",
+        "sequenceNumber": "A01",
+        "courseTitle": "Control Theory and Systems I",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "350",
+        "subject": "ECE",
+        "sequenceNumber": "A01",
+        "courseTitle": "Communications Theory and Systems I",
+        "StreamSequence": "2B"
+      },
+      {
+        "courseNumber": "355",
+        "subject": "ECE",
+        "sequenceNumber": "A01",
+        "courseTitle": "Microprocessor-Based Systems",
+        "StreamSequence": "2B"
+      }
+    ],
+    "springTermCourses": [],
+    "summerTermCourses": []
+  }
+  

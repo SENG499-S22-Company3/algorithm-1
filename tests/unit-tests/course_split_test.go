@@ -15,18 +15,18 @@ func TestSplitCourses(t *testing.T) {
           "sequenceNumber": "A01",
           "courseTitle": "Intro to Software Development",
           "StreamSequence": "2B",
-          "numSections": 1,
+          "numSections": 0,
           "courseCapacity": 477
         },
-		{
-			"courseNumber": "226",
-			"subject": "SENG",
-			"sequenceNumber": "A01",
-			"courseTitle": "Algorithms and Data Structures II",
-			"StreamSequence": "3A",
-			"numSections": 1,
-			"courseCapacity": 225
-		  },
+        {
+          "courseNumber": "226",
+          "subject": "SENG",
+          "sequenceNumber": "A01",
+          "courseTitle": "Algorithms and Data Structures II",
+          "StreamSequence": "3A",
+          "numSections": 1,
+          "courseCapacity": 225
+          },
         {
           "courseNumber": "225",
           "subject": "CSC",
@@ -42,7 +42,7 @@ func TestSplitCourses(t *testing.T) {
           "sequenceNumber": "A01",
           "courseTitle": "Fundamentals of Programming with Engineering Applications",
           "StreamSequence": "1A",
-          "numSections": 2,
+          "numSections": 3,
           "courseCapacity": 436
         }]`)
 
@@ -52,6 +52,7 @@ func TestSplitCourses(t *testing.T) {
 	}
 
 	courses = scheduling.Split(courses)
+
   if len(courses) != 10 {
     t.Error("Courses slice should be of len 10 not size ", len(courses))
   } 
