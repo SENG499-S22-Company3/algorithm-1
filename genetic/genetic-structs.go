@@ -6,10 +6,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math/rand"
-	"os"
+	//"os"
 	"strings"
-	"time"
-
+	//"time"
+	"strconv"
+	"math"
 	"github.com/MaxHalford/eaopt"
 	"github.com/jinzhu/copier"
 )
@@ -53,8 +54,8 @@ func (sem Semester) Split(k int) (eaopt.Slice, eaopt.Slice) {
 
 // TODO Append method from Slice - should not be used?
 func (sem Semester) Append(q eaopt.Slice) eaopt.Slice {
-	//return append(sem, q.(Semester)...)
-	return sem
+	return append(sem, q.(Semester)...)
+	//return sem
 }
 
 // Replace method from Slice
@@ -82,11 +83,13 @@ func (sem Semester) Clone() eaopt.Genome {
 // Evaluate a Semester by summing the consecutive Euclidean distances.
 func (sem Semester) Evaluate() (penalty float64, err error) {
 
-	var courses []structs.Course
+	//var courses []structs.Course
+	var profCourseCount int
 
 	//evalute prof clashes
 	for i := range sem {
-		courses = append(courses, sem[i])
+		//courses = append(courses, sem[i])
+		profCourseCount = 0
 		for j := range sem {
 			//evalute prof clashes
 			if sem[i].Prof.DisplayName == sem[j].Prof.DisplayName && i != j {
@@ -95,9 +98,30 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 						penalty += 1000
 					}
 				}
+				//penalize profs teaching > 3 courses
+				profCourseCount += 1
+				if profCourseCount > 3{
+					penalty += 1000
+				}
+			}
+			//evaluate same stream time differences
+			if sem[i].StreamSequence == sem[j].StreamSequence {
+				if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday{
+					t1, err := strconv.Atoi(sem[i].Assignment.BeginTime)
+					if err != nil {
+						panic(err)
+					}
+					t2, err := strconv.Atoi(sem[j].Assignment.EndTime)
+					if err != nil {
+						panic(err)
+					}
+					if math.Copysign(float64(t1 - t2), 1) > 600 {
+						penalty += 300
+					}
+				}
 			}
 		}
-		//optimize prof preferences
+		//penalize low prof preference values
 		for j := range sem[i].Prof.Preferences {
 			if strings.Contains(sem[i].Prof.Preferences[j].CourseNum, sem[i].CourseNumber) && strings.Contains(sem[i].Prof.Preferences[j].CourseNum, sem[i].Subject) {
 				penalty += 6 - float64(sem[i].Prof.Preferences[j].PreferenceNum)
@@ -106,36 +130,34 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 	}
 
 	// Check if timeslots violate hard requirements
-	_, fail := scheduling.BaseTimeslotMaps(courses)
+	_, fail := scheduling.BaseTimeslotMaps(sem)
 	if fail != nil {
 		penalty += 1000
 	}
 
-	//fmt.Println(penalty)
 	return
 }
 
 // Mutate a Semester by applying by permutation mutation and/or splice mutation.
 func (sem Semester) Mutate(rng *rand.Rand) {
-	//swap profs, find better timeslots
+	//swap profs, find better timeslots?
 	if rng.Float64() < 0.35 {
-		eaopt.MutPermute(sem, 3, rng)
+		sem = scheduling.ChangeRandomCourseTime(sem)
 	}
 	if rng.Float64() < 0.45 {
-		eaopt.MutSplice(sem, rng)
+		sem = scheduling.ChangeRandomCourseTime(sem)
 	}
 }
 
 // Crossover a Semester with another Semester by using Partially Mixed Crossover (PMX).
 func (sem Semester) Crossover(q eaopt.Genome, rng *rand.Rand) {
-	//eaopt.CrossPMX(sem, q.(Semester), rng)
 	eaopt.CrossGNX(sem, q.(Semester), 3, rng)
 }
 
 // MakeSemester creates a random semester
 func MakeSemester(rng *rand.Rand) eaopt.Genome {
 
-	jsonData, err := ioutil.ReadFile("../../tests/data/input-test.json")
+	jsonData, err := ioutil.ReadFile("./tests/data/input-test.json")
 	if err != nil {
 		fmt.Println("Error when opening input-test.json file: ")
 		return nil
@@ -147,46 +169,19 @@ func MakeSemester(rng *rand.Rand) eaopt.Genome {
 		return nil
 	}
 
-	// if input.HistoricData.SpringCourses == nil {
-	// 	fmt.Println("Input failed to be parsed: fall historical courses should not be null")
-	// }
-
-	jsonFile, err := os.Open("../../tests/data/base-courses-test.json")
-
-	if err != nil {
-		fmt.Println("Error: Test file not found")
-		return nil
-	}
-
-	courseData, _ := ioutil.ReadAll(jsonFile)
-	testSchedule, err := structs.ParseHistorical(courseData)
-	if err != nil {
-		fmt.Println("Error: Course data parsing failed")
-		return nil
+	if input.CoursesToSchedule.SpringCourses == nil {
+		fmt.Println("Input failed to be parsed: spring courses to schedule should not be null")
 	}
 
 	testStreamtype := scheduling.CreateEmptyStreamType()
-	testSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testStreamtype)
-	testScheduleCourse := scheduling.AssignCourseProf(testSchedule.SpringCourses, testSchedule.SpringCourses, input.Professors)
+	input.CoursesToSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(input.CoursesToSchedule.SpringCourses, testStreamtype)
+	testScheduleCourse := scheduling.AssignCourseProf(input.CoursesToSchedule.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors)
 
 	testSem := make(Semester, len(testScheduleCourse))
 
 	copy(testSem, testScheduleCourse)
 
-	rand.Seed(time.Now().UnixNano())
-	for i := len(testSem) - 1; i > 0; i-- { // Fisher–Yates shuffle
-		j := rand.Intn(i + 1)
-		testSem[i], testSem[j] = testSem[j], testSem[i]
-	}
 
-	//for i := 0; i < len(testSem); i++ {
-	//fmt.Print(testSem)
-	//}
-
-	//fmt.Println()
-	//fmt.Println()
-
-	//newClone := schedule.SpringCourses.Evaluate()
 
 	return testSem
 }

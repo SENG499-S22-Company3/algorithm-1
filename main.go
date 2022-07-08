@@ -1,7 +1,8 @@
 package main
 
-import "algorithm-1/server"
+import "algorithm-1/genetic"
 
 func main() {
-	server.StartHTTPServer()
+	//server.StartHTTPServer()
+	genetic.RunGeneticAlg()
 }

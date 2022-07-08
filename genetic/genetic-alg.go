@@ -18,9 +18,11 @@ func RunGeneticAlg() {
 		fmt.Println(err)
 		return
 	}
-	ga.NGenerations = 50
+	ga.NGenerations = 1000
 	ga.HofSize = 5
 	ga.PopSize = 100
+	ga.ParallelEval = true
+	//ga.ParallelInit = true
 
 	// Append the initial GA status to the progress file
 	var bytes, _ = json.Marshal(ga)
@@ -48,7 +50,7 @@ func RunGeneticAlg() {
 			return
 		} else {
 			for _, course := range goodSchedule {
-				fmt.Printf("%+v \n\n", course)
+				fmt.Printf("%+v%+v  %+v  %+v %+v\n\n", course.Subject, course.CourseNumber, course.StreamSequence, course.Assignment, course.Prof.DisplayName)
 			}
 			_, err = scheduling.BaseTimeslotMaps(goodSchedule)
 			if err != nil {

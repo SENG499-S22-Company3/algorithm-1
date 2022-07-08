@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"time"
 )
 
 func createEmptyDay(isMTh bool) map[string]string {
@@ -225,4 +226,54 @@ func setCourseTime(course structs.Course, beginTime string, isMTh bool) structs.
 	}
 
 	return course
+}
+
+func ChangeRandomCourseTime(courses []structs.Course) []structs.Course {
+
+	rand.Seed(time.Now().UnixNano())
+    min := 0
+    max := len(courses)
+    randInt := rand.Intn(max - min - 1) + min
+
+	timeslotMaps := CreateEmptyStreamType()
+
+	_, _, _ = AddCoursesToStreamMaps(courses, timeslotMaps)
+
+	//add check for hard fixed courses
+
+	//fmt.Printf("Changing course %v%v from time %v", courses[randInt].Subject, courses[randInt].CourseNumber, courses[randInt].Assignment.BeginTime)
+
+	courses[randInt].Assignment.BeginTime = ""
+	courses[randInt].Assignment.EndTime = ""
+
+	courses[randInt].Assignment.Monday = false
+	courses[randInt].Assignment.Tuesday = false
+	courses[randInt].Assignment.Wednesday = false
+	courses[randInt].Assignment.Thursday = false
+	courses[randInt].Assignment.Friday = false
+
+
+	if courses[randInt].StreamSequence == "1A" {
+		courses[randInt], timeslotMaps.S1A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S1A)
+	} else if courses[randInt].StreamSequence == "1B" {
+		courses[randInt], timeslotMaps.S1B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S1B)
+	} else if courses[randInt].StreamSequence == "2A" {
+		courses[randInt], timeslotMaps.S2A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S2A)
+	} else if courses[randInt].StreamSequence == "2B" {
+		courses[randInt], timeslotMaps.S2B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S2B)
+	} else if courses[randInt].StreamSequence == "3A" {
+		courses[randInt], timeslotMaps.S3A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S3A)
+	} else if courses[randInt].StreamSequence == "3B" {
+		courses[randInt], timeslotMaps.S3B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S3B)
+	} else if courses[randInt].StreamSequence == "4A" {
+		courses[randInt], timeslotMaps.S4A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S4A)
+	} else if courses[randInt].StreamSequence == "4B" {
+		courses[randInt], timeslotMaps.S4B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S4B)
+	}
+
+
+	//fmt.Printf(" to time %v\n", courses[randInt].Assignment.BeginTime)
+
+	return courses
+
 }
