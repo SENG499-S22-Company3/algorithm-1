@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
-	"time"
+	"math"
 )
 
 func createEmptyDay(isMTh bool) map[string]string {
@@ -230,18 +230,35 @@ func setCourseTime(course structs.Course, beginTime string, isMTh bool) structs.
 
 func ChangeRandomCourseTime(courses []structs.Course) []structs.Course {
 
-	rand.Seed(time.Now().UnixNano())
-    min := 0
-    max := len(courses)
-    randInt := rand.Intn(max - min - 1) + min
+    var randInt int
 
 	timeslotMaps := CreateEmptyStreamType()
 
-	_, _, _ = AddCoursesToStreamMaps(courses, timeslotMaps)
+	AddCoursesToStreamMaps(courses, timeslotMaps)
 
-	//add check for hard fixed courses
+	//choose course with large time gap for mutation
+	for i := range courses {
+		for j := range courses {
+			if courses[i].StreamSequence == courses[j].StreamSequence {
+				if courses[i].Assignment.Monday && courses[j].Assignment.Monday || courses[i].Assignment.Tuesday && courses[j].Assignment.Tuesday && courses[i].Prof.DisplayName != "TBD"{
+					t1, err := strconv.Atoi(courses[i].Assignment.BeginTime)
+					if err != nil {
+						panic(err)
+					}
+					t2, err := strconv.Atoi(courses[j].Assignment.EndTime)
+					if err != nil {
+						panic(err)
+					}
+					if math.Copysign(float64(t1 - t2), 1) > 600 {
+						randInt = j
+						break
+					}
+				}
+			}
+		}
+	}
 
-	//fmt.Printf("Changing course %v%v from time %v", courses[randInt].Subject, courses[randInt].CourseNumber, courses[randInt].Assignment.BeginTime)
+	//add check for hard fixed courses?
 
 	courses[randInt].Assignment.BeginTime = ""
 	courses[randInt].Assignment.EndTime = ""
@@ -270,9 +287,6 @@ func ChangeRandomCourseTime(courses []structs.Course) []structs.Course {
 	} else if courses[randInt].StreamSequence == "4B" {
 		courses[randInt], timeslotMaps.S4B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S4B)
 	}
-
-
-	//fmt.Printf(" to time %v\n", courses[randInt].Assignment.BeginTime)
 
 	return courses
 

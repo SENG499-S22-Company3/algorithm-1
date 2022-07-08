@@ -4,9 +4,8 @@ import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
 	"math/rand"
-	//"os"
 	"strings"
-	//"time"
+	//"fmt"
 	"strconv"
 	"math"
 	"github.com/MaxHalford/eaopt"
@@ -90,7 +89,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 		profCourseCount = 0
 		for j := range sem {
 			//evalute prof clashes
-			if sem[i].Prof.DisplayName == sem[j].Prof.DisplayName && i != j {
+			if sem[i].Prof.DisplayName == sem[j].Prof.DisplayName && i != j && sem[i].Prof.DisplayName != "TBD"{
 				if sem[i].Assignment.BeginTime == sem[j].Assignment.BeginTime {
 					if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday {
 						penalty += 1000
@@ -104,7 +103,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 			}
 			//evaluate same stream time differences
 			if sem[i].StreamSequence == sem[j].StreamSequence {
-				if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday{
+				if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday && sem[i].Prof.DisplayName != "TBD"{
 					t1, err := strconv.Atoi(sem[i].Assignment.BeginTime)
 					if err != nil {
 						panic(err)
@@ -122,7 +121,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 		//penalize low prof preference values
 		for j := range sem[i].Prof.Preferences {
 			if strings.Contains(sem[i].Prof.Preferences[j].CourseNum, sem[i].CourseNumber) && strings.Contains(sem[i].Prof.Preferences[j].CourseNum, sem[i].Subject) {
-				penalty += 6 - float64(sem[i].Prof.Preferences[j].PreferenceNum)
+				penalty += 10 * (6 - float64(sem[i].Prof.Preferences[j].PreferenceNum))
 			}
 		}
 	}
@@ -138,12 +137,10 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 
 // Mutate a Semester by applying by permutation mutation and/or splice mutation.
 func (sem Semester) Mutate(rng *rand.Rand) {
-	//swap profs, find better timeslots?
-	if rng.Float64() < 0.35 {
-		sem = scheduling.ChangeRandomCourseTime(sem)
-	}
+
 	if rng.Float64() < 0.45 {
 		sem = scheduling.ChangeRandomCourseTime(sem)
+		sem = scheduling.ChangeRandomCourseProf(sem)
 	}
 }
 

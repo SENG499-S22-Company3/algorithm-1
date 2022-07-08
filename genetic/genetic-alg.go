@@ -22,11 +22,10 @@ func RunGeneticAlg(requestBody structs.Input, term string) {
 		fmt.Println(err)
 		return
 	}
-	ga.NGenerations = 1000
+	ga.NGenerations = 100
 	ga.HofSize = 5
 	ga.PopSize = 100
 	ga.ParallelEval = true
-	//ga.ParallelInit = true
 
 	// Append the initial GA status to the progress file
 	var bytes, _ = json.Marshal(ga)

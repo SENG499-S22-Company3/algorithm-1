@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
+	"strings"
 )
 
 func randomizer(profList []string) []string {
@@ -115,7 +116,11 @@ func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Cour
 		// update map used to ensure teachers aren't double slotted
 		teachingMap[prof+d] = c.CourseTitle
 		// update semester schedule
-		semesterSchedule[i].Prof.DisplayName = prof
+		for j := range(professors){
+			if professors[j].DisplayName == prof {
+				semesterSchedule[i].Prof = professors[j]
+			}
+		}
 	}
 
 	return semesterSchedule
@@ -162,3 +167,41 @@ func ScheduleConstraintsCheck(term string,
 
 	return err
 }
+
+/*
+	choose a random course, look at it's current prof's preferences. 
+	if current prof has 6 preference for another course, replace that course's prof with the current prof
+*/
+func ChangeRandomCourseProf(sem []structs.Course) []structs.Course{
+	
+	rand.Seed(time.Now().UnixNano())
+    min := 0
+    max := len(sem)
+    randInt := rand.Intn(max - min - 1) + min
+
+	for i := range sem[randInt].Prof.Preferences{
+		if sem[randInt].Prof.Preferences[i].PreferenceNum == 6 {
+
+			courseToChange := sem[randInt].Prof.Preferences[i].CourseNum
+
+			for j := range(sem) {	
+
+				if strings.Contains(courseToChange, sem[j].CourseNumber) && strings.Contains(courseToChange, sem[j].Subject)  {
+
+					if sem[j].Prof.DisplayName != sem[randInt].Prof.DisplayName {
+
+						sem[j].Prof = sem[randInt].Prof
+
+						break
+
+					}
+		
+				}
+			}
+		}
+	}
+	
+	return sem
+
+
+} 
