@@ -36,7 +36,7 @@ func printResults(courses []structs.Course)(){
 func Split(courses []structs.Course) ([]structs.Course){
     for i, course := range courses {
 		numSections :=  course.NumSections
-		if numSections == 1 && course.CourseCapacity > 200 {
+		if numSections == 0 && course.CourseCapacity > 200 {
 			splitInto := uint(course.CourseCapacity / 100)
 			courses = addSections(courses, course, splitInto, i)
 		} else if numSections > 1 {

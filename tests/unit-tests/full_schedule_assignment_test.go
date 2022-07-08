@@ -3,7 +3,6 @@ package tests
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -36,19 +35,6 @@ func getInput(t *testing.T) (structs.Schedule, structs.Input) {
 		t.Error("Error: Course data parsing failed")
 	}
 	return testSchedule, input
-}
-
-func printAssignments(testScheduleCourse []structs.Course, prefsMap map[string]map[string]int) {
-	for _, c := range testScheduleCourse {
-		fmt.Println(c.Subject, c.CourseNumber, c.CourseTitle, c.SequenceNumber, "in sequence", c.StreamSequence)
-		fmt.Println("\t taught by:", c.Prof.DisplayName, "( preference:", prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber], ")")
-		fmt.Println("\t\t at", c.Assignment.BeginTime, "to", c.Assignment.EndTime)
-		if c.Assignment.Monday == true {
-			fmt.Println("\t\t\t on MTh")
-		} else {
-			fmt.Println("\t\t\t on TWF")
-		}
-	}
 }
 
 func TestFallScheduleAssignment(t *testing.T) {
