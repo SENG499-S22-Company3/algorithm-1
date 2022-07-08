@@ -3,11 +3,14 @@ package genetic
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
+	"fmt"
 	"math/rand"
 	"strings"
+
 	//"fmt"
-	"strconv"
 	"math"
+	"strconv"
+
 	"github.com/MaxHalford/eaopt"
 	"github.com/jinzhu/copier"
 )
@@ -89,7 +92,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 		profCourseCount = 0
 		for j := range sem {
 			//evalute prof clashes
-			if sem[i].Prof.DisplayName == sem[j].Prof.DisplayName && i != j && sem[i].Prof.DisplayName != "TBD"{
+			if sem[i].Prof.DisplayName == sem[j].Prof.DisplayName && i != j && sem[i].Prof.DisplayName != "TBD" {
 				if sem[i].Assignment.BeginTime == sem[j].Assignment.BeginTime {
 					if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday {
 						penalty += 1000
@@ -97,26 +100,31 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 				}
 				//penalize profs teaching > 3 courses
 				profCourseCount += 1
-				if profCourseCount > 3{
+				if profCourseCount > 3 {
 					penalty += 1000
 				}
 			}
 			//evaluate same stream time differences
 			if sem[i].StreamSequence == sem[j].StreamSequence {
-				if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday && sem[i].Prof.DisplayName != "TBD"{
+				if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday && sem[i].Prof.DisplayName != "TBD" {
 					t1, err := strconv.Atoi(sem[i].Assignment.BeginTime)
 					if err != nil {
-						panic(err)
+						fmt.Println(err.Error())
+						break
 					}
 					t2, err := strconv.Atoi(sem[j].Assignment.EndTime)
 					if err != nil {
-						panic(err)
+						fmt.Println(err.Error())
+						break
 					}
-					if math.Copysign(float64(t1 - t2), 1) > 600 {
+					if math.Copysign(float64(t1-t2), 1) > 600 {
 						penalty += 300
 					}
 				}
 			}
+		}
+		if err != nil {
+			break
 		}
 		//penalize low prof preference values
 		for j := range sem[i].Prof.Preferences {
