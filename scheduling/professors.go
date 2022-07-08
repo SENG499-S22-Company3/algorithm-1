@@ -35,7 +35,7 @@ func MapPreferences(profs []structs.Professor) (map[string]map[string]int, []str
 }
 
 /*
-	Input:  prefsMap map[string]map[string]int, profList []string, teachingMap map[string]map[string]string, course string
+	Input:  prefsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course string
 	Output: prof string
 */
 func assignProf(prefsMap map[string]map[string]int, profList []string, teachingMap map[string]string, course structs.Course, profPos int) (string, int) {
@@ -125,13 +125,9 @@ func ScheduleConstraintsCheck(term string,
 	testScheduleCourse []structs.Course,
 	profs []structs.Professor) error {
 
-	var teachingMap = map[string]map[string]string{}
+	var teachingMap = map[string]string{}
 	var d string
 	var err error
-
-	for _, p := range profs {
-		teachingMap[p.DisplayName] = map[string]string{}
-	}
 
 	prefsMap, _ := MapPreferences(profs)
 
@@ -147,7 +143,7 @@ func ScheduleConstraintsCheck(term string,
 			break
 		}
 
-		if _, found := teachingMap[c.Prof.DisplayName][d]; found {
+		if _, found := teachingMap[c.Prof.DisplayName+d]; found {
 			err = fmt.Errorf("error: %v teaching another %v course at %v,   ", c.Prof.DisplayName, term, d)
 			break
 		}
@@ -157,7 +153,9 @@ func ScheduleConstraintsCheck(term string,
 			break
 		}
 
-		teachingMap[c.Prof.DisplayName][d] = c.CourseTitle + d
+		if c.Prof.DisplayName != "TBD" {
+			teachingMap[c.Prof.DisplayName+d] = c.CourseTitle + d
+		}
 	}
 
 	return err
