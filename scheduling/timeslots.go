@@ -94,6 +94,8 @@ func AddCoursesToStreamMaps(courses []structs.Course, timeslotMaps structs.Strea
 			updatedCourse, timeslotMaps.S4A, err = addMultipleTimeslots(course, timeslotMaps.S4A)
 		} else if course.StreamSequence == "4B" {
 			updatedCourse, timeslotMaps.S4B, err = addMultipleTimeslots(course, timeslotMaps.S4B)
+		} else {
+			err = fmt.Errorf("error: %v %v has no stream sequence value", course.Subject, course.CourseNumber)
 		}
 
 		if err != nil {
@@ -170,7 +172,7 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 		}
 	}
 
-	if count == 20 {
+	if count >= 20 {
 		err = fmt.Errorf("error: Ran out of slots to assign courses")
 	}
 

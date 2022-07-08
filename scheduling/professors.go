@@ -123,17 +123,17 @@ func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Cour
 
 func ScheduleConstraintsCheck(term string,
 	testScheduleCourse []structs.Course,
-	input structs.Input) error {
+	profs []structs.Professor) error {
 
 	var teachingMap = map[string]map[string]string{}
 	var d string
 	var err error
 
-	for _, p := range input.Professors {
+	for _, p := range profs {
 		teachingMap[p.DisplayName] = map[string]string{}
 	}
 
-	prefsMap, _ := MapPreferences(input.Professors)
+	prefsMap, _ := MapPreferences(profs)
 
 	for _, c := range testScheduleCourse {
 		if c.Assignment.Monday {
