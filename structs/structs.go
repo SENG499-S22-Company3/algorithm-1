@@ -28,22 +28,20 @@ type Assignment struct {
 }
 
 type Course struct {
-	CourseNumber      string     `json:"courseNumber"`
-	Subject           string     `json:"subject"`
-	SequenceNumber    string     `json:"sequenceNumber"`
-	CourseTitle       string     `json:"courseTitle"`
-	RequiredEquipment []string   `json:"requiredEquipment,omitempty"`
-	StreamSequence    string     `json:"streamSequence,omitempty"`
-	Assignment        Assignment `json:"assignment"`
-	Prof              Professor  `json:"prof,omitempty"`
-	CourseCapacity    uint       `json:"courseCapacity,omitempty"`
-	NumSections       uint       `json:"numSections,omitempty"`
+	CourseNumber   string     `json:"courseNumber"`
+	Subject        string     `json:"subject"`
+	SequenceNumber string     `json:"sequenceNumber"`
+	CourseTitle    string     `json:"courseTitle"`
+	StreamSequence string     `json:"streamSequence,omitempty"`
+	Assignment     Assignment `json:"assignment"`
+	Prof           Professor  `json:"prof,omitempty"`
+	CourseCapacity uint       `json:"courseCapacity,omitempty"`
+	NumSections    uint       `json:"numSections,omitempty"`
 }
 
 type Professor struct {
 	Preferences       []Preference `json:"preferences,omitempty"`
 	DisplayName       string       `json:"displayName,omitempty"`
-	RequiredEquipment []string     `json:"requiredEquipment,omitempty"`
 	FallTermCourses   uint         `json:"fallTermCourses,omitempty"`
 	SpringTermCourses uint         `json:"springTermCourses,omitempty"`
 	SummerTermCourses uint         `json:"summerTermCourses,omitempty"`
