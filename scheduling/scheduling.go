@@ -72,11 +72,11 @@ func Assignments(hardScheduledCourses []structs.Course, requestedCourses []struc
 func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap map[string]map[string]int) {
 	// calculating how many bits to enumerate the profs
 	professorBitWidth := int(math.Log2(float64(len(professors)-1)) + 1)
-	sectionBitWidth := (professorBitWidth + 5) // 5 extra bits for timeslots
+	sectionBitWidth := (professorBitWidth + 4) // 4 extra bits for timeslots
 
 	// simulation for fall semester
 	simulation := ScheduleSimulation{
-		NumberOfSimulations: 50,
+		NumberOfSimulations: 200,
 		PopulationSize:      1000,
 		BaseSemester:        schedule.FallCourses,
 		NumberOfCourses:     len(schedule.FallCourses),
@@ -110,7 +110,7 @@ func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap
 	algorithm.Selector = selector
 	algorithm.Mater = mater
 
-	numThreads := 4
+	numThreads := 10
 	runtime.GOMAXPROCS(numThreads)
 	algorithm.Init(simulation.PopulationSize, numThreads)
 
