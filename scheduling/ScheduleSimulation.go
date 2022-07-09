@@ -21,42 +21,44 @@ type ScheduleSimulation struct {
 	PreferenceMap       map[string]map[string]int
 }
 
-// timeslots: 1 bit for day | 4 bits for time
-const timeslotBitWidth = 5
+// timeslots: 4 bits for time
+const timeslotBitWidth = 4
 
 // This function converts bits to a schedule
 func NewSchedule(genome ga.Genome, sim ScheduleSimulation) []structs.Course {
 	courses := sim.BaseSemester
 	profs := sim.ProfList
-	times := []string{"0830", "1000", "1130", "1300", "1430", "1600", "1730",
-		"0930", "1030", "1130", "1230", "1330", "1430", "1530", "1630", "1730"}
+	begin_times := []string{"0830", "1000", "1130", "1300", "1430", "1600", "1730",
+		"0830", "0930", "1030", "1130", "1230", "1330", "1430", "1530", "1630"}
+	end_times := []string{"0950", "1120", "1250", "1420", "1550", "1720", "1820",
+		"0920", "1020", "1120", "1220", "1320", "1420", "1520", "1620", "1720"}
 
 	bits := genome.GetBits().GetAll()
 	for i, j := 0, 0; i < len(bits); i, j = i+sim.SectionBitWidth, j+1 {
 		assignment := bits[i : i+sim.SectionBitWidth]
 
 		// decoding section of bits into timeslot and prof indexes
-		// first bit determines day A or day B
-		dayIndex := assignment[0]
-		// next few bits are the timeslot
-		timeIndex := bitsToNumber(assignment[1:timeslotBitWidth])
+		// first few bits are the timeslot
+		timeIndex := bitsToNumber(assignment[:timeslotBitWidth])
 		// rest of the bits are the prof
 		profIndex := bitsToNumber(assignment[timeslotBitWidth:])
+		// determines day A or day B
+		dayA := timeIndex < 6
+		dayB := !dayA
 
 		// need to be careful of invalid indexes
 		if profIndex < sim.NumberOfProfs {
 			courses[j].Prof = profs[profIndex]
 		}
 
-		time := times[timeIndex]
-
 		courses[j].Assignment = structs.Assignment{
-			Monday:    dayIndex == 1,
-			Tuesday:   dayIndex == 0,
-			Wednesday: dayIndex == 0,
-			Thursday:  dayIndex == 1,
-			Friday:    dayIndex == 0,
-			BeginTime: time,
+			Monday:    dayA,
+			Tuesday:   dayB,
+			Wednesday: dayB,
+			Thursday:  dayA,
+			Friday:    dayB,
+			BeginTime: begin_times[timeIndex],
+			EndTime:   end_times[timeIndex],
 		}
 	}
 
@@ -80,24 +82,37 @@ func scheduleToBitset(sim ScheduleSimulation) []int {
 	semester := sim.BaseSemester
 	profs := sim.ProfList
 	var times = map[string]int{
-		"0830": 0, "1000": 1, "1130": 2, "1300": 3, "1430": 4, "1600": 5, "1730": 6,
-		"0930": 7, "1030": 8, "1230": 10, "1330": 11, "1530": 13, "1630": 14,
+		"0830A": 0,
+		"1000A": 1,
+		"1130A": 2,
+		"1300A": 3,
+		"1430A": 4,
+		"1600A": 5,
+		"1730A": 6,
+		"0830B": 7,
+		"0930B": 8,
+		"1030B": 9,
+		"1130B": 10,
+		"1230B": 11,
+		"1330B": 12,
+		"1430B": 13,
+		"1530B": 14,
+		"1630B": 15,
 	}
 
 	var bits []int
 	for _, course := range semester {
-		var day int
+		var day string
 		if course.Assignment.Monday {
-			day = 1
+			day = "A"
 		} else {
-			day = 0
+			day = "B"
 		}
 
-		time := numberToBits(times[course.Assignment.BeginTime], 4)
+		time := numberToBits(times[course.Assignment.BeginTime+day], 4)
 
 		prof := numberToBits(getProfIndex(course.Prof.DisplayName, profs), sim.SectionBitWidth-timeslotBitWidth)
 
-		bits = append(bits, day)
 		bits = append(bits, time...)
 		bits = append(bits, prof...)
 	}
