@@ -32,7 +32,7 @@ func addSections(splitSchedule []structs.Course, course structs.Course, numSecti
 			NumSections: 1,
 			CourseCapacity: newCapacity,
 			StreamSequence: course.StreamSequence,
-			SequenceNumber: course.SequenceNumber[:2] + strconv.Itoa(int(numSecCurr+1)),
+			SequenceNumber: "A0" + strconv.Itoa(int(numSecCurr+1)),
 		})
 		numSecCurr++
 	}
