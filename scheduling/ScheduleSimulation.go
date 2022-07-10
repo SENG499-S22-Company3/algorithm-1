@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"sort"
+	"strconv"
 
 	ga "github.com/tomcraven/goga"
 )
@@ -80,6 +81,7 @@ func bitsToNumber(bits []int) int {
 
 func scheduleToBitset(sim ScheduleSimulation) []int {
 	semester := sim.BaseSemester
+
 	profs := sim.ProfList
 	var times = map[string]int{
 		"0830A": 0,
@@ -165,39 +167,91 @@ func (sim *ScheduleSimulation) OnBeginSimulation() {
 func (sim *ScheduleSimulation) Simulate(genome ga.Genome) {
 	schedule := NewSchedule(genome, *sim)
 	fitness := GetFitness(schedule, sim)
+	fmt.Println("Fitnes: ", fitness)
 	(genome).SetFitness(fitness)
+}
+
+type TimeMinMax struct {
+	StartMin string
+	EndMax string
 }
 
 func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
 	score := 0
+	valid := true
 
 	// timeslot checks
 	if _, err := BaseTimeslotMaps(s); err != nil {
-		return 0
+		valid = false
 	} else {
 		score += 50
 	}
 
 	// professors checks
 	var teachingMap = map[string]string{}
+	var timeMap = map[string]TimeMinMax{}
 	for _, c := range s {
 
-		prof := c.Prof.DisplayName
-		var d string
+		var days string
+		var beginTime string
 		if c.Assignment.Monday {
-			d = "MTh" + c.Assignment.BeginTime
+			days = "MTh" 
+			beginTime = c.Assignment.BeginTime
 		} else {
-			d = "TWF" + c.Assignment.BeginTime
+			days = "TWF"
+			beginTime = c.Assignment.BeginTime
 		}
+
+		prof := c.Prof.DisplayName
 		score += int(sim.PreferenceMap[prof][(c.Subject + c.CourseNumber)])
-		if _, timeConflict := teachingMap[prof+d]; timeConflict {
-			return 0
+		if _, timeConflict := teachingMap[prof+days+beginTime]; timeConflict {
+			valid = false
 		}
-		teachingMap[prof+d] = c.CourseTitle
+
+		if prof != "TBA" {
+			teachingMap[prof+days+beginTime] = c.CourseTitle
+		} 
+
+		// track min and max for every stream sequence for both MTh and TWF
+		if _, keyExists := timeMap[c.StreamSequence+days]; keyExists {
+			if c.Assignment.BeginTime < timeMap[c.StreamSequence+days].StartMin {
+				timeMap[c.StreamSequence+days] = TimeMinMax {
+					StartMin: c.Assignment.BeginTime,
+					EndMax: timeMap[c.StreamSequence+days].EndMax,
+				}
+			}
+
+			if c.Assignment.EndTime > timeMap[c.StreamSequence+days].EndMax {
+				timeMap[c.StreamSequence+days] = TimeMinMax {
+					StartMin: timeMap[c.StreamSequence+days].StartMin,
+					EndMax: c.Assignment.EndTime,
+				}
+			}
+		} else {
+			timeMap[c.StreamSequence + days] = TimeMinMax {
+				StartMin: c.Assignment.BeginTime,
+				EndMax: c.Assignment.EndTime,
+			}
+		}
 
 	}
 
-	return score
+	// add score to streams that
+	for _, element := range timeMap {
+		EndMax, _ := strconv.Atoi(element.EndMax)
+		startMin, _ := strconv.Atoi(element.StartMin)
+
+        if (EndMax-startMin) < 600 {
+			score += 2
+		}
+    }
+
+	if valid {
+		return score
+	} else {
+		return 0
+	}
+	
 }
 
 // OnElite prints the current elite on every simulation iteration
@@ -206,8 +260,8 @@ func (sim *ScheduleSimulation) OnElite(genome ga.Genome) {
 
 	fmt.Println("***********************")
 	fmt.Printf("** [%d] simulation **\n", sim.simulationCount)
-	fmt.Println("solution: ")
-	prettyPrintSemester(schedule)
+	// fmt.Println("solution: ")
+	// prettyPrintSemester(schedule)
 	fmt.Print("fitness: ")
 	fmt.Println(GetFitness(schedule, sim))
 	fmt.Println("***********************")
@@ -224,7 +278,8 @@ func prettyPrintSemester(s []structs.Course) {
 		fmt.Print(c.CourseNumber, "\t")
 		fmt.Print(c.SequenceNumber, " ")
 		fmt.Print(c.StreamSequence, "\t")
-		fmt.Print(c.Assignment.BeginTime, "\t")
+		fmt.Print(c.Assignment.BeginTime, " to ")
+		fmt.Print(c.Assignment.EndTime, "\t")
 		fmt.Print(c.Assignment.Monday, " ")
 		fmt.Print(c.Assignment.Tuesday, " ")
 		fmt.Print(c.Assignment.Wednesday, " ")
