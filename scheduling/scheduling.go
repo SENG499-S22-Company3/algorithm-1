@@ -75,7 +75,7 @@ func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap
 
 	// simulation for fall semester
 	simulation := ScheduleSimulation{
-		NumberOfSimulations: 200,
+		NumberOfSimulations: 100,
 		PopulationSize:      1000,
 		BaseSemester:        schedule.FallCourses,
 		NumberOfCourses:     len(schedule.FallCourses),
@@ -88,10 +88,10 @@ func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap
 	// mater defines how to combine genomes
 	mater := ga.NewMater(
 		[]ga.MaterFunctionProbability{
-			{P: 0.5, F: ga.TwoPointCrossover},
-			{P: 1.0, F: ga.Mutate},
-			{P: 0.5, F: ga.OnePointCrossover},
-			{P: 0.5, F: ga.UniformCrossover, UseElite: true},
+			{P: 0.5, F: ga.TwoPointCrossover,  UseElite: true},
+			{P: 1.0, F: ga.Mutate,  UseElite: true},
+			{P: 0.5, F: ga.OnePointCrossover,  UseElite: true},
+			{P: 0.5, F: ga.UniformCrossover,  UseElite: true},
 		},
 	)
 
