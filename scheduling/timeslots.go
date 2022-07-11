@@ -204,6 +204,7 @@ func setCourseTime(course structs.Course, beginTime string, isMTh bool) structs.
 	course.Assignment.BeginTime = beginTime
 	beginMinutes := string(beginTime[len(beginTime)-2]) // Grab last two digits of the time (minutes)
 	beginTimeInt, _ := strconv.Atoi(beginTime)
+	course.Assignment.HoursWeek = 3
 
 	if isMTh {
 		course.Assignment.EndTime = strconv.Itoa(beginTimeInt + 120)
