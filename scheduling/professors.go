@@ -85,23 +85,25 @@ func assignProf(prefsMap map[string]map[string]int,
 		// get professor at index profPos
 		p := profList[profPos]
 
-		// make sure prof isn't teaching during this course time
-		if _, exists := teachingTimeslotMap[p+d]; exists {
-			profPos = (profPos + 1) % size
-			continue
-		}
+		if teachingCount[p] < teachingPrefMax[p] {
+			// make sure prof isn't teaching during this course time
+			if _, exists := teachingTimeslotMap[p+d]; exists {
+				profPos = (profPos + 1) % size
+				continue
+			}
 
-		// check if profs preference is higher then current
-		// and that profs aren't assigned more then there prefered max 
-		if max < prefsMap[p][c] && teachingCount[p] < teachingPrefMax[p]{
-			max = prefsMap[p][c]
-			prof = profList[profPos]
-		}
+			// check if profs preference is higher then current
+			// and that profs aren't assigned more then there prefered max 
+			if max < prefsMap[p][c] {
+				max = prefsMap[p][c]
+				prof = profList[profPos]
+			}
 
-		// if prof has max preference return prof and profPos
-		if max == 6 {
-			profPos = (profPos + 1) % size
-			return prof, profPos
+			// if prof has max preference return prof and profPos
+			if max == 6 {
+				profPos = (profPos + 1) % size
+				return prof, profPos
+			}
 		}
 		profPos = (profPos + 1) % size
 	}
