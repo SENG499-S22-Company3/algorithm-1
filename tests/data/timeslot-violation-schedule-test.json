@@ -24,7 +24,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "Bird, Bill"
+          "displayName": "Bird, Bill",
+          "preferences": []
         }
       },
       {
@@ -50,7 +51,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "Chester, Sean"
+          "displayName": "Chester, Sean",
+          "preferences": []
         }
       },
       {
@@ -76,7 +78,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "Corless, Jason"
+          "displayName": "Corless, Jason",
+          "preferences": []
         }
       }
     ]
