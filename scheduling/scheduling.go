@@ -58,6 +58,7 @@ func Assignments(hardScheduledCourses []structs.Course, requestedCourses []struc
 	timeslotMap, _ := BaseTimeslotMaps(hardScheduledCourses)
 	requestedCourses, _, _ = AddCoursesToStreamMaps(requestedCourses, timeslotMap)
 	requestedCourses = AssignCourseProf(hardScheduledCourses, requestedCourses, professors, term)
+	requestedCourses = append(requestedCourses, hardScheduledCourses...)
 
 	return requestedCourses
 }

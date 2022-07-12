@@ -67,7 +67,7 @@ func CreateEmptyStreamType() structs.StreamType {
 func BaseTimeslotMaps(baseTermCourses []structs.Course) (structs.StreamType, error) {
 	timeslotMaps := CreateEmptyStreamType()
 
-	_, timeslotMaps, err := AddCoursesToStreamMaps(Split(baseTermCourses), timeslotMaps)
+	_, timeslotMaps, err := AddCoursesToStreamMaps(baseTermCourses, timeslotMaps)
 
 	return timeslotMaps, err
 }
@@ -204,6 +204,7 @@ func setCourseTime(course structs.Course, beginTime string, isMTh bool) structs.
 	course.Assignment.BeginTime = beginTime
 	beginMinutes := string(beginTime[len(beginTime)-2]) // Grab last two digits of the time (minutes)
 	beginTimeInt, _ := strconv.Atoi(beginTime)
+	course.Assignment.HoursWeek = 3
 
 	if isMTh {
 		course.Assignment.EndTime = strconv.Itoa(beginTimeInt + 120)

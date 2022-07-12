@@ -113,7 +113,7 @@ func TestSummerScheduleAssignment(t *testing.T) {
 func TestTBDScheduleAssignment(t *testing.T) {
 
 	testSchedule, input := getInput(t)
-	testStreamtype := scheduling.CreateEmptyStreamType()
+	testStreamtype, err := scheduling.BaseTimeslotMaps(input.HardScheduled.SummerCourses)
 
 	testSchedule.SummerCourses = append(testSchedule.SummerCourses, structs.Course{
 		CourseNumber:   "225",
@@ -125,9 +125,12 @@ func TestTBDScheduleAssignment(t *testing.T) {
 		CourseCapacity: 100,
 	})
 
-	testSchedule.SummerCourses, _, _ = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SummerCourses), testStreamtype)
+	testSchedule.SummerCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SummerCourses), testStreamtype)
+	if err != nil {
+		t.Error(err)
+	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SummerCourses, testSchedule.SummerCourses, input.Professors, "Summer")
-	err := scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input.Professors)
+	err = scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input.Professors)
 	if err != nil {
 		t.Error(err)
 	}

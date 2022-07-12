@@ -11,13 +11,13 @@ import (
 func TestSmallHistoricalParse(t *testing.T) {
 	jsonData := []byte(`
 		{
-			"fallTermCourses": [
+			"fallCourses": [
 				{
 				"courseNumber": "101",
 				"subject": "CHEM",
 				"sequenceNumber": "A01",
 				"courseTitle": "Properties of Materials",
-				"meetingTime": {
+				"assignment": {
 					"beginTime": "1300",
 					"endDate": "Dec 05, 2018",
 					"endTime": "1420",
@@ -37,7 +37,7 @@ func TestSmallHistoricalParse(t *testing.T) {
 					"subject": "CHEM",
 					"sequenceNumber": "A01",
 					"courseTitle": "Properties of Materials",
-					"meetingTime": {
+					"assignment": {
 						"beginTime": "1300",
 						"endDate": "Dec 05, 2017",
 						"endTime": "1420",
@@ -53,8 +53,8 @@ func TestSmallHistoricalParse(t *testing.T) {
 					}
 					}
 			],
-			"springTermCourses": [],
-			"summerTermCourses": []
+			"springCourses": [],
+			"summerCourses": []
 		}`)
 
 	testSchedule, err := structs.ParseHistorical(jsonData)
@@ -84,9 +84,9 @@ func TestLargeHistoricalParse(t *testing.T) {
 
 	jsonData := []byte(`
 		{
-			"fallTermCourses": [],
-			"springTermCourses": [],
-			"summerTermCourses": []
+			"fallCourses": [],
+			"springCourses": [],
+			"summerCourses": []
 		}`)
 
 	testSchedule, err := structs.ParseHistorical(jsonData)
@@ -170,7 +170,7 @@ func TestJSONGeneration(t *testing.T) {
 	// Test check data with whitespace for readability
 	jsonString := `
 	{
-		"fallTermCourses":
+		"fallCourses":
 		[
 			{
 				"courseNumber":"101",
@@ -178,12 +178,12 @@ func TestJSONGeneration(t *testing.T) {
 				"sequenceNumber":"A01",
 				"courseTitle":"Properties of Materials",
 				"streamSequence":"2A",
-				"meetingTime":
+				"assignment":
 					{
 					"startDate":"Sep 05, 2018",
 					"endDate":"Dec 05, 2018",
 					"beginTime":"1300",
-					"endtime":"1420",
+					"endTime":"1420",
 					"hoursWeek":3,
 					"sunday":false,
 					"monday":true,
@@ -199,8 +199,8 @@ func TestJSONGeneration(t *testing.T) {
 					}
 			}
 		],
-		"springTermCourses":[],
-		"summerTermCourses":[]
+		"springCourses":[],
+		"summerCourses":[]
 	}`
 
 	jsonData, err := structs.StructToJSON(testSchedule)
@@ -223,7 +223,7 @@ func TestProfParse(t *testing.T) {
 	jsonData := []byte(
 		`[{
 				"displayName": "Berg, Celina",
-				"prefs": [
+				"preferences": [
 					{"courseNum": "CSC111", "preferenceNum": 78},
 					{"courseNum": "CSC115", "preferenceNum": 20},
 					{"courseNum": "CSC225", "preferenceNum": 20},
@@ -235,7 +235,7 @@ func TestProfParse(t *testing.T) {
 			},
 			{
 				"displayName": "Bird, Bill",
-				"prefs": [
+				"preferences": [
 					{"courseNum": "CSC111", "preferenceNum": 78},
 					{"courseNum": "CSC115", "preferenceNum": 20},
 					{"courseNum": "CSC225", "preferenceNum": 20}

@@ -69,6 +69,8 @@ func TestRandomTimeslotAssignment(t *testing.T) {
 		SequenceNumber: "A01",
 		StreamSequence: "2A",
 		CourseTitle:    "Properties of Materials",
+		NumSections: 1,
+		CourseCapacity: 100,
 	}
 
 	testSchedule := structs.Schedule{
