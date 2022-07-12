@@ -163,11 +163,13 @@ func ScheduleConstraintsCheck(term string,
 	testScheduleCourse []structs.Course,
 	profs []structs.Professor) error {
 
-	var teachingMap = map[string]string{}
+	var teachingTimeslotMap = map[string]string{}
+	var teachingCount = map[string]int{}
+	var courseMap = map[string]string{}
 	var d string
 	var err error
 
-	prefsMap, _, _ := MapPreferences(profs, term)
+	prefsMap, profList, teachingPrefMax := MapPreferences(profs, term)
 
 	for _, c := range testScheduleCourse {
 		if c.Assignment.Monday {
@@ -176,23 +178,46 @@ func ScheduleConstraintsCheck(term string,
 			d = "TWF" + c.Assignment.BeginTime
 		}
 
+		// check for unscheduled course
 		if c.Prof.DisplayName == "" || c.Assignment.BeginTime == "" || c.Assignment.EndTime == "" {
 			err = fmt.Errorf("error: %v Schedule missing %v %v timeslot and/or prof,   ", term, c.Subject, c.CourseNumber)
 			break
 		}
 
-		if _, found := teachingMap[c.Prof.DisplayName+d]; found {
+		// check for double slotted prof
+		if _, found := teachingTimeslotMap[c.Prof.DisplayName+d]; found {
 			err = fmt.Errorf("error: %v teaching another %v course at %v,   ", c.Prof.DisplayName, term, d)
 			break
 		}
 
-		if val, pass := prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "TBD" {
-			err = fmt.Errorf(c.Prof.DisplayName, "cannot teach this "+term+" course since they have no (", val, ") preference,   ")
+		// check that prof with zero preference doesn't get sheduled
+		if pref, pass := prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "TBD" {
+			err = fmt.Errorf(c.Prof.DisplayName, "cannot teach this "+term+" course since they have no (", pref, ") preference,   ")
+			break
+		}
+
+		// check that while a prof is teaching less than the number of prefered courese they will teach all sections
+		if prof, exists := courseMap[c.Subject+c.CourseNumber]; exists && !(teachingCount[prof] < teachingPrefMax[prof]) && c.Prof.DisplayName == prof {
+			fmt.Println(teachingCount[prof] , teachingPrefMax[prof])
+			err = fmt.Errorf("error: %v should be teaching this %v since they teach other sections.", prof, c.Subject+c.CourseNumber)
 			break
 		}
 
 		if c.Prof.DisplayName != "TBD" {
-			teachingMap[c.Prof.DisplayName+d] = c.CourseTitle + d
+			// update map used to ensure teachers aren't double slotted 
+			teachingTimeslotMap[c.Prof.DisplayName+d] = c.CourseTitle + d
+			// update map used to asssign same prof to different sections of the same course
+			courseMap[c.Subject+c.CourseNumber] = c.Prof.DisplayName 	
+			// increase prof teaching count
+			teachingCount[c.Prof.DisplayName]++
+		}
+	}
+
+	for _, prof := range profList {
+		// check that profs do not teach more than prefered amount of courses
+		if teachingCount[prof] > teachingPrefMax[prof] {
+			err = fmt.Errorf("error: %v teaching %v courses which is more than there prefered %v courses.", prof, teachingCount[prof], teachingPrefMax[prof])
+			break
 		}
 	}
 
