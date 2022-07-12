@@ -166,8 +166,8 @@ func (sim *ScheduleSimulation) OnBeginSimulation() {
 // Simulate assigns a fitness value to the given genome
 func (sim *ScheduleSimulation) Simulate(genome ga.Genome) {
 	schedule := NewSchedule(genome, *sim)
-	fitness := GetFitness(schedule, sim)
-	fmt.Println("Fitnes: ", fitness)
+	fitness := GetFitness(schedule, sim.PreferenceMap)
+	// fmt.Println("Fitnes: ", fitness)
 	(genome).SetFitness(fitness)
 }
 
@@ -176,7 +176,7 @@ type TimeMinMax struct {
 	EndMax string
 }
 
-func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
+func GetFitness(s []structs.Course, prefMap map[string]map[string]int) int {
 	score := 0
 	valid := true
 
@@ -184,7 +184,7 @@ func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
 	if _, err := BaseTimeslotMaps(s); err != nil {
 		valid = false
 	} else {
-		score += 50
+		score += len(s) * 2
 	}
 
 	// professors checks
@@ -203,7 +203,7 @@ func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
 		}
 
 		prof := c.Prof.DisplayName
-		score += int(sim.PreferenceMap[prof][(c.Subject + c.CourseNumber)])
+		score += int(prefMap[prof][(c.Subject + c.CourseNumber)])
 		if _, timeConflict := teachingMap[prof+days+beginTime]; timeConflict {
 			valid = false
 		}
@@ -256,18 +256,18 @@ func GetFitness(s []structs.Course, sim *ScheduleSimulation) int {
 
 // OnElite prints the current elite on every simulation iteration
 func (sim *ScheduleSimulation) OnElite(genome ga.Genome) {
-	schedule := NewSchedule(genome, *sim)
+	// schedule := NewSchedule(genome, *sim)
 
-	fmt.Println("***********************")
-	fmt.Printf("** [%d] simulation **\n", sim.simulationCount)
-	// fmt.Println("solution: ")
-	// prettyPrintSemester(schedule)
-	fmt.Print("fitness: ")
-	fmt.Println(GetFitness(schedule, sim))
-	fmt.Println("***********************")
+	// fmt.Println("***********************")
+	// fmt.Printf("** [%d] simulation **\n", sim.simulationCount)
+	// // fmt.Println("solution: ")
+	// // prettyPrintSemester(schedule)
+	// fmt.Print("fitness: ")
+	// fmt.Println(GetFitness(schedule, sim))
+	// fmt.Println("***********************")
 }
 
-func prettyPrintSemester(s []structs.Course) {
+func PrettyPrintSemester(s []structs.Course) {
 
 	sort.SliceStable(s, func(i, j int) bool {
 		return s[i].StreamSequence < s[j].StreamSequence
