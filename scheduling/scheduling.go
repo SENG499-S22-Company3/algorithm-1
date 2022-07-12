@@ -76,8 +76,8 @@ func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap
 
 	// simulation for fall semester
 	simulation := ScheduleSimulation{
-		NumberOfSimulations: 100,
-		PopulationSize:      1000,
+		NumberOfSimulations: 10,
+		PopulationSize:      500,
 		BaseSemester:        schedule.FallCourses,
 		NumberOfCourses:     len(schedule.FallCourses),
 		ProfList:            professors,
@@ -117,5 +117,4 @@ func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap
 	startTime := time.Now()
 	algorithm.Simulate()
 	fmt.Println(time.Since(startTime))
-
 }

@@ -106,7 +106,6 @@ func TestSmallScaleBase(t *testing.T) {
 	testCourses, _ := structs.ParseCourses(courseData)
 
 	result := scheduling.BaseSemester(testCourses, historical)
-	fmt.Println(result)
 
 	if len(result) != 2 {
 		t.Error("Incorrect number of courses")
@@ -210,7 +209,27 @@ func TestGenetic(t *testing.T) {
 	professors := input.Professors
 	prefMap, _ := scheduling.MapPreferences(professors)
 
+	maxFit := int32(scheduling.GetFitness(schedule.FallCourses, prefMap))
+	fmt.Println("Starting Fitness: ", maxFit)
+	target := int32(maxFit) - int32(float64(maxFit) * float64(0.1))
+	fmt.Println("Target: ", target)
+	scheduling.PrettyPrintSemester(schedule.FallCourses)
+
 	fmt.Println("starting ga test")
-	scheduling.Optimize(schedule, professors, prefMap)
+	var finalSchedule []structs.Course
+	fit := -1
+	for int32(fit) <= target {
+		schedule = structs.Schedule{
+			FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors),
+		}
+		scheduling.Optimize(schedule, professors, prefMap)	
+		finalSchedule = append(schedule.FallCourses, input.HardScheduled.FallCourses...)
+		fit = scheduling.GetFitness(finalSchedule, prefMap)
+	}
+	
 	fmt.Println("ending ga test")
+
+	scheduling.PrettyPrintSemester(finalSchedule)
+	fmt.Println("Max Fitness: ", ((8*len(finalSchedule)+32)))
+	fmt.Println("Final Fitness: ", fit)
 }
