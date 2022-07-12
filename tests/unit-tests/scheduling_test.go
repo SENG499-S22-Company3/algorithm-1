@@ -209,9 +209,9 @@ func TestGenetic(t *testing.T) {
 	professors := input.Professors
 	prefMap, _ := scheduling.MapPreferences(professors)
 
-	maxFit := int32(scheduling.GetFitness(schedule.FallCourses, prefMap))
-	fmt.Println("Starting Fitness: ", maxFit)
-	target := int32(maxFit) - int32(float64(maxFit) * float64(0.1))
+	startFit := int32(scheduling.GetFitness(schedule.FallCourses, prefMap))
+	fmt.Println("Starting Fitness: ", startFit)
+	target := int32(startFit) - int32(float64(startFit) * float64(0.1))
 	fmt.Println("Target: ", target)
 	scheduling.PrettyPrintSemester(schedule.FallCourses)
 
@@ -230,6 +230,6 @@ func TestGenetic(t *testing.T) {
 	fmt.Println("ending ga test")
 
 	scheduling.PrettyPrintSemester(finalSchedule)
-	fmt.Println("Max Fitness: ", ((8*len(finalSchedule)+32)))
+	fmt.Println("Max Fitness: ", ((8*len(schedule.FallCourses)+32)))
 	fmt.Println("Final Fitness: ", fit)
 }
