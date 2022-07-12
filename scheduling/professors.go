@@ -116,7 +116,7 @@ func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Cour
 		teachingMap[prof+d] = c.CourseTitle
 		// update semester schedule
 		semesterSchedule[i].Prof.DisplayName = prof
-		semesterSchedule[i].Prof.Preferences = []structs.Preference{}
+		semesterSchedule[i].Prof.Preferences = make([]structs.Preference, 0)
 	}
 
 	return semesterSchedule
