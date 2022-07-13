@@ -171,6 +171,8 @@ func AssignCourseProf(hardScheduled []structs.Course, semesterSchedule []structs
 	return semesterSchedule
 }
 
+
+// testScheduleCourse should be both hardScheduled courses and scheduled courses (ie. append(scheduled, hardScheduled...))
 func ScheduleConstraintsCheck(term string,
 	testScheduleCourse []structs.Course,
 	profs []structs.Professor) error {

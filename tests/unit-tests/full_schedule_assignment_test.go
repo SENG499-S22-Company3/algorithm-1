@@ -49,11 +49,13 @@ func TestFallScheduleAssignment(t *testing.T) {
 		t.Error(err)
 	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.FallCourses, testSchedule.FallCourses, input.Professors, "Fall")
+	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.FallCourses...)
+
 	err = scheduling.ScheduleConstraintsCheck("Fall", testScheduleCourse, input.Professors)
 	if err != nil {
 		t.Error(err)
 	}
-	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.FallCourses...)
+
 	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
 	if err != nil {
 		t.Error(err)
@@ -72,11 +74,13 @@ func TestSpringScheduleAssignment(t *testing.T) {
 		t.Error(err)
 	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors, "Spring")
+	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SpringCourses...)
+	
 	err = scheduling.ScheduleConstraintsCheck("Spring", testScheduleCourse, input.Professors)
 	if err != nil {
 		t.Error(err)
 	}
-	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SpringCourses...)
+	
 	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
 	if err != nil {
 		t.Error(err)
@@ -95,15 +99,14 @@ func TestSummerScheduleAssignment(t *testing.T) {
 		t.Error(err)
 	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SummerCourses, testSchedule.SummerCourses, input.Professors, "Summer")
-	err = scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input.Professors)
-	if err != nil {
-		t.Error(err)
-	}
-	err = scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input.Professors)
-	if err != nil {
-		t.Error(err)
-	}
 	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SummerCourses...)
+	
+	err = scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input.Professors)
+	if err != nil {
+		t.Error(err)
+	}
+
+	
 	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
 	if err != nil {
 		t.Error(err)
@@ -130,7 +133,13 @@ func TestTBDScheduleAssignment(t *testing.T) {
 		t.Error(err)
 	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SummerCourses, testSchedule.SummerCourses, input.Professors, "Summer")
+	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SummerCourses...)
+
 	err = scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input.Professors)
+	if err != nil {
+		t.Error(err)
+	}
+	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
 	if err != nil {
 		t.Error(err)
 	}
