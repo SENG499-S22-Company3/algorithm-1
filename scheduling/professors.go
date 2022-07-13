@@ -51,6 +51,16 @@ func MapPreferences(profs []structs.Professor, term string) (map[string]map[stri
 	return prefsMap, randomizer(profList), teachingPrefMax
 }
 
+func countHardScheduled(hardScheduled []structs.Course) map[string]int {
+	var courseMap = map[string]int{}
+	for _, c := range hardScheduled {
+		if c.Prof.DisplayName != "TBD" {
+			courseMap[c.Prof.DisplayName]++
+		}
+	}
+	return courseMap
+}
+
 /*
 	Input:  prefsMap map[string]map[string]int, 
 			profList []string, 
@@ -112,19 +122,19 @@ func assignProf(prefsMap map[string]map[string]int,
 }
 
 /*
-	Input: 	historical-data []Course, 
+	Input: 	hardScheduled []Course, 
 			SemesterSchedule []Course, 
 			professors []Professor,
 			term string
 	Output: SemesterSchedule
 */
-func AssignCourseProf(historic []structs.Course, semesterSchedule []structs.Course, professors []structs.Professor, term string) []structs.Course {
+func AssignCourseProf(hardScheduled []structs.Course, semesterSchedule []structs.Course, professors []structs.Professor, term string) []structs.Course {
 	
 	// get list profs and list of prof preferences
 	prefsMap, profList, teachingPrefMax := MapPreferences(professors, term)
-	var teachingCount = map[string]int{}
+	teachingCount := countHardScheduled(hardScheduled)
 	var teachingTimeslotMap = map[string]string{}
-	var courseMap = map[string]string{}
+	var courseMap  = map[string]string{}
 	var prof string
 	var profPos = 0
 	var d string
