@@ -204,14 +204,15 @@ func TestGenetic(t *testing.T) {
 	}
 
 	schedule := structs.Schedule{
-		FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors),
+		FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall"),
 	}
 	professors := input.Professors
-	prefMap, _ := scheduling.MapPreferences(professors)
+	prefMap, _, _ := scheduling.MapPreferences(professors, "Fall")
+	professors = append(professors, structs.Professor{DisplayName: "TBD"})
 
 	startFit := int32(scheduling.GetFitness(schedule.FallCourses, prefMap))
 	fmt.Println("Starting Fitness: ", startFit)
-	target := int32(startFit) - int32(float64(startFit) * float64(0.1))
+	target := int32(startFit) - int32(float64(startFit)*float64(0.1))
 	fmt.Println("Target: ", target)
 	scheduling.PrettyPrintSemester(schedule.FallCourses)
 
@@ -220,16 +221,16 @@ func TestGenetic(t *testing.T) {
 	fit := -1
 	for int32(fit) <= target {
 		schedule = structs.Schedule{
-			FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors),
+			FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall"),
 		}
-		scheduling.Optimize(schedule, professors, prefMap)	
+		scheduling.Optimize(schedule, professors, prefMap)
 		finalSchedule = append(schedule.FallCourses, input.HardScheduled.FallCourses...)
 		fit = scheduling.GetFitness(finalSchedule, prefMap)
 	}
-	
+
 	fmt.Println("ending ga test")
 
 	scheduling.PrettyPrintSemester(finalSchedule)
-	fmt.Println("Max Fitness: ", ((8*len(schedule.FallCourses)+32)))
+	fmt.Println("Max Fitness: ", (8*len(schedule.FallCourses) + 32))
 	fmt.Println("Final Fitness: ", fit)
 }
