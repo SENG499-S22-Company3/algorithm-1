@@ -135,3 +135,33 @@ func TestTBDScheduleAssignment(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func TestTeachingMax(t *testing.T){
+	jsonData, err := ioutil.ReadFile("../data/teaching-max-test.json")
+    if err != nil {
+        log.Fatal("Error when opening input-test.json file: ", err)
+    }
+	
+	input, err := structs.ParseInput(jsonData)
+	if err != nil {
+		t.Error("Input parsing failed with error: ", err.Error())
+	}
+
+	courses := scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall")
+
+	if len(courses) != 2 {
+		t.Error("Courses slice should be of len 2 not size ", len(courses))
+	}
+
+	count := 0
+	for _,c := range courses {
+		if c.Prof.DisplayName == "TBD" {
+			count++
+		}
+	}
+
+	if count != 1 {
+		t.Error("Bill Bird Teaching too many courses")
+	}
+
+}

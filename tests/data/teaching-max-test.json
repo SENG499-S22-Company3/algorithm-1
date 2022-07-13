@@ -1,0 +1,63 @@
+{
+    "hardScheduled": {
+      "fallCourses": [
+        {
+          "courseNumber": "310",
+          "subject": "SENG",
+          "sequenceNumber": "A01",
+          "streamSequence": "2B",
+          "courseTitle": "HCI",
+          "numSections": 1,
+          "courseCapacity": 100,
+          "assignment": {
+            "startDate": "Sep 05, 2018",
+            "endDate": "Dec 05, 2018",
+            "beginTime": "1300",
+            "endTime": "1420",
+            "hoursWeek": 3,
+            "sunday": false,
+            "monday": true,
+            "tuesday": false,
+            "wednesday": false,
+            "thursday": true,
+            "friday": false,
+            "saturday": false
+          },
+          "prof": {
+            "displayName": "Bird, Bill",
+            "preferences": []
+          }
+        }
+      ]
+    },
+    "coursesToSchedule": {
+      "fallCourses": [      
+            {
+                "courseNumber": "111",
+                "subject": "CSC",
+                "sequenceNumber": "A01",
+                "courseTitle": "Fundamentals of Programming with Engineering Applications",
+                "streamSequence": "1A",
+                "numSections": 1,
+                "courseCapacity": 100
+            }
+        ],
+      "springCourses": [],
+      "summerCourses": []
+    },
+    "professors": [
+      {
+        "displayName": "Bird, Bill",
+        "fallTermCourses": 1,
+        "springTermCourses": 0,
+        "summerTermCourses": 0,
+        "preferences": [
+          {
+            "courseNum": "CSC111",
+            "preferenceNum": 4
+          }
+        ]
+      }
+    ]
+  }
+  
