@@ -220,8 +220,10 @@ func TestGenetic(t *testing.T) {
 	var finalSchedule []structs.Course
 	fit := -1
 	for int32(fit) <= target {
+		timeslotMap, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.FallCourses)
+		requestedCourses, _, _ := scheduling.AddCoursesToStreamMaps(scheduling.Split(input.CoursesToSchedule.FallCourses), timeslotMap)
 		schedule = structs.Schedule{
-			FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall"),
+			FallCourses: scheduling.AssignCourseProf(input.HardScheduled.FallCourses, requestedCourses, professors, "Fall"),
 		}
 		scheduling.Optimize(schedule, professors, prefMap)
 		finalSchedule = append(schedule.FallCourses, input.HardScheduled.FallCourses...)

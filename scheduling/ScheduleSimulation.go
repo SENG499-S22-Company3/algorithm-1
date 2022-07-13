@@ -180,11 +180,10 @@ type TimeMinMax struct {
 
 func GetFitness(s []structs.Course, prefMap map[string]map[string]int) int {
 	score := 0
-	valid := true
 
 	// timeslot checks
 	if _, err := BaseTimeslotMaps(s); err != nil {
-		valid = false
+		return 0
 	} else {
 		score += len(s) * 2
 	}
@@ -207,10 +206,10 @@ func GetFitness(s []structs.Course, prefMap map[string]map[string]int) int {
 		prof := c.Prof.DisplayName
 		score += int(prefMap[prof][(c.Subject + c.CourseNumber)])
 		if _, timeConflict := teachingMap[prof+days+beginTime]; timeConflict {
-			valid = false
+			return 0
 		}
 
-		if prof != "TBA" {
+		if prof != "TBD" {
 			teachingMap[prof+days+beginTime] = c.CourseTitle
 		}
 
@@ -248,11 +247,7 @@ func GetFitness(s []structs.Course, prefMap map[string]map[string]int) int {
 		}
 	}
 
-	if valid {
-		return score
-	} else {
-		return 0
-	}
+	return score
 
 }
 
@@ -266,7 +261,7 @@ func (sim *ScheduleSimulation) OnElite(genome ga.Genome) {
 	//PrettyPrintSemester(schedule)
 	fmt.Print("fitness: ")
 	fmt.Println(GetFitness(schedule, sim.PreferenceMap))
-	// fmt.Println("***********************")
+	fmt.Println("***********************")
 }
 
 func PrettyPrintSemester(s []structs.Course) {
