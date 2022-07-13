@@ -13,10 +13,10 @@ func sliceContains(a string, list []string) bool {
 	return false
 }
 
-func BaseSemester(requestedCourses []structs.Course, historicalSemester []structs.Course) []structs.Course {
+func BaseSemester(requestedCourses []structs.Course, hardSemester []structs.Course) []structs.Course {
 	var result []structs.Course
 	ignore := []string{"CHEM", "MATH", "PHYS", "STAT", "ECON"} // Not sure if this is comprehensive
-	for _, h := range historicalSemester {
+	for _, h := range hardSemester {
 		if sliceContains(h.Subject, ignore) {
 			result = append(result, h)
 		}
@@ -30,20 +30,20 @@ func BaseSemester(requestedCourses []structs.Course, historicalSemester []struct
 	return result
 }
 
-func BaseSchedule(requestedCourses structs.Schedule, historicalSchedule structs.Schedule) structs.Schedule {
+func BaseSchedule(requestedCourses structs.Schedule, hardSchedule structs.Schedule) structs.Schedule {
 	// making channels to get return values from goroutines
 	fall := make(chan []structs.Course)
 	spring := make(chan []structs.Course)
 	summer := make(chan []structs.Course)
 
 	go func() {
-		fall <- BaseSemester(requestedCourses.FallCourses, historicalSchedule.FallCourses)
+		fall <- BaseSemester(requestedCourses.FallCourses, hardSchedule.FallCourses)
 	}()
 	go func() {
-		spring <- BaseSemester(requestedCourses.SpringCourses, historicalSchedule.SpringCourses)
+		spring <- BaseSemester(requestedCourses.SpringCourses, hardSchedule.SpringCourses)
 	}()
 	go func() {
-		summer <- BaseSemester(requestedCourses.SummerCourses, historicalSchedule.SummerCourses)
+		summer <- BaseSemester(requestedCourses.SummerCourses, hardSchedule.SummerCourses)
 	}()
 
 	return structs.Schedule{
@@ -53,11 +53,11 @@ func BaseSchedule(requestedCourses structs.Schedule, historicalSchedule structs.
 	}
 }
 
-func Assignments(hardScheduledCourses []structs.Course, requestedCourses []structs.Course, professors []structs.Professor) []structs.Course {
-
-	timeslotFallMap, _ := BaseTimeslotMaps(hardScheduledCourses)
-	requestedCourses, _, _ = AddCoursesToStreamMaps(Split(requestedCourses), timeslotFallMap)
-	requestedCourses = AssignCourseProf(hardScheduledCourses, requestedCourses, professors)
+func Assignments(hardScheduledCourses []structs.Course, requestedCourses []structs.Course, professors []structs.Professor, term string) ([]structs.Course){
+	
+	timeslotMap, _ := BaseTimeslotMaps(hardScheduledCourses)
+	requestedCourses, _, _ = AddCoursesToStreamMaps(requestedCourses, timeslotMap)
+	requestedCourses = AssignCourseProf(hardScheduledCourses, requestedCourses, professors, term)
 	requestedCourses = append(requestedCourses, hardScheduledCourses...)
 
 	return requestedCourses

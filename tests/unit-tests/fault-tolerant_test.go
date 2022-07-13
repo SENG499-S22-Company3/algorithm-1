@@ -34,7 +34,7 @@ func TestExtraDataScheduleAssignment(t *testing.T) {
 		t.Error(err)
 	}
 
-	testSchedule = scheduling.AssignCourseProf(input.HardScheduled.FallCourses, testSchedule, input.Professors)
+	testSchedule = scheduling.AssignCourseProf(input.HardScheduled.FallCourses, testSchedule, input.Professors, "Fall")
 	err = scheduling.ScheduleConstraintsCheck("Fall", testSchedule, input.Professors)
 	if err != nil {
 		t.Error(err)

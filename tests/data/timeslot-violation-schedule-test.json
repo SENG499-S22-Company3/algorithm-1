@@ -92,6 +92,9 @@
   "professors": [
     {
       "displayName": "Bird, Bill",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "preferences": [
         {
           "courseNum": "CSC111",
@@ -141,6 +144,9 @@
     },
     {
       "displayName": "Chester, Sean",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "preferences": [
         {
           "courseNum": "CSC111",
@@ -166,6 +172,9 @@
     },
     {
       "displayName": "Corless, Jason",
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
       "preferences": [
         {
           "courseNum": "CSC111",
