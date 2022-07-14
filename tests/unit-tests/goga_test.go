@@ -50,10 +50,6 @@ func TestGenetic(t *testing.T) {
 			fmt.Println("BREAK")
 			finalSchedule = initSchedule.FallCourses
 			fit = scheduling.GetFitness(finalSchedule, prefMap, teachingPrefMax)
-			if fit == 0 {
-				i = 0
-				continue
-			}
 			break
 		}
 		i++
