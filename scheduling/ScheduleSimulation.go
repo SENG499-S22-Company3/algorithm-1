@@ -213,10 +213,9 @@ func GetFitness(s []structs.Course, prefMap map[string]map[string]int, TeachingP
 		if prof != "TBD" {
 			teachingMap[prof+days+beginTime] = c.CourseTitle
 			teachingCount[prof]++
-		}
-
-		if teachingCount[prof] > TeachingPrefMax[prof] {
-			return 0
+			if teachingCount[prof] > TeachingPrefMax[prof] {
+				return 0
+			}
 		}
 
 		// track min and max for every stream sequence for both MTh and TWF
