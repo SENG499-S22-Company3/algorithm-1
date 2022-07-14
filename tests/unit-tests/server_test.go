@@ -87,7 +87,7 @@ func TestCheckScheduleTimeslotFail(t *testing.T) {
 
 	// Assert
 	actual_response := response.Body.String()
-	expected_response := "error: SENG 275 is scheduled at same time as another required course SENG310,   Schedule given has some violations that should be resolved"
+	expected_response := "error: SENG 275 is scheduled at same time as another required course SENG310 in Fall term,   Schedule given has some violations that should be resolved"
 
 	if actual_response != expected_response {
 		t.Errorf("got %q, want %q", actual_response, expected_response)
