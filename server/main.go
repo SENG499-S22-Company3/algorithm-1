@@ -48,7 +48,7 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
-	
+
 	schedule.SpringCourses = scheduling.Assignments(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -107,17 +107,17 @@ func CheckSchedule(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check for timeslot violations
-	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.FallCourses)
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.FallCourses, "Fall")
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true
 	}
-	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SpringCourses)
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SpringCourses, "Spring")
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true
 	}
-	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SummerCourses)
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SummerCourses, "Summer")
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true

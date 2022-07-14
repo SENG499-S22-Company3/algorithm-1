@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"time"
 )
 
 func createEmptyDay(isMTh bool) map[string]string {
@@ -113,6 +114,8 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots, te
 	hasBeenAdded := false
 	count := 0
 
+	course = setCourseDates(course, term)
+
 	if course.Assignment.BeginTime != "" {
 		if course.Assignment.Monday {
 			timeslots.Monday, err = addTimeslot(course, timeslots.Monday, term)
@@ -137,7 +140,7 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots, te
 				for time, courseValue := range timeslots.Monday {
 					if courseValue == "" {
 						if timeslots.Thursday[time] == "" {
-							course = setCourseTime(course, time, true, term)
+							course = setCourseTime(course, time, true)
 							timeslots.Monday, err = addTimeslot(course, timeslots.Monday, term)
 							if err != nil {
 								break
@@ -152,7 +155,7 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots, te
 				for time, courseValue := range timeslots.Tuesday {
 					if courseValue == "" {
 						if timeslots.Wednesday[time] == "" && timeslots.Friday[time] == "" {
-							course = setCourseTime(course, time, false, term)
+							course = setCourseTime(course, time, false)
 							timeslots.Tuesday, err = addTimeslot(course, timeslots.Tuesday, term)
 							if err != nil {
 								break
@@ -200,7 +203,7 @@ func addTimeslot(course structs.Course, day map[string]string, term string) (map
 	return day, err
 }
 
-func setCourseTime(course structs.Course, beginTime string, isMTh bool, term string) structs.Course {
+func setCourseTime(course structs.Course, beginTime string, isMTh bool) structs.Course {
 	course.Assignment.BeginTime = beginTime
 	beginMinutes := string(beginTime[len(beginTime)-2]) // Grab last two digits of the time (minutes)
 	beginTimeInt, _ := strconv.Atoi(beginTime)
@@ -223,6 +226,26 @@ func setCourseTime(course structs.Course, beginTime string, isMTh bool, term str
 
 	if len(course.Assignment.EndTime) == 3 {
 		course.Assignment.EndTime = "0" + course.Assignment.EndTime
+	}
+
+	return course
+}
+
+func setCourseDates(course structs.Course, term string) structs.Course {
+	year := time.Now().Year()
+
+	if term == "Fall" {
+		course.Assignment.StartDate = "Sep 01, " + strconv.Itoa(year)
+		course.Assignment.EndDate = "Dec 01, " + strconv.Itoa(year)
+	} else if term == "Spring" {
+		course.Assignment.StartDate = "Jan 01, " + strconv.Itoa(year+1)
+		course.Assignment.EndDate = "Apr 01, " + strconv.Itoa(year+1)
+	} else if term == "Summer" {
+		course.Assignment.StartDate = "May 01, " + strconv.Itoa(year+1)
+		course.Assignment.EndDate = "Aug 01, " + strconv.Itoa(year+1)
+	} else {
+		course.Assignment.StartDate = ""
+		course.Assignment.EndDate = ""
 	}
 
 	return course

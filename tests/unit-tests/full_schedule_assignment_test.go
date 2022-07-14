@@ -40,11 +40,11 @@ func getInput(t *testing.T) (structs.Schedule, structs.Input) {
 func TestFallScheduleAssignment(t *testing.T) {
 
 	testSchedule, input := getInput(t)
-	testStreamtype, err := scheduling.BaseTimeslotMaps(input.HardScheduled.FallCourses)
+	testStreamtype, err := scheduling.BaseTimeslotMaps(input.HardScheduled.FallCourses, "Fall")
 	if err != nil {
 		t.Error(err)
 	}
-	testSchedule.FallCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype)
+	testSchedule.FallCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype, "Fall")
 	if err != nil {
 		t.Error(err)
 	}
@@ -56,7 +56,7 @@ func TestFallScheduleAssignment(t *testing.T) {
 		t.Error(err)
 	}
 
-	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
+	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse, "Fall")
 	if err != nil {
 		t.Error(err)
 	}
@@ -65,23 +65,23 @@ func TestFallScheduleAssignment(t *testing.T) {
 func TestSpringScheduleAssignment(t *testing.T) {
 
 	testSchedule, input := getInput(t)
-	testStreamtype, err := scheduling.BaseTimeslotMaps(input.HardScheduled.SpringCourses)
+	testStreamtype, err := scheduling.BaseTimeslotMaps(input.HardScheduled.SpringCourses, "Spring")
 	if err != nil {
 		t.Error(err)
 	}
-	testSchedule.SpringCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SpringCourses), testStreamtype)
+	testSchedule.SpringCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SpringCourses), testStreamtype, "Spring")
 	if err != nil {
 		t.Error(err)
 	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SpringCourses, testSchedule.SpringCourses, input.Professors, "Spring")
 	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SpringCourses...)
-	
+
 	err = scheduling.ScheduleConstraintsCheck("Spring", testScheduleCourse, input.Professors)
 	if err != nil {
 		t.Error(err)
 	}
-	
-	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
+
+	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse, "Spring")
 	if err != nil {
 		t.Error(err)
 	}
@@ -90,24 +90,23 @@ func TestSpringScheduleAssignment(t *testing.T) {
 func TestSummerScheduleAssignment(t *testing.T) {
 
 	testSchedule, input := getInput(t)
-	testStreamtype, err := scheduling.BaseTimeslotMaps(input.HardScheduled.SummerCourses)
+	testStreamtype, err := scheduling.BaseTimeslotMaps(input.HardScheduled.SummerCourses, "Summer")
 	if err != nil {
 		t.Error(err)
 	}
-	testSchedule.SummerCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SummerCourses), testStreamtype)
+	testSchedule.SummerCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SummerCourses), testStreamtype, "Summer")
 	if err != nil {
 		t.Error(err)
 	}
 	testScheduleCourse := scheduling.AssignCourseProf(input.HardScheduled.SummerCourses, testSchedule.SummerCourses, input.Professors, "Summer")
 	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SummerCourses...)
-	
+
 	err = scheduling.ScheduleConstraintsCheck("Summer", testScheduleCourse, input.Professors)
 	if err != nil {
 		t.Error(err)
 	}
 
-	
-	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
+	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse, "Summer")
 	if err != nil {
 		t.Error(err)
 	}
@@ -116,7 +115,7 @@ func TestSummerScheduleAssignment(t *testing.T) {
 func TestTBDScheduleAssignment(t *testing.T) {
 
 	testSchedule, input := getInput(t)
-	testStreamtype, err := scheduling.BaseTimeslotMaps(input.HardScheduled.SummerCourses)
+	testStreamtype, err := scheduling.BaseTimeslotMaps(input.HardScheduled.SummerCourses, "Summer")
 
 	testSchedule.SummerCourses = append(testSchedule.SummerCourses, structs.Course{
 		CourseNumber:   "225",
@@ -128,7 +127,7 @@ func TestTBDScheduleAssignment(t *testing.T) {
 		CourseCapacity: 100,
 	})
 
-	testSchedule.SummerCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SummerCourses), testStreamtype)
+	testSchedule.SummerCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.SummerCourses), testStreamtype, "Summer")
 	if err != nil {
 		t.Error(err)
 	}
@@ -139,18 +138,18 @@ func TestTBDScheduleAssignment(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse)
+	_, err = scheduling.BaseTimeslotMaps(testScheduleCourse, "Summer")
 	if err != nil {
 		t.Error(err)
 	}
 }
 
-func TestTeachingMax(t *testing.T){
+func TestTeachingMax(t *testing.T) {
 	jsonData, err := ioutil.ReadFile("../data/teaching-max-test.json")
-    if err != nil {
-        log.Fatal("Error when opening input-test.json file: ", err)
-    }
-	
+	if err != nil {
+		log.Fatal("Error when opening input-test.json file: ", err)
+	}
+
 	input, err := structs.ParseInput(jsonData)
 	if err != nil {
 		t.Error("Input parsing failed with error: ", err.Error())
@@ -163,7 +162,7 @@ func TestTeachingMax(t *testing.T){
 	}
 
 	count := 0
-	for _,c := range courses {
+	for _, c := range courses {
 		if c.Prof.DisplayName == "TBD" {
 			count++
 		}

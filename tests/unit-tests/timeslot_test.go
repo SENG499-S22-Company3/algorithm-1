@@ -45,7 +45,7 @@ func TestBaseTimeslotMap(t *testing.T) {
 		SummerCourses: []structs.Course{},
 	}
 
-	result, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+	result, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses, "Fall")
 
 	if err != nil {
 		t.Error(err)
@@ -69,7 +69,7 @@ func TestRandomTimeslotAssignment(t *testing.T) {
 		SequenceNumber: "A01",
 		StreamSequence: "2A",
 		CourseTitle:    "Properties of Materials",
-		NumSections: 1,
+		NumSections:    1,
 		CourseCapacity: 100,
 	}
 
@@ -82,7 +82,7 @@ func TestRandomTimeslotAssignment(t *testing.T) {
 	testStreamtype := scheduling.CreateEmptyStreamType()
 	var err error
 
-	testSchedule.FallCourses, testStreamtype, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype)
+	testSchedule.FallCourses, testStreamtype, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype, "Fall")
 	isAdded := false
 
 	if err != nil {
@@ -140,7 +140,7 @@ func TestCantAddConflictingRequiredCourse(t *testing.T) {
 		SummerCourses: []structs.Course{},
 	}
 
-	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses, "Fall")
 
 	if err == nil {
 		t.Error("Error: Did not catch required course conflict error")
@@ -179,7 +179,7 @@ func TestCantScheduleClassOutsideTime(t *testing.T) {
 		SummerCourses: []structs.Course{},
 	}
 
-	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses, "Fall")
 
 	if err == nil {
 		t.Error("Error: Did not catch course being scheduled in improper slot")
@@ -218,7 +218,7 @@ func TestCantScheduleCourseWithoutStreamSequence(t *testing.T) {
 		SummerCourses: []structs.Course{},
 	}
 
-	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+	_, err := scheduling.BaseTimeslotMaps(testSchedule.FallCourses, "Fall")
 
 	if err == nil {
 		t.Error("Error: Did not catch course being scheduled without stream sequence")
@@ -239,7 +239,7 @@ func TestStreamOverflow(t *testing.T) {
 		t.Error("Error: Parsing data from JSON to schedule object failed")
 	}
 
-	_, err = scheduling.BaseTimeslotMaps(testSchedule.FallCourses)
+	_, err = scheduling.BaseTimeslotMaps(testSchedule.FallCourses, "Fall")
 
 	if err == nil {
 		t.Error("Error: Did not catch course being scheduled without stream sequence")
@@ -264,7 +264,7 @@ func TestFullRandomAssignment(t *testing.T) {
 
 	testStreamtype := scheduling.CreateEmptyStreamType()
 
-	testSchedule.FallCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype)
+	testSchedule.FallCourses, _, err = scheduling.AddCoursesToStreamMaps(scheduling.Split(testSchedule.FallCourses), testStreamtype, "Fall")
 
 	if err != nil {
 		t.Error(err)
