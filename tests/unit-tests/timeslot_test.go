@@ -5,7 +5,9 @@ import (
 	"algorithm-1/structs"
 	"io/ioutil"
 	"os"
+	"strconv"
 	"testing"
+	"time"
 )
 
 func TestBaseTimeslotMap(t *testing.T) {
@@ -243,6 +245,81 @@ func TestStreamOverflow(t *testing.T) {
 
 	if err == nil {
 		t.Error("Error: Did not catch course being scheduled without stream sequence")
+	}
+}
+
+func TestSetDate(t *testing.T) {
+	// Test data
+	testAssignment := structs.Assignment{
+		StartDate: "",
+		EndDate:   "",
+		BeginTime: "",
+		EndTime:   "",
+		HoursWeek: 0,
+		Sunday:    false,
+		Monday:    false,
+		Tuesday:   false,
+		Wednesday: false,
+		Thursday:  false,
+		Friday:    false,
+		Saturday:  false,
+	}
+
+	testCourse := structs.Course{
+		Assignment:     testAssignment,
+		CourseNumber:   "101",
+		Subject:        "CHEM",
+		SequenceNumber: "A01",
+		StreamSequence: "2A",
+		CourseTitle:    "Properties of Materials",
+	}
+
+	testSchedule := structs.Schedule{
+		FallCourses:   []structs.Course{testCourse},
+		SpringCourses: []structs.Course{testCourse},
+		SummerCourses: []structs.Course{testCourse},
+	}
+
+	testFallStreamType := scheduling.CreateEmptyStreamType()
+	testSpringStreamType := scheduling.CreateEmptyStreamType()
+	testSummerStreamType := scheduling.CreateEmptyStreamType()
+
+	fallCourses, _, err := scheduling.AddCoursesToStreamMaps(testSchedule.FallCourses, testFallStreamType, "Fall")
+	if err != nil {
+		t.Error(err)
+	}
+
+	springCourses, _, err := scheduling.AddCoursesToStreamMaps(testSchedule.SpringCourses, testSpringStreamType, "Spring")
+	if err != nil {
+		t.Error(err)
+	}
+
+	summerCourses, _, err := scheduling.AddCoursesToStreamMaps(testSchedule.SummerCourses, testSummerStreamType, "Summer")
+	if err != nil {
+		t.Error(err)
+	}
+
+	year := time.Now().Year()
+
+	if fallCourses[0].Assignment.StartDate != "Sep 01, "+strconv.Itoa(year) {
+		t.Errorf("error: incorrect date assigned, expected Sep 01, %v, got %v", year, fallCourses[0].Assignment.StartDate)
+	}
+	if fallCourses[0].Assignment.EndDate != "Dec 01, "+strconv.Itoa(year) {
+		t.Errorf("error: incorrect date assigned, expected Dec 01, %v, got %v", year, fallCourses[0].Assignment.EndDate)
+	}
+
+	if springCourses[0].Assignment.StartDate != "Jan 01, "+strconv.Itoa(year+1) {
+		t.Errorf("error: incorrect date assigned, expected Jan 01, %v, got %v", year+1, springCourses[0].Assignment.StartDate)
+	}
+	if springCourses[0].Assignment.EndDate != "Apr 01, "+strconv.Itoa(year+1) {
+		t.Errorf("error: incorrect date assigned, expected Apr 01, %v, got %v", year+1, springCourses[0].Assignment.EndDate)
+	}
+
+	if summerCourses[0].Assignment.StartDate != "May 01, "+strconv.Itoa(year+1) {
+		t.Errorf("error: incorrect date assigned, expected May 01, %v, got %v", year+1, summerCourses[0].Assignment.StartDate)
+	}
+	if summerCourses[0].Assignment.EndDate != "Aug 01, "+strconv.Itoa(year+1) {
+		t.Errorf("error: incorrect date assigned, expected Aug 01, %v, got %v", year+1, summerCourses[0].Assignment.EndDate)
 	}
 }
 
