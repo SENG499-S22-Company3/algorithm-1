@@ -155,7 +155,10 @@ func TestTeachingMax(t *testing.T) {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
 
-	courses := scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall")
+	courses, err := scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall")
+	if err != nil {
+		t.Error(err)
+	}
 
 	if len(courses) != 2 {
 		t.Error("Courses slice should be of len 2 not size ", len(courses))
