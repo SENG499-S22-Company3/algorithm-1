@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"time"
 	"math"
 )
 
@@ -65,38 +66,38 @@ func CreateEmptyStreamType() structs.StreamType {
 	return timeslotMaps
 }
 
-func BaseTimeslotMaps(baseTermCourses []structs.Course) (structs.StreamType, error) {
+func BaseTimeslotMaps(baseTermCourses []structs.Course, term string) (structs.StreamType, error) {
 	timeslotMaps := CreateEmptyStreamType()
 
-	_, timeslotMaps, err := AddCoursesToStreamMaps(baseTermCourses, timeslotMaps)
+	_, timeslotMaps, err := AddCoursesToStreamMaps(baseTermCourses, timeslotMaps, term)
 
 	return timeslotMaps, err
 }
 
-func AddCoursesToStreamMaps(courses []structs.Course, timeslotMaps structs.StreamType) ([]structs.Course, structs.StreamType, error) {
+func AddCoursesToStreamMaps(courses []structs.Course, timeslotMaps structs.StreamType, term string) ([]structs.Course, structs.StreamType, error) {
 	var err error
 	var updatedCourses []structs.Course
 	var updatedCourse structs.Course
 
 	for _, course := range courses {
 		if course.StreamSequence == "1A" {
-			updatedCourse, timeslotMaps.S1A, err = addMultipleTimeslots(course, timeslotMaps.S1A)
+			updatedCourse, timeslotMaps.S1A, err = addMultipleTimeslots(course, timeslotMaps.S1A, term)
 		} else if course.StreamSequence == "1B" {
-			updatedCourse, timeslotMaps.S1B, err = addMultipleTimeslots(course, timeslotMaps.S1B)
+			updatedCourse, timeslotMaps.S1B, err = addMultipleTimeslots(course, timeslotMaps.S1B, term)
 		} else if course.StreamSequence == "2A" {
-			updatedCourse, timeslotMaps.S2A, err = addMultipleTimeslots(course, timeslotMaps.S2A)
+			updatedCourse, timeslotMaps.S2A, err = addMultipleTimeslots(course, timeslotMaps.S2A, term)
 		} else if course.StreamSequence == "2B" {
-			updatedCourse, timeslotMaps.S2B, err = addMultipleTimeslots(course, timeslotMaps.S2B)
+			updatedCourse, timeslotMaps.S2B, err = addMultipleTimeslots(course, timeslotMaps.S2B, term)
 		} else if course.StreamSequence == "3A" {
-			updatedCourse, timeslotMaps.S3A, err = addMultipleTimeslots(course, timeslotMaps.S3A)
+			updatedCourse, timeslotMaps.S3A, err = addMultipleTimeslots(course, timeslotMaps.S3A, term)
 		} else if course.StreamSequence == "3B" {
-			updatedCourse, timeslotMaps.S3B, err = addMultipleTimeslots(course, timeslotMaps.S3B)
+			updatedCourse, timeslotMaps.S3B, err = addMultipleTimeslots(course, timeslotMaps.S3B, term)
 		} else if course.StreamSequence == "4A" {
-			updatedCourse, timeslotMaps.S4A, err = addMultipleTimeslots(course, timeslotMaps.S4A)
+			updatedCourse, timeslotMaps.S4A, err = addMultipleTimeslots(course, timeslotMaps.S4A, term)
 		} else if course.StreamSequence == "4B" {
-			updatedCourse, timeslotMaps.S4B, err = addMultipleTimeslots(course, timeslotMaps.S4B)
+			updatedCourse, timeslotMaps.S4B, err = addMultipleTimeslots(course, timeslotMaps.S4B, term)
 		} else {
-			err = fmt.Errorf("error: %v %v has no stream sequence value", course.Subject, course.CourseNumber)
+			err = fmt.Errorf("error: %v %v has no stream sequence value in %v term", course.Subject, course.CourseNumber, term)
 		}
 
 		if err != nil {
@@ -109,26 +110,28 @@ func AddCoursesToStreamMaps(courses []structs.Course, timeslotMaps structs.Strea
 	return updatedCourses, timeslotMaps, err
 }
 
-func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (structs.Course, structs.Timeslots, error) {
+func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots, term string) (structs.Course, structs.Timeslots, error) {
 	var err error
 	hasBeenAdded := false
 	count := 0
 
+	course = setCourseDates(course, term)
+
 	if course.Assignment.BeginTime != "" {
 		if course.Assignment.Monday {
-			timeslots.Monday, err = addTimeslot(course, timeslots.Monday)
+			timeslots.Monday, err = addTimeslot(course, timeslots.Monday, term)
 		}
 		if course.Assignment.Tuesday {
-			timeslots.Tuesday, err = addTimeslot(course, timeslots.Tuesday)
+			timeslots.Tuesday, err = addTimeslot(course, timeslots.Tuesday, term)
 		}
 		if course.Assignment.Wednesday {
-			timeslots.Wednesday, err = addTimeslot(course, timeslots.Wednesday)
+			timeslots.Wednesday, err = addTimeslot(course, timeslots.Wednesday, term)
 		}
 		if course.Assignment.Thursday {
-			timeslots.Thursday, err = addTimeslot(course, timeslots.Thursday)
+			timeslots.Thursday, err = addTimeslot(course, timeslots.Thursday, term)
 		}
 		if course.Assignment.Friday {
-			timeslots.Friday, err = addTimeslot(course, timeslots.Friday)
+			timeslots.Friday, err = addTimeslot(course, timeslots.Friday, term)
 		}
 	} else {
 		for !hasBeenAdded && count < 20 {
@@ -139,11 +142,11 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 					if courseValue == "" {
 						if timeslots.Thursday[time] == "" {
 							course = setCourseTime(course, time, true)
-							timeslots.Monday, err = addTimeslot(course, timeslots.Monday)
+							timeslots.Monday, err = addTimeslot(course, timeslots.Monday, term)
 							if err != nil {
 								break
 							}
-							timeslots.Thursday, err = addTimeslot(course, timeslots.Thursday)
+							timeslots.Thursday, err = addTimeslot(course, timeslots.Thursday, term)
 							hasBeenAdded = true
 							break
 						}
@@ -154,15 +157,15 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 					if courseValue == "" {
 						if timeslots.Wednesday[time] == "" && timeslots.Friday[time] == "" {
 							course = setCourseTime(course, time, false)
-							timeslots.Tuesday, err = addTimeslot(course, timeslots.Tuesday)
+							timeslots.Tuesday, err = addTimeslot(course, timeslots.Tuesday, term)
 							if err != nil {
 								break
 							}
-							timeslots.Wednesday, err = addTimeslot(course, timeslots.Wednesday)
+							timeslots.Wednesday, err = addTimeslot(course, timeslots.Wednesday, term)
 							if err != nil {
 								break
 							}
-							timeslots.Friday, err = addTimeslot(course, timeslots.Friday)
+							timeslots.Friday, err = addTimeslot(course, timeslots.Friday, term)
 							hasBeenAdded = true
 							break
 						}
@@ -173,22 +176,22 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots) (s
 		}
 	}
 
-	if count == 20 {
-		err = fmt.Errorf("error: Ran out of slots to assign courses")
+	if count >= 20 {
+		err = fmt.Errorf("error: Ran out of slots to assign courses in stream %v in the %v term", course.StreamSequence, term)
 	}
 
 	return course, timeslots, err
 }
 
-func addTimeslot(course structs.Course, day map[string]string) (map[string]string, error) {
+func addTimeslot(course structs.Course, day map[string]string, term string) (map[string]string, error) {
 	var err error
 	//beginTimeInt, _ := strconv.Atoi(course.Assignment.BeginTime)
 	//endTimeInt, _ := strconv.Atoi(course.Assignment.EndTime)
 
 	if _, isValid := day[course.Assignment.BeginTime]; !isValid { // Check if map key exists
-		err = fmt.Errorf("error: %v %v is scheduled outside a regular block time at %v   ", course.Subject, course.CourseNumber, course.Assignment.BeginTime)
+		err = fmt.Errorf("error: %v %v is scheduled outside a regular block time at %v in  %v term   ", course.Subject, course.CourseNumber, course.Assignment.BeginTime, term)
 	} else if scheduledCourse := day[course.Assignment.BeginTime]; scheduledCourse != "" { // Check if there is already a course there
-		err = fmt.Errorf("error: %v %v is scheduled at same time as another required course %v,   ", course.Subject, course.CourseNumber, scheduledCourse)
+		err = fmt.Errorf("error: %v %v is scheduled at same time as another required course %v in %v term,   ", course.Subject, course.CourseNumber, scheduledCourse, term)
 	} else {
 		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
 	}
@@ -205,6 +208,7 @@ func setCourseTime(course structs.Course, beginTime string, isMTh bool) structs.
 	course.Assignment.BeginTime = beginTime
 	beginMinutes := string(beginTime[len(beginTime)-2]) // Grab last two digits of the time (minutes)
 	beginTimeInt, _ := strconv.Atoi(beginTime)
+	course.Assignment.HoursWeek = 3
 
 	if isMTh {
 		course.Assignment.EndTime = strconv.Itoa(beginTimeInt + 120)
@@ -228,6 +232,26 @@ func setCourseTime(course structs.Course, beginTime string, isMTh bool) structs.
 	return course
 }
 
+func setCourseDates(course structs.Course, term string) structs.Course {
+	year := time.Now().Year()
+
+	if term == "Fall" {
+		course.Assignment.StartDate = "Sep 01, " + strconv.Itoa(year)
+		course.Assignment.EndDate = "Dec 01, " + strconv.Itoa(year)
+	} else if term == "Spring" {
+		course.Assignment.StartDate = "Jan 01, " + strconv.Itoa(year+1)
+		course.Assignment.EndDate = "Apr 01, " + strconv.Itoa(year+1)
+	} else if term == "Summer" {
+		course.Assignment.StartDate = "May 01, " + strconv.Itoa(year+1)
+		course.Assignment.EndDate = "Aug 01, " + strconv.Itoa(year+1)
+	} else {
+		course.Assignment.StartDate = ""
+		course.Assignment.EndDate = ""
+	}
+
+	return course
+}
+ 
 func ChangeRandomCourseTime(courses []structs.Course) []structs.Course {
 
     var randInt int
@@ -289,5 +313,4 @@ func ChangeRandomCourseTime(courses []structs.Course) []structs.Course {
 	}
 
 	return courses
-
 }

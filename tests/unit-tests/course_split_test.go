@@ -10,50 +10,87 @@ func TestSplitCourses(t *testing.T) {
 	// Setup
 	jsonData := []byte(
 		`[{
-          "courseNumber": "265",
-          "subject": "SENG",
-          "sequenceNumber": "A01",
-          "courseTitle": "Intro to Software Development",
-          "StreamSequence": "2B",
-          "numSections": 1,
-          "courseCapacity": 477
-        },
-		{
-			"courseNumber": "226",
-			"subject": "SENG",
-			"sequenceNumber": "A01",
-			"courseTitle": "Algorithms and Data Structures II",
-			"StreamSequence": "3A",
-			"numSections": 1,
-			"courseCapacity": 225
-		  },
-        {
-          "courseNumber": "225",
-          "subject": "CSC",
-          "sequenceNumber": "A01",
-          "courseTitle": "Algorithms and Data Structures I",
-          "StreamSequence": "2B",
-          "numSections": 2,
-          "courseCapacity": 345
-        },
-        {
-          "courseNumber": "111",
-          "subject": "CSC",
-          "sequenceNumber": "A01",
-          "courseTitle": "Fundamentals of Programming with Engineering Applications",
-          "StreamSequence": "1A",
-          "numSections": 2,
-          "courseCapacity": 436
-        }]`)
+      "courseNumber": "111",
+      "subject": "CSC",
+      "sequenceNumber": "A01",
+      "streamSequence": "1A",
+      "courseTitle": "Fundamentals of Programming with Engineering Applications",
+      "assignment": {
+        "startDate": "Jan 07, 2019",
+        "endDate": "Apr 05, 2019",
+        "beginTime": "0830",
+        "endTime": "0930",
+        "hoursWeek": 3,
+        "sunday": false,
+        "monday": true,
+        "tuesday": false,
+        "wednesday": false,
+        "thursday": true,
+        "friday": false,
+        "saturday": false
+      },
+      "prof": {
+        "preferences": [
+          {
+            "courseNum": "CSC111",
+            "preferenceNum": 0,
+            "term": "FALL"
+          }
+        ],
+        "displayName": "Michael, Zastre",
+        "fallTermCourses": 1,
+        "springTermCourses": 1,
+        "summerTermCourses": 1
+      },
+      "courseCapacity": 400,
+      "numSections": 0
+    },
+    {
+      "courseNumber": "116",
+      "subject": "CSC",
+      "sequenceNumber": "A01",
+      "streamSequence": "1A",
+      "courseTitle": "Fundamentals of Programming with Engineering Applications",
+      "assignment": {
+        "startDate": "Jan 07, 2019",
+        "endDate": "Apr 05, 2019",
+        "beginTime": "0830",
+        "endTime": "0930",
+        "hoursWeek": 3,
+        "sunday": false,
+        "monday": true,
+        "tuesday": false,
+        "wednesday": false,
+        "thursday": true,
+        "friday": false,
+        "saturday": false
+      },
+      "prof": {
+        "preferences": [
+          {
+            "courseNum": "CSC111",
+            "preferenceNum": 0,
+            "term": "FALL"
+          }
+        ],
+        "displayName": "Michael, Zastre",
+        "fallTermCourses": 1,
+        "springTermCourses": 1,
+        "summerTermCourses": 1
+      },
+      "courseCapacity": 600,
+      "numSections": 0
+    }]`)
 
 	courses, err := structs.ParseCourses(jsonData)
-  if err != nil {
+	if err != nil {
 		t.Error("Parsing courses failed with error: ", err.Error())
 	}
 
 	courses = scheduling.Split(courses)
-  if len(courses) != 10 {
-    t.Error("Courses slice should be of len 10 not size ", len(courses))
-  } 
+
+	if len(courses) != 10 {
+		t.Error("Courses slice should be of len 10 not size ", len(courses))
+	}
 
 }

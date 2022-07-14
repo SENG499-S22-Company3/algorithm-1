@@ -1,13 +1,15 @@
 {
   "hardScheduled": {
-    "fallTermCourses": [
+    "fallCourses": [
       {
         "courseNumber": "101",
         "subject": "CHEM",
         "sequenceNumber": "A01",
         "streamSequence": "2A",
         "courseTitle": "Properties of Materials",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "1300",
@@ -22,7 +24,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -31,7 +34,9 @@
         "sequenceNumber": "A02",
         "streamSequence": "2A",
         "courseTitle": "Properties of Materials",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "0930",
@@ -46,7 +51,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -55,7 +61,9 @@
         "sequenceNumber": "A03",
         "streamSequence": "2A",
         "courseTitle": "Properties of Materials",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "1230",
@@ -70,7 +78,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -79,7 +88,9 @@
         "sequenceNumber": "A01",
         "streamSequence": "1A",
         "courseTitle": "Introductory Physics I",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "1030",
@@ -94,7 +105,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -103,7 +115,9 @@
         "sequenceNumber": "A02",
         "streamSequence": "1A",
         "courseTitle": "Introductory Physics I",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Nov 17, 2018",
           "endDate": "Nov 17, 2018",
           "beginTime": "1400",
@@ -118,18 +132,21 @@
           "saturday": true
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       }
     ],
-    "springTermCourses": [
+    "springCourses": [
       {
         "courseNumber": "150",
         "subject": "CHEM",
         "sequenceNumber": "A01",
         "streamSequence": "2A",
         "courseTitle": "Engineering Chemistry",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Jan 07, 2019",
           "endDate": "Apr 05, 2019",
           "beginTime": "0830",
@@ -144,7 +161,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -153,7 +171,9 @@
         "sequenceNumber": "A01",
         "streamSequence": "1B",
         "courseTitle": "Design and Communication II",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Jan 07, 2019",
           "endDate": "Apr 05, 2019",
           "beginTime": "1430",
@@ -168,7 +188,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -177,7 +198,9 @@
         "sequenceNumber": "A02",
         "streamSequence": "1B",
         "courseTitle": "Design and Communication II",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Jan 07, 2019",
           "endDate": "Apr 05, 2019",
           "beginTime": "1530",
@@ -192,7 +215,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -201,7 +225,9 @@
         "sequenceNumber": "A01",
         "streamSequence": "1B",
         "courseTitle": "Engineering Mechanics",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Jan 07, 2019",
           "endDate": "Apr 05, 2019",
           "beginTime": "1130",
@@ -216,7 +242,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -225,7 +252,9 @@
         "sequenceNumber": "A01",
         "streamSequence": "1B",
         "courseTitle": "Calculus II",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Jan 07, 2019",
           "endDate": "Apr 05, 2019",
           "beginTime": "1430",
@@ -240,7 +269,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -249,7 +279,9 @@
         "sequenceNumber": "A02",
         "streamSequence": "1B",
         "courseTitle": "Calculus II",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Jan 07, 2019",
           "endDate": "Apr 05, 2019",
           "beginTime": "0830",
@@ -264,7 +296,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -273,7 +306,9 @@
         "sequenceNumber": "A03",
         "streamSequence": "1B",
         "courseTitle": "Calculus II",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Jan 07, 2019",
           "endDate": "Apr 05, 2019",
           "beginTime": "1230",
@@ -288,7 +323,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       },
       {
@@ -297,7 +333,9 @@
         "sequenceNumber": "A04",
         "streamSequence": "1B",
         "courseTitle": "Calculus II",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Jan 07, 2019",
           "endDate": "Apr 05, 2019",
           "beginTime": "1330",
@@ -312,18 +350,21 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       }
     ],
-    "summerTermCourses": [
+    "summerCourses": [
       {
         "courseNumber": "180",
         "subject": "ECON",
         "sequenceNumber": "A01",
         "streamSequence": "2B",
         "courseTitle": "Introduction to Principles of Microeconomics and Financial Project Evaluation",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "May 13, 2019",
           "endDate": "Jun 28, 2019",
           "beginTime": "1430",
@@ -338,555 +379,684 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "TBD"
+          "displayName": "TBD",
+          "preferences": []
         }
       }
     ]
   },
   "coursesToSchedule": {
-    "fallTermCourses": [
+    "fallCourses": [
       {
         "courseNumber": "310",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Human Computer Interaction",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "370",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Database Systems",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "361",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Computer Communications and Networks",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "360",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Operating Systems",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "320",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Fundamentals of Computer Science",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "230",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Introduction to Computer Architecture",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "226",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Algorithms and Data Structures II",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "225",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Algorithms and Data Structures I",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "115",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Fundamentals of Programming II",
-        "StreamSequence": "1B"
+        "streamSequence": "1B",
+        "numSections": 2,
+        "courseCapacity": 300
       },
       {
         "courseNumber": "111",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Fundamentals of Programming with Engineering Applications",
-        "StreamSequence": "1A"
-      },
-      {
-        "courseNumber": "111",
-        "subject": "CSC",
-        "sequenceNumber": "A02",
-        "courseTitle": "Fundamentals of Programming with Engineering Applications",
-        "StreamSequence": "1A"
+        "streamSequence": "1A",
+        "numSections": 3,
+        "courseCapacity": 400
       },
       {
         "courseNumber": "399",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Design Project I",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "380",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Electronic Circuit II",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "370",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Electromechanical Energy Conversion",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "365",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Applied Electronics and Electrical Machines",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "360",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Control Theory and Systems I",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "350",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Communications Theory and Systems I",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "355",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Microprocessor-Based Systems",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "260",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Continuous-Time Signals and Systems",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "250",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Linear Circuits I",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "255",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Introduction to Computer Architecture",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "241",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Digital Design",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "216",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Electricity and Magnetism",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "265",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Software Development Methods",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "321",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Requirements Engineering",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "350",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Software Architecture and Design",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "360",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Security Engineering",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "474",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Data Mining",
-        "StreamSequence": "4B"
+        "streamSequence": "4B",
+        "numSections": 1,
+        "courseCapacity": 100
       }
     ],
-    "springTermCourses": [
+    "springCourses": [
       {
         "courseNumber": "275",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Software Testing",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "111",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Fundamentals of Programming with Engineering Applications",
-        "StreamSequence": "1A"
+        "streamSequence": "1A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "115",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Fundamentals of Programming II",
-        "StreamSequence": "1B"
-      },
-      {
-        "courseNumber": "115",
-        "subject": "CSC",
-        "sequenceNumber": "A02",
-        "courseTitle": "Fundamentals of Programming II",
-        "StreamSequence": "1B"
-      },
-      {
-        "courseNumber": "115",
-        "subject": "CSC",
-        "sequenceNumber": "A03",
-        "courseTitle": "Fundamentals of Programming II",
-        "StreamSequence": "1B"
+        "streamSequence": "1B",
+        "numSections": 3,
+        "courseCapacity": 330
       },
       {
         "courseNumber": "225",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Algorithms and Data Structures I",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "226",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Algorithms and Data Structures II",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "230",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Introduction to Computer Architecture",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "320",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Foundations of Computer Science",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "360",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Operating Systems",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "361",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Computer Communications and Networks",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "370",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Database Systems",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "460",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Design and Analysis of Real-time Systems",
-        "StreamSequence": "4B"
+        "streamSequence": "4B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "300",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Linear Circuits II",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "310",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Digital Signal Processing I",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "320",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Electronic Devices I",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "330",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Electronic Circuits I",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "340",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Applied Electromagnetics and Photonics",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "360",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Control Theory and Systems I",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "455",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Real Time Computer Systems Design Project",
-        "StreamSequence": "4B"
+        "streamSequence": "4B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "458",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Communication Networks",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "265",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Software Development Methods",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "310",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Human Computer Interaction",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "321",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Requirements Engineering",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "371",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Software Evolution",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "401",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Social and Professional Issues",
-        "StreamSequence": "4B"
+        "streamSequence": "4B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "468",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Software System Scalability",
-        "StreamSequence": "4B"
+        "streamSequence": "4B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "474",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Data Mining",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       }
     ],
-    "summerTermCourses": [
+    "summerCourses": [
       {
         "courseNumber": "310",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Human Computer Interaction",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "360",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Operating Systems",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "275",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Software Testing",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "265",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Software Development Methods",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "115",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Fundamentals of Programming II",
-        "StreamSequence": "1B"
+        "streamSequence": "1B",
+        "numSections": 2,
+        "courseCapacity": 175
       },
       {
         "courseNumber": "225",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Algorithms and Data Structures I",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "226",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Algorithms and Data Structures II",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "230",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Introduction to Computer Architecture",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "320",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Foundations of Computer Science",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "370",
         "subject": "CSC",
         "sequenceNumber": "A01",
         "courseTitle": "Database Systems",
-        "StreamSequence": "3B"
+        "streamSequence": "3B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "216",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Electricity and Magnetism",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "220",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Electrical Properties of Materials",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "250",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Linear Circuits I",
-        "StreamSequence": "2A"
+        "streamSequence": "2A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "260",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Continuous-Time Signals and Systems",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "299",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Introduction to Electrical and Computer Engineering Design",
-        "StreamSequence": "2B"
+        "streamSequence": "2B",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "310",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Digital Signal Processing I",
-        "StreamSequence": "3A"
+        "streamSequence": "3A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "499",
         "subject": "ECE",
         "sequenceNumber": "A01",
         "courseTitle": "Design Project II",
-        "StreamSequence": "4A"
+        "streamSequence": "4A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "426",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Software Quality Engineering",
-        "StreamSequence": "4A"
+        "streamSequence": "4A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "440",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Embedded Systems",
-        "StreamSequence": "4A"
+        "streamSequence": "4A",
+        "numSections": 1,
+        "courseCapacity": 100
       },
       {
         "courseNumber": "499",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "courseTitle": "Design Project II",
-        "StreamSequence": "4A"
+        "streamSequence": "4A",
+        "numSections": 1,
+        "courseCapacity": 100
       }
     ]
   },
   "professors": [
     {
       "displayName": "Berg, Celina",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 4
@@ -935,7 +1105,10 @@
     },
     {
       "displayName": "Bird, Bill",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 4
@@ -984,7 +1157,10 @@
     },
     {
       "displayName": "Chester, Sean",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -1009,7 +1185,10 @@
     },
     {
       "displayName": "Corless, Jason",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 6
@@ -1046,7 +1225,10 @@
     },
     {
       "displayName": "Damian, Daniela",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 4
@@ -1099,7 +1281,10 @@
     },
     {
       "displayName": "Ernst, Neil",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 4
@@ -1180,7 +1365,10 @@
     },
     {
       "displayName": "Estey, Anthony",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC115",
           "preferenceNum": 4
@@ -1197,7 +1385,10 @@
     },
     {
       "displayName": "Ganti, Sudhakar",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 4
@@ -1222,7 +1413,10 @@
     },
     {
       "displayName": "German, Daniel",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 4
@@ -1287,7 +1481,10 @@
     },
     {
       "displayName": "Haworth, Brandon",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -1316,7 +1513,10 @@
     },
     {
       "displayName": "Jabbari, Hosna",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -1325,7 +1525,10 @@
     },
     {
       "displayName": "Jackson, LillAnne",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -1350,7 +1553,10 @@
     },
     {
       "displayName": "Kapron, Bruce",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -1395,7 +1601,10 @@
     },
     {
       "displayName": "King, Valerie",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 1
@@ -1440,7 +1649,10 @@
     },
     {
       "displayName": "Koroth, Sajin",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 4
@@ -1489,7 +1701,10 @@
     },
     {
       "displayName": "Little, Rich",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 1
@@ -1550,7 +1765,10 @@
     },
     {
       "displayName": "Mehta, Nishant",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 1
@@ -1575,7 +1793,10 @@
     },
     {
       "displayName": "Muller, Hausi",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 6
@@ -1620,7 +1841,10 @@
     },
     {
       "displayName": "Nacenta, Miguel",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 1
@@ -1665,7 +1889,10 @@
     },
     {
       "displayName": "Numanagi\u0107, Ibrahim",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 1
@@ -1686,7 +1913,10 @@
     },
     {
       "displayName": "Pan, Jianping",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC115",
           "preferenceNum": 1
@@ -1707,7 +1937,10 @@
     },
     {
       "displayName": "Perin, Charles",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -1744,7 +1977,10 @@
     },
     {
       "displayName": "Schneider, Teseo",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 1
@@ -1797,7 +2033,10 @@
     },
     {
       "displayName": "Somanath, Sowmya",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 6
@@ -1846,7 +2085,10 @@
     },
     {
       "displayName": "Srinivasan, Venkatesh",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 1
@@ -1875,7 +2117,10 @@
     },
     {
       "displayName": "Stege, Ulrike",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC115",
           "preferenceNum": 3
@@ -1892,7 +2137,10 @@
     },
     {
       "displayName": "Storey, Margaret-Anne",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC115",
           "preferenceNum": 1
@@ -1913,7 +2161,10 @@
     },
     {
       "displayName": "Summers, Cecilia",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC226",
           "preferenceNum": 4
@@ -1930,7 +2181,10 @@
     },
     {
       "displayName": "Thomo, Alex",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -1955,7 +2209,10 @@
     },
     {
       "displayName": "Tzanetakis, George",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC115",
           "preferenceNum": 3
@@ -1992,7 +2249,10 @@
     },
     {
       "displayName": "Weber, Jens",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC230",
           "preferenceNum": 3
@@ -2017,7 +2277,10 @@
     },
     {
       "displayName": "Wu, Kui",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 6
@@ -2058,7 +2321,10 @@
     },
     {
       "displayName": "Zastre, Michael",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -2107,7 +2373,10 @@
     },
     {
       "displayName": "Adams, Michael",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE260",
           "preferenceNum": 6
@@ -2136,7 +2405,10 @@
     },
     {
       "displayName": "Agathoklis, Panajotis",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE250",
           "preferenceNum": 3
@@ -2173,7 +2445,10 @@
     },
     {
       "displayName": "AlTawy, Riham",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE241",
           "preferenceNum": 3
@@ -2222,7 +2497,10 @@
     },
     {
       "displayName": "Baniasadi, Amirali",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE241",
           "preferenceNum": 6
@@ -2287,7 +2565,10 @@
     },
     {
       "displayName": "Bornemann, Jens",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE216",
           "preferenceNum": 6
@@ -2340,7 +2621,10 @@
     },
     {
       "displayName": "Branzan Albu, Alexandra",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE255",
           "preferenceNum": 1
@@ -2381,7 +2665,10 @@
     },
     {
       "displayName": "Cai, Lin",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE260",
           "preferenceNum": 3
@@ -2410,7 +2697,10 @@
     },
     {
       "displayName": "Capson, David",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE241",
           "preferenceNum": 6
@@ -2443,7 +2733,10 @@
     },
     {
       "displayName": "Darcie, Ted",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE216",
           "preferenceNum": 3
@@ -2460,7 +2753,10 @@
     },
     {
       "displayName": "Dimopoulos, Nikitas",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE241",
           "preferenceNum": 3
@@ -2493,7 +2789,10 @@
     },
     {
       "displayName": "Dong, Xiaodai",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE250",
           "preferenceNum": 1
@@ -2530,7 +2829,10 @@
     },
     {
       "displayName": "Driessen, Peter",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE255",
           "preferenceNum": 3
@@ -2579,7 +2881,10 @@
     },
     {
       "displayName": "Gebali, Fayez",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE241",
           "preferenceNum": 4
@@ -2636,7 +2941,10 @@
     },
     {
       "displayName": "Gordon, Reuven",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE216",
           "preferenceNum": 4
@@ -2685,7 +2993,10 @@
     },
     {
       "displayName": "Gulliver, Aaron",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE260",
           "preferenceNum": 2
@@ -2706,7 +3017,10 @@
     },
     {
       "displayName": "Li, Kin Fun",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE241",
           "preferenceNum": 6
@@ -2747,7 +3061,10 @@
     },
     {
       "displayName": "Lu, Tao",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE216",
           "preferenceNum": 3
@@ -2800,7 +3117,10 @@
     },
     {
       "displayName": "McGuire, Michael",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE250",
           "preferenceNum": 2
@@ -2837,7 +3157,10 @@
     },
     {
       "displayName": "Neville, Stephen",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE355",
           "preferenceNum": 3
@@ -2870,7 +3193,10 @@
     },
     {
       "displayName": "Papadopoulos, Christo",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE216",
           "preferenceNum": 3
@@ -2911,7 +3237,10 @@
     },
     {
       "displayName": "Popli, Dr. Navneet",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE242",
           "preferenceNum": 4
@@ -2964,7 +3293,10 @@
     },
     {
       "displayName": "Rakhmatov, Daler",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE241",
           "preferenceNum": 4
@@ -3005,7 +3337,10 @@
     },
     {
       "displayName": "Saidaminov, Makhsud",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE220",
           "preferenceNum": 2
@@ -3018,7 +3353,10 @@
     },
     {
       "displayName": "Sima, Mihai",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE250",
           "preferenceNum": 3
@@ -3067,7 +3405,10 @@
     },
     {
       "displayName": "Smith, Levi",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE216",
           "preferenceNum": 6
@@ -3100,7 +3441,10 @@
     },
     {
       "displayName": "So, Poman",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE216",
           "preferenceNum": 6
@@ -3133,7 +3477,10 @@
     },
     {
       "displayName": "Thirumarai Chelvan, Ilamparithi",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE216",
           "preferenceNum": 3
@@ -3194,7 +3541,10 @@
     },
     {
       "displayName": "Traore, Issa",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE458",
           "preferenceNum": 3
@@ -3211,7 +3561,10 @@
     },
     {
       "displayName": "Yang, Hong-Chuan",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "ECE216",
           "preferenceNum": 3

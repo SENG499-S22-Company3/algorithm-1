@@ -25,13 +25,13 @@ func TestSmallScaleBase(t *testing.T) {
 	// Test data including 1 course to ignore (chem 101), 1 course to include (csc 115), and 1 course to exclude (csc 230)
 	historicalData := []byte(`
 		{
-			"fallTermCourses": [
+			"fallCourses": [
 				{
 					"courseNumber": "101",
 					"subject": "CHEM",
 					"sequenceNumber": "A01",
 					"courseTitle": "Properties of Materials",
-					"meetingTime": {
+					"assignment": {
 						"beginTime": "1300",
 						"endDate": "Dec 05, 2018",
 						"endTime": "1420",
@@ -51,7 +51,7 @@ func TestSmallScaleBase(t *testing.T) {
 					"subject": "CSC",
 					"sequenceNumber": "A01",
 					"courseTitle": "FUNDAMENTAL PROGRAMING:II",
-					"meetingTime": {
+					"assignment": {
 						"startDate": "Sep 03, 2014",
 						"endDate": "Dec 03, 2014",
 						"beginTime": "1530",
@@ -71,7 +71,7 @@ func TestSmallScaleBase(t *testing.T) {
 					"subject": "CSC",
 					"sequenceNumber": "A02",
 					"courseTitle": "COMPUTER ARCHITECTURE",
-					"meetingTime": {
+					"assignment": {
 						"startDate": "Sep 03, 2014",
 						"endDate": "Dec 03, 2014",
 						"beginTime": "1300",
@@ -87,8 +87,8 @@ func TestSmallScaleBase(t *testing.T) {
 					}
 				  }
 			],
-			"springTermCourses": [],
-			"summerTermCourses": []
+			"springCourses": [],
+			"summerCourses": []
 		}`)
 
 	historicalResult, _ := structs.ParseHistorical(historicalData)

@@ -42,20 +42,20 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 
 	var schedule structs.Schedule
 
-	schedule.FallCourses = scheduling.Assignments(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors)
+	schedule.FallCourses, err = scheduling.Assignments(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors, "Fall")
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
 		return
 	}
 
-	schedule.SpringCourses = scheduling.Assignments(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors)
+	schedule.SpringCourses, err = scheduling.Assignments(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
 		return
 	}
-	schedule.SummerCourses = scheduling.Assignments(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors)
+	schedule.SummerCourses, err = scheduling.Assignments(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
@@ -68,6 +68,7 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	fmt.Fprint(w, string(marshalledJSON))
 }
 
@@ -106,17 +107,17 @@ func CheckSchedule(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check for timeslot violations
-	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.FallCourses)
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.FallCourses, "Fall")
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true
 	}
-	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SpringCourses)
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SpringCourses, "Spring")
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true
 	}
-	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SummerCourses)
+	_, err = scheduling.BaseTimeslotMaps(parsedInput.HardScheduled.SummerCourses, "Summer")
 	if err != nil {
 		fmt.Fprint(w, err.Error())
 		requirementsViolated = true

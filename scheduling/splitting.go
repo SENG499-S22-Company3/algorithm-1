@@ -6,25 +6,37 @@ import (
 	"strconv"
 )
 
-func addSections(courses []structs.Course, course structs.Course, numSections uint, i int)([]structs.Course) {
+func addSections(splitSchedule []structs.Course, course structs.Course, numSections uint)([]structs.Course) {
 	
 	// calculate new capacity
 	newCapacity := course.CourseCapacity / numSections
-			
+
 	// update original section
-	courses[i].CourseCapacity = newCapacity + (course.CourseCapacity % numSections)
-	courses[i].NumSections = 1
+	splitSchedule = append(splitSchedule, structs.Course{
+		CourseNumber: course.CourseNumber,
+		Subject: course.Subject,
+		CourseTitle: course.CourseTitle,
+		NumSections: 1,
+		CourseCapacity: newCapacity + (course.CourseCapacity % numSections),
+		StreamSequence: course.StreamSequence,
+		SequenceNumber: "A01",
+	})
 
 	// add new sections
 	numSecCurr := uint(1)
 	for numSecCurr < numSections {
-		newSection := courses[i]
-		newSection.CourseCapacity = newCapacity 
-		newSection.SequenceNumber = newSection.SequenceNumber[:2] + strconv.Itoa(int(numSecCurr+1))
-		courses = append(courses, newSection)
+		splitSchedule = append(splitSchedule, structs.Course{
+			CourseNumber: course.CourseNumber,
+			Subject: course.Subject,
+			CourseTitle: course.CourseTitle,
+			NumSections: 1,
+			CourseCapacity: newCapacity,
+			StreamSequence: course.StreamSequence,
+			SequenceNumber: "A0" + strconv.Itoa(int(numSecCurr+1)),
+		})
 		numSecCurr++
 	}
-	return courses
+	return splitSchedule
 }
 
 func printResults(courses []structs.Course)(){
@@ -34,14 +46,29 @@ func printResults(courses []structs.Course)(){
 }
 
 func Split(courses []structs.Course) ([]structs.Course){
-    for i, course := range courses {
+
+	splitSchedule := []structs.Course{}
+
+    for _, course := range courses {
+
 		numSections :=  course.NumSections
-		if numSections == 1 && course.CourseCapacity > 200 {
+		if numSections == 0 && course.CourseCapacity > 200 {
 			splitInto := uint(course.CourseCapacity / 100)
-			courses = addSections(courses, course, splitInto, i)
+			splitSchedule = addSections(splitSchedule, course, splitInto)
 		} else if numSections > 1 {
-			courses = addSections(courses, course, numSections, i)
+			splitSchedule = addSections(splitSchedule, course, numSections)
+		} else {
+			splitSchedule = append(splitSchedule, structs.Course{
+				CourseNumber: course.CourseNumber,
+				Subject: course.Subject,
+				CourseTitle: course.CourseTitle,
+				NumSections: 1,
+				CourseCapacity: course.CourseCapacity,
+				StreamSequence: course.StreamSequence,
+				SequenceNumber: "A01",
+			})
 		}
     }
-	return courses
+
+	return splitSchedule
 }

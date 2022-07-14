@@ -1,13 +1,15 @@
 {
   "hardScheduled": {
-    "fallTermCourses": [
+    "fallCourses": [
       {
         "courseNumber": "310",
         "subject": "SENG",
         "sequenceNumber": "A01",
         "streamSequence": "2B",
         "courseTitle": "HCI",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "1300",
@@ -22,7 +24,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "Bird, Bill"
+          "displayName": "Bird, Bill",
+          "preferences": []
         }
       },
       {
@@ -31,7 +34,9 @@
         "sequenceNumber": "A01",
         "streamSequence": "2B",
         "courseTitle": "Test",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "1330",
@@ -46,7 +51,8 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "Chester, Sean"
+          "displayName": "Chester, Sean",
+          "preferences": []
         }
       },
       {
@@ -55,7 +61,9 @@
         "sequenceNumber": "A01",
         "streamSequence": "1A",
         "courseTitle": "Test",
-        "meetingTime": {
+        "numSections": 1,
+        "courseCapacity": 100,
+        "assignment": {
           "startDate": "Sep 05, 2018",
           "endDate": "Dec 05, 2018",
           "beginTime": "1300",
@@ -70,20 +78,24 @@
           "saturday": false
         },
         "prof": {
-          "displayName": "Bird, Bill"
+          "displayName": "Bird, Bill",
+          "preferences": []
         }
       }
     ]
   },
   "coursesToSchedule": {
-    "fallTermCourses": [],
-    "springTermCourses": [],
-    "summerTermCourses": []
+    "fallCourses": [],
+    "springCourses": [],
+    "summerCourses": []
   },
   "professors": [
     {
       "displayName": "Bird, Bill",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 4
@@ -132,7 +144,10 @@
     },
     {
       "displayName": "Chester, Sean",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 3
@@ -157,7 +172,10 @@
     },
     {
       "displayName": "Corless, Jason",
-      "prefs": [
+      "fallTermCourses": 2,
+      "springTermCourses": 2,
+      "summerTermCourses": 2,
+      "preferences": [
         {
           "courseNum": "CSC111",
           "preferenceNum": 6
