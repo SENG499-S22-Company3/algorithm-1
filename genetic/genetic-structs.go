@@ -85,6 +85,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 
 	//var courses []structs.Course
 	var profCourseCount int
+	_, term := getInput()
 
 	//evalute prof clashes
 	for i := range sem {
@@ -135,7 +136,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 	}
 
 	// Check if timeslots violate hard requirements
-	_, fail := scheduling.BaseTimeslotMaps(sem)
+	_, fail := scheduling.BaseTimeslotMaps(sem, term)
 	if fail != nil {
 		penalty += 1000
 	}
@@ -145,9 +146,10 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 
 // Mutate a Semester by applying by permutation mutation and/or splice mutation.
 func (sem Semester) Mutate(rng *rand.Rand) {
+	_, term = getInput()
 
 	if rng.Float64() < 0.45 {
-		sem = scheduling.ChangeRandomCourseTime(sem)
+		sem = scheduling.ChangeRandomCourseTime(sem, term)
 		sem = scheduling.ChangeRandomCourseProf(sem)
 	}
 }
@@ -160,11 +162,11 @@ func (sem Semester) Crossover(q eaopt.Genome, rng *rand.Rand) {
 // MakeSemester creates a random semester
 func MakeSemester(rng *rand.Rand) eaopt.Genome {
 
-	input := getInput()
+	input, term := getInput()
 
-	testStreamtype, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.SpringCourses)
-	input.CoursesToSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(input.CoursesToSchedule.SpringCourses, testStreamtype)
-	testScheduleCourse := scheduling.AssignCourseProf(input.CoursesToSchedule.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors)
+	testStreamtype, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.SpringCourses, term)
+	input.CoursesToSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(input.CoursesToSchedule.SpringCourses, testStreamtype, term)
+	testScheduleCourse := scheduling.AssignCourseProf(input.CoursesToSchedule.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors, term)
 	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SpringCourses...)
 
 	testSem := make(Semester, len(testScheduleCourse))

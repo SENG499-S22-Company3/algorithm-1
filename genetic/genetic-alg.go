@@ -11,6 +11,7 @@ import (
 )
 
 var input structs.Input
+var term string
 
 func RunGeneticAlg(requestBody structs.Input, term string) {
 
@@ -55,7 +56,7 @@ func RunGeneticAlg(requestBody structs.Input, term string) {
 			for _, course := range goodSchedule {
 				fmt.Printf("%+v%+v  %+v  %+v %+v\n\n", course.Subject, course.CourseNumber, course.StreamSequence, course.Assignment, course.Prof.DisplayName)
 			}
-			_, err = scheduling.BaseTimeslotMaps(goodSchedule)
+			_, err = scheduling.BaseTimeslotMaps(goodSchedule, term)
 			if err != nil {
 				fmt.Println(err)
 			} else {
@@ -69,6 +70,6 @@ func RunGeneticAlg(requestBody structs.Input, term string) {
 
 }
 
-func getInput() structs.Input {
-	return input
+func getInput() (structs.Input, string) {
+	return input, term
 }

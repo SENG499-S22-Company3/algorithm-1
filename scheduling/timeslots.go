@@ -3,10 +3,10 @@ package scheduling
 import (
 	"algorithm-1/structs"
 	"fmt"
+	"math"
 	"math/rand"
 	"strconv"
 	"time"
-	"math"
 )
 
 func createEmptyDay(isMTh bool) map[string]string {
@@ -251,20 +251,20 @@ func setCourseDates(course structs.Course, term string) structs.Course {
 
 	return course
 }
- 
-func ChangeRandomCourseTime(courses []structs.Course) []structs.Course {
 
-    var randInt int
+func ChangeRandomCourseTime(courses []structs.Course, term string) []structs.Course {
+
+	var randInt int
 
 	timeslotMaps := CreateEmptyStreamType()
 
-	AddCoursesToStreamMaps(courses, timeslotMaps)
+	AddCoursesToStreamMaps(courses, timeslotMaps, term)
 
 	//choose course with large time gap for mutation
 	for i := range courses {
 		for j := range courses {
 			if courses[i].StreamSequence == courses[j].StreamSequence {
-				if courses[i].Assignment.Monday && courses[j].Assignment.Monday || courses[i].Assignment.Tuesday && courses[j].Assignment.Tuesday && courses[i].Prof.DisplayName != "TBD"{
+				if courses[i].Assignment.Monday && courses[j].Assignment.Monday || courses[i].Assignment.Tuesday && courses[j].Assignment.Tuesday && courses[i].Prof.DisplayName != "TBD" {
 					t1, err := strconv.Atoi(courses[i].Assignment.BeginTime)
 					if err != nil {
 						panic(err)
@@ -273,7 +273,7 @@ func ChangeRandomCourseTime(courses []structs.Course) []structs.Course {
 					if err != nil {
 						panic(err)
 					}
-					if math.Copysign(float64(t1 - t2), 1) > 600 {
+					if math.Copysign(float64(t1-t2), 1) > 600 {
 						randInt = j
 						break
 					}
@@ -293,23 +293,22 @@ func ChangeRandomCourseTime(courses []structs.Course) []structs.Course {
 	courses[randInt].Assignment.Thursday = false
 	courses[randInt].Assignment.Friday = false
 
-
 	if courses[randInt].StreamSequence == "1A" {
-		courses[randInt], timeslotMaps.S1A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S1A)
+		courses[randInt], timeslotMaps.S1A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S1A, term)
 	} else if courses[randInt].StreamSequence == "1B" {
-		courses[randInt], timeslotMaps.S1B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S1B)
+		courses[randInt], timeslotMaps.S1B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S1B, term)
 	} else if courses[randInt].StreamSequence == "2A" {
-		courses[randInt], timeslotMaps.S2A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S2A)
+		courses[randInt], timeslotMaps.S2A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S2A, term)
 	} else if courses[randInt].StreamSequence == "2B" {
-		courses[randInt], timeslotMaps.S2B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S2B)
+		courses[randInt], timeslotMaps.S2B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S2B, term)
 	} else if courses[randInt].StreamSequence == "3A" {
-		courses[randInt], timeslotMaps.S3A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S3A)
+		courses[randInt], timeslotMaps.S3A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S3A, term)
 	} else if courses[randInt].StreamSequence == "3B" {
-		courses[randInt], timeslotMaps.S3B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S3B)
+		courses[randInt], timeslotMaps.S3B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S3B, term)
 	} else if courses[randInt].StreamSequence == "4A" {
-		courses[randInt], timeslotMaps.S4A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S4A)
+		courses[randInt], timeslotMaps.S4A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S4A, term)
 	} else if courses[randInt].StreamSequence == "4B" {
-		courses[randInt], timeslotMaps.S4B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S4B)
+		courses[randInt], timeslotMaps.S4B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S4B, term)
 	}
 
 	return courses
