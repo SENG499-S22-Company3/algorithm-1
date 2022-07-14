@@ -69,7 +69,7 @@ func Assignments(hardScheduledCourses []structs.Course, requestedCourses []struc
 	return requestedCourses
 }
 
-func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap map[string]map[string]int) {
+func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap map[string]map[string]int, teachingPrefMax map[string]int) {
 	// calculating how many bits to enumerate the profs
 	professorBitWidth := int(math.Log2(float64(len(professors)-1)) + 1)
 	sectionBitWidth := (professorBitWidth + 4) // 4 extra bits for timeslots
@@ -84,6 +84,7 @@ func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap
 		NumberOfProfs:       len(professors),
 		SectionBitWidth:     sectionBitWidth,
 		PreferenceMap:       prefMap,
+		TeachingPrefMax: 	 teachingPrefMax,
 	}
 
 	// mater defines how to combine genomes
