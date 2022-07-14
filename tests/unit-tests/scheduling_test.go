@@ -3,7 +3,6 @@ package tests
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -189,50 +188,4 @@ func TestBaseScheduleConcurrent(t *testing.T) {
 		t.Error("Course should not be present")
 		// Shouldn't be included because seng courses aren't present in historical data for summer 2019
 	}
-}
-
-func TestGenetic(t *testing.T) {
-	// preparing test data
-	jsonData, err := ioutil.ReadFile("../data/input-test.json")
-	if err != nil {
-		t.Error("Error when opening input-test.json file: ", err)
-	}
-
-	input, err := structs.ParseInput(jsonData)
-	if err != nil {
-		t.Error("Input parsing failed with error: ", err.Error())
-	}
-
-	schedule := structs.Schedule{
-		FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall"),
-	}
-	professors := input.Professors
-	prefMap, _, _ := scheduling.MapPreferences(professors, "Fall")
-	professors = append(professors, structs.Professor{DisplayName: "TBD"})
-
-	startFit := int32(scheduling.GetFitness(schedule.FallCourses, prefMap))
-	fmt.Println("Starting Fitness: ", startFit)
-	target := int32(startFit) - int32(float64(startFit)*float64(0.1))
-	fmt.Println("Target: ", target)
-	scheduling.PrettyPrintSemester(schedule.FallCourses)
-
-	fmt.Println("starting ga test")
-	var finalSchedule []structs.Course
-	fit := -1
-	for int32(fit) <= target {
-		timeslotMap, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.FallCourses)
-		requestedCourses, _, _ := scheduling.AddCoursesToStreamMaps(scheduling.Split(input.CoursesToSchedule.FallCourses), timeslotMap)
-		schedule = structs.Schedule{
-			FallCourses: scheduling.AssignCourseProf(input.HardScheduled.FallCourses, requestedCourses, professors, "Fall"),
-		}
-		scheduling.Optimize(schedule, professors, prefMap)
-		finalSchedule = append(schedule.FallCourses, input.HardScheduled.FallCourses...)
-		fit = scheduling.GetFitness(finalSchedule, prefMap)
-	}
-
-	fmt.Println("ending ga test")
-
-	scheduling.PrettyPrintSemester(finalSchedule)
-	fmt.Println("Max Fitness: ", (8*len(schedule.FallCourses) + 32))
-	fmt.Println("Final Fitness: ", fit)
 }

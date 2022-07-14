@@ -4,7 +4,6 @@ import (
 	"algorithm-1/structs"
 	"fmt"
 	"math"
-	"sort"
 	"strconv"
 
 	ga "github.com/tomcraven/goga"
@@ -20,6 +19,7 @@ type ScheduleSimulation struct {
 	NumberOfProfs       int
 	SectionBitWidth     int
 	PreferenceMap       map[string]map[string]int
+	TeachingPrefMax		map[string]int
 }
 
 // timeslots: 4 bits for time
@@ -168,7 +168,7 @@ func (sim *ScheduleSimulation) OnBeginSimulation() {
 // Simulate assigns a fitness value to the given genome
 func (sim *ScheduleSimulation) Simulate(genome ga.Genome) {
 	schedule := NewSchedule(genome, *sim)
-	fitness := GetFitness(schedule, sim.PreferenceMap)
+	fitness := GetFitness(schedule, sim.PreferenceMap, sim.TeachingPrefMax)
 	// fmt.Println("Fitnes: ", fitness)
 	(genome).SetFitness(fitness)
 }
@@ -178,7 +178,7 @@ type TimeMinMax struct {
 	EndMax   string
 }
 
-func GetFitness(s []structs.Course, prefMap map[string]map[string]int) int {
+func GetFitness(s []structs.Course, prefMap map[string]map[string]int, TeachingPrefMax map[string]int) int {
 	score := 0
 
 	// timeslot checks
@@ -190,6 +190,7 @@ func GetFitness(s []structs.Course, prefMap map[string]map[string]int) int {
 
 	// professors checks
 	var teachingMap = map[string]string{}
+	var teachingCount = map[string]int{}
 	var timeMap = map[string]TimeMinMax{}
 	for _, c := range s {
 
@@ -211,6 +212,11 @@ func GetFitness(s []structs.Course, prefMap map[string]map[string]int) int {
 
 		if prof != "TBD" {
 			teachingMap[prof+days+beginTime] = c.CourseTitle
+			teachingCount[prof]++
+		}
+
+		if teachingCount[prof] > TeachingPrefMax[prof] {
+			return 0
 		}
 
 		// track min and max for every stream sequence for both MTh and TWF
@@ -253,22 +259,22 @@ func GetFitness(s []structs.Course, prefMap map[string]map[string]int) int {
 
 // OnElite prints the current elite on every simulation iteration
 func (sim *ScheduleSimulation) OnElite(genome ga.Genome) {
-	schedule := NewSchedule(genome, *sim)
+	// schedule := NewSchedule(genome, *sim)
 
-	fmt.Println("***********************")
-	fmt.Printf("** [%d] simulation **\n", sim.simulationCount)
-	// // fmt.Println("solution: ")
-	//PrettyPrintSemester(schedule)
-	fmt.Print("fitness: ")
-	fmt.Println(GetFitness(schedule, sim.PreferenceMap))
-	fmt.Println("***********************")
+	// fmt.Println("***********************")
+	// fmt.Printf("** [%d] simulation **\n", sim.simulationCount)
+	// // // fmt.Println("solution: ")
+	// //PrettyPrintSemester(schedule)
+	// fmt.Print("fitness: ")
+	// fmt.Println(GetFitness(schedule, sim.PreferenceMap))
+	// fmt.Println("***********************")
 }
 
 func PrettyPrintSemester(s []structs.Course) {
 
-	sort.SliceStable(s, func(i, j int) bool {
-		return s[i].StreamSequence < s[j].StreamSequence
-	})
+	// sort.SliceStable(s, func(i, j int) bool {
+	// 	return s[i].StreamSequence < s[j].StreamSequence
+	// })
 
 	for i, c := range s {
 		fmt.Print(i, "\t", c.Subject)
