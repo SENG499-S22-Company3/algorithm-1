@@ -53,12 +53,18 @@ func BaseSchedule(requestedCourses structs.Schedule, hardSchedule structs.Schedu
 	}
 }
 
-func Assignments(hardScheduledCourses []structs.Course, requestedCourses []structs.Course, professors []structs.Professor, term string) []structs.Course {
+func Assignments(hardScheduledCourses []structs.Course, requestedCourses []structs.Course, professors []structs.Professor, term string) ([]structs.Course, error) {
 
-	timeslotMap, _ := BaseTimeslotMaps(hardScheduledCourses, term)
-	requestedCourses, _, _ = AddCoursesToStreamMaps(Split(requestedCourses), timeslotMap, term)
+	timeslotMap, err := BaseTimeslotMaps(hardScheduledCourses, term)
+	if err != nil {
+		return nil, err
+	}
+	requestedCourses, _, err = AddCoursesToStreamMaps(Split(requestedCourses), timeslotMap, term)
+	if err != nil {
+		return nil, err
+	}
 	requestedCourses = AssignCourseProf(hardScheduledCourses, requestedCourses, professors, term)
 	requestedCourses = append(requestedCourses, hardScheduledCourses...)
 
-	return requestedCourses
+	return requestedCourses, err
 }
