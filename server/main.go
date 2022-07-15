@@ -1,6 +1,7 @@
 package server
 
 import (
+	"algorithm-1/genetic"
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
 	"fmt"
@@ -42,25 +43,52 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 
 	var schedule structs.Schedule
 
-	schedule.FallCourses, err = scheduling.Assignments(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors, "Fall")
+	// Test there are no problems with the courses given by trying to generate an initial solution
+	_, err = scheduling.Assignments(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors, "Fall")
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
+		return
+	}
+	_, err = scheduling.Assignments(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
+		return
+	}
+	_, err = scheduling.Assignments(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
 		return
 	}
 
-	schedule.SpringCourses, err = scheduling.Assignments(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(err.Error()))
-		return
+	// Run genetic algorithm on each semester, will update to run concurrently
+	if len(parsedInput.CoursesToSchedule.FallCourses) != 0 {
+		schedule.FallCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors, "Fall")
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(err.Error()))
+			return
+		}
 	}
-	schedule.SummerCourses, err = scheduling.Assignments(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(err.Error()))
-		return
+	if len(parsedInput.CoursesToSchedule.SpringCourses) != 0 {
+		schedule.SpringCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(err.Error()))
+			return
+		}
 	}
+	if len(parsedInput.CoursesToSchedule.SummerCourses) != 0 {
+		schedule.SummerCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(err.Error()))
+			return
+		}
+	}
+
 	marshalledJSON, err := structs.StructToJSON(schedule)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)

@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"algorithm-1/genetic"
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
 	"io/ioutil"
@@ -188,4 +189,30 @@ func TestBaseScheduleConcurrent(t *testing.T) {
 		t.Error("Course should not be present")
 		// Shouldn't be included because seng courses aren't present in historical data for summer 2019
 	}
+}
+
+func TestGeneticAlg(t *testing.T) {
+	var input structs.Input
+	term := "Spring"
+
+	jsonData, err := ioutil.ReadFile("../data/input-test.json")
+	if err != nil {
+		t.Error("Error when opening input-test.json file: ", err)
+	}
+
+	input, err = structs.ParseInput(jsonData)
+	if err != nil {
+		t.Error("Input parsing failed with error: ", err.Error())
+	}
+
+	_, err = genetic.RunGeneticAlg(input.HardScheduled.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors, term)
+	if err != nil {
+		t.Error(err)
+	}
+
+	/*
+		for _, course := range testCourses {
+			fmt.Printf("%+v%+v  %+v  %+v %+v\n\n", course.Subject, course.CourseNumber, course.StreamSequence, course.Assignment, course.Prof.DisplayName)
+		}
+	*/
 }
