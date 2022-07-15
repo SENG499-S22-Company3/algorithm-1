@@ -73,23 +73,23 @@ func GogaAssignments(hardScheduledCourses []structs.Course, requestedCourses []s
 	initSchedule := Assignments(hardScheduledCourses, requestedCourses, professors, term)
 	professors = append(professors, structs.Professor{DisplayName: "TBD"})
 	prefMap, _, teachingPrefMax := MapPreferences(professors, term)
-	startFit := int32(GetFitness(initSchedule, prefMap, teachingPrefMax))
+	startFit := int32(GetFitness(initSchedule, prefMap, teachingPrefMax, term))
 
 	var finalSchedule []structs.Course
 	fit, i := -1, 0
 	for int32(fit) <= startFit {
 
-		timeslotMap, _ := BaseTimeslotMaps(hardScheduledCourses)
-		requestedCourses, _, _ := AddCoursesToStreamMaps(Split(requestedCourses), timeslotMap)
+		timeslotMap, _ := BaseTimeslotMaps(hardScheduledCourses, term)
+		requestedCourses, _, _ := AddCoursesToStreamMaps(Split(requestedCourses), timeslotMap, term)
 		schedule := AssignCourseProf(hardScheduledCourses, requestedCourses, professors, term)
-		Optimize(schedule, professors, prefMap, teachingPrefMax)
+		Optimize(schedule, professors, prefMap, teachingPrefMax, term)
 		finalSchedule = append(schedule, hardScheduledCourses...)
-		fit = GetFitness(finalSchedule, prefMap, teachingPrefMax)
+		fit = GetFitness(finalSchedule, prefMap, teachingPrefMax, term)
 
 		// timeout so GA doesn't take for so long
 		if i > 60 {
 			finalSchedule = initSchedule
-			fit = GetFitness(finalSchedule, prefMap, teachingPrefMax)
+			// fit = GetFitness(finalSchedule, prefMap, teachingPrefMax, term)
 			break
 		}
 		i++
@@ -98,7 +98,7 @@ func GogaAssignments(hardScheduledCourses []structs.Course, requestedCourses []s
 	return finalSchedule
 }
 
-func Optimize(schedule []structs.Course, professors []structs.Professor, prefMap map[string]map[string]int, teachingPrefMax map[string]int) {
+func Optimize(schedule []structs.Course, professors []structs.Professor, prefMap map[string]map[string]int, teachingPrefMax map[string]int, term string) {
 	// calculating how many bits to enumerate the profs
 	professorBitWidth := int(math.Log2(float64(len(professors)-1)) + 1)
 	sectionBitWidth := (professorBitWidth + 4) // 4 extra bits for timeslots
@@ -113,16 +113,17 @@ func Optimize(schedule []structs.Course, professors []structs.Professor, prefMap
 		NumberOfProfs:       len(professors),
 		SectionBitWidth:     sectionBitWidth,
 		PreferenceMap:       prefMap,
-		TeachingPrefMax: 	 teachingPrefMax,
+		TeachingPrefMax:     teachingPrefMax,
+		Term:                term,
 	}
 
 	// mater defines how to combine genomes
 	mater := ga.NewMater(
 		[]ga.MaterFunctionProbability{
-			{P: 0.5, F: ga.TwoPointCrossover,  UseElite: true},
-			{P: 1.0, F: ga.Mutate,  UseElite: true},
-			{P: 0.5, F: ga.OnePointCrossover,  UseElite: true},
-			{P: 0.5, F: ga.UniformCrossover,  UseElite: true},
+			{P: 0.5, F: ga.TwoPointCrossover, UseElite: true},
+			{P: 1.0, F: ga.Mutate, UseElite: true},
+			{P: 0.5, F: ga.OnePointCrossover, UseElite: true},
+			{P: 0.5, F: ga.UniformCrossover, UseElite: true},
 		},
 	)
 

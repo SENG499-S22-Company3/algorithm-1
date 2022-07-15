@@ -19,7 +19,8 @@ type ScheduleSimulation struct {
 	NumberOfProfs       int
 	SectionBitWidth     int
 	PreferenceMap       map[string]map[string]int
-	TeachingPrefMax		map[string]int
+	TeachingPrefMax     map[string]int
+	Term                string
 }
 
 // timeslots: 4 bits for time
@@ -168,7 +169,7 @@ func (sim *ScheduleSimulation) OnBeginSimulation() {
 // Simulate assigns a fitness value to the given genome
 func (sim *ScheduleSimulation) Simulate(genome ga.Genome) {
 	schedule := NewSchedule(genome, *sim)
-	fitness := GetFitness(schedule, sim.PreferenceMap, sim.TeachingPrefMax)
+	fitness := GetFitness(schedule, sim.PreferenceMap, sim.TeachingPrefMax, sim.Term)
 	// fmt.Println("Fitnes: ", fitness)
 	(genome).SetFitness(fitness)
 }
@@ -178,11 +179,11 @@ type TimeMinMax struct {
 	EndMax   string
 }
 
-func GetFitness(s []structs.Course, prefMap map[string]map[string]int, TeachingPrefMax map[string]int) int {
+func GetFitness(s []structs.Course, prefMap map[string]map[string]int, TeachingPrefMax map[string]int, term string) int {
 	score := 0
 
 	// timeslot checks
-	if _, err := BaseTimeslotMaps(s); err != nil {
+	if _, err := BaseTimeslotMaps(s, term); err != nil {
 		return 0
 	} else {
 		score += len(s) * 2

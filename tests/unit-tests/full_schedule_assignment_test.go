@@ -155,7 +155,7 @@ func TestTeachingMax(t *testing.T) {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
 
-	courses, err := scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall")
+	courses := scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall")
 	if err != nil {
 		t.Error(err)
 	}

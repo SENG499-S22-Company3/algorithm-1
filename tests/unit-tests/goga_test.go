@@ -20,11 +20,13 @@ func TestGenetic(t *testing.T) {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
 
+	const term = "Fall"
+
 	initSchedule := scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall")
 	professors := append(input.Professors, structs.Professor{DisplayName: "TBD"})
-	prefMap, _, teachingPrefMax := scheduling.MapPreferences(professors, "Fall")
+	prefMap, _, teachingPrefMax := scheduling.MapPreferences(professors, term)
 
-	startFit := int32(scheduling.GetFitness(initSchedule, prefMap, teachingPrefMax))
+	startFit := int32(scheduling.GetFitness(initSchedule, prefMap, teachingPrefMax, term))
 	fmt.Println("Starting Fitness: ", startFit)
 	scheduling.PrettyPrintSemester(initSchedule)
 
@@ -33,18 +35,18 @@ func TestGenetic(t *testing.T) {
 	fit, i := -1, 0
 	for int32(fit) <= startFit {
 
-		timeslotMap, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.FallCourses)
-		requestedCourses, _, _ := scheduling.AddCoursesToStreamMaps(scheduling.Split(input.CoursesToSchedule.FallCourses), timeslotMap)
-		schedule := scheduling.AssignCourseProf(input.HardScheduled.FallCourses, requestedCourses, professors, "Fall")
-		scheduling.Optimize(schedule, professors, prefMap, teachingPrefMax)
+		timeslotMap, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.FallCourses, term)
+		requestedCourses, _, _ := scheduling.AddCoursesToStreamMaps(scheduling.Split(input.CoursesToSchedule.FallCourses), timeslotMap, "Fall")
+		schedule := scheduling.AssignCourseProf(input.HardScheduled.FallCourses, requestedCourses, professors, term)
+		scheduling.Optimize(schedule, professors, prefMap, teachingPrefMax, term)
 		finalSchedule = append(schedule, input.HardScheduled.FallCourses...)
-		fit = scheduling.GetFitness(finalSchedule, prefMap, teachingPrefMax)
+		fit = scheduling.GetFitness(finalSchedule, prefMap, teachingPrefMax, term)
 
 		// timeout so GA doesn't take for so long
 		if i > 60 {
 			fmt.Println("BREAK")
 			finalSchedule = initSchedule
-			fit = scheduling.GetFitness(finalSchedule, prefMap, teachingPrefMax)
+			fit = scheduling.GetFitness(finalSchedule, prefMap, teachingPrefMax, term)
 			break
 		}
 		i++
