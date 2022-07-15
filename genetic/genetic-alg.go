@@ -10,12 +10,17 @@ import (
 	"fmt"
 )
 
-var input structs.Input
+var hardScheduled []structs.Course
+var coursesToSchedule []structs.Course
+var professors []structs.Professor
 var term string
 
-func RunGeneticAlg(requestBody structs.Input, term string) {
+func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.Course, inputProfessors []structs.Professor, inputTerm string) {
 
-	input = requestBody
+	hardScheduled = inputHardScheduled
+	coursesToSchedule = inputCourses
+	professors = inputProfessors
+	term = inputTerm
 
 	var ga, err = eaopt.NewDefaultGAConfig().NewGA()
 
@@ -70,6 +75,6 @@ func RunGeneticAlg(requestBody structs.Input, term string) {
 
 }
 
-func getInput() (structs.Input, string) {
-	return input, term
+func getInput() ([]structs.Course, []structs.Course, []structs.Professor, string) {
+	return hardScheduled, coursesToSchedule, professors, term
 }

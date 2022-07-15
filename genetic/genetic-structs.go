@@ -85,7 +85,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 
 	//var courses []structs.Course
 	var profCourseCount int
-	_, term := getInput()
+	_, _, _, term := getInput()
 
 	//evalute prof clashes
 	for i := range sem {
@@ -146,7 +146,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 
 // Mutate a Semester by applying by permutation mutation and/or splice mutation.
 func (sem Semester) Mutate(rng *rand.Rand) {
-	_, term = getInput()
+	_, _, _, term = getInput()
 
 	if rng.Float64() < 0.45 {
 		sem = scheduling.ChangeRandomCourseTime(sem, term)
@@ -162,12 +162,12 @@ func (sem Semester) Crossover(q eaopt.Genome, rng *rand.Rand) {
 // MakeSemester creates a random semester
 func MakeSemester(rng *rand.Rand) eaopt.Genome {
 
-	input, term := getInput()
+	hardScheduled, coursesToSchedule, professors, term := getInput()
 
-	testStreamtype, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.SpringCourses, term)
-	input.CoursesToSchedule.SpringCourses, _, _ = scheduling.AddCoursesToStreamMaps(input.CoursesToSchedule.SpringCourses, testStreamtype, term)
-	testScheduleCourse := scheduling.AssignCourseProf(input.CoursesToSchedule.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors, term)
-	testScheduleCourse = append(testScheduleCourse, input.HardScheduled.SpringCourses...)
+	testStreamtype, _ := scheduling.BaseTimeslotMaps(hardScheduled, term)
+	coursesToSchedule, _, _ = scheduling.AddCoursesToStreamMaps(coursesToSchedule, testStreamtype, term)
+	testScheduleCourse := scheduling.AssignCourseProf(hardScheduled, coursesToSchedule, professors, term)
+	testScheduleCourse = append(testScheduleCourse, hardScheduled...)
 
 	testSem := make(Semester, len(testScheduleCourse))
 

@@ -205,5 +205,5 @@ func TestGeneticAlg(t *testing.T) {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
 
-	genetic.RunGeneticAlg(input, term)
+	genetic.RunGeneticAlg(input.HardScheduled.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors, term)
 }
