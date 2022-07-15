@@ -64,23 +64,29 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Run genetic algorithm on each semester, will update to run concurrently
-	schedule.FallCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors, "Fall")
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(err.Error()))
-		return
+	if len(parsedInput.CoursesToSchedule.FallCourses) != 0 {
+		schedule.FallCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors, "Fall")
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(err.Error()))
+			return
+		}
 	}
-	schedule.SpringCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(err.Error()))
-		return
+	if len(parsedInput.CoursesToSchedule.SpringCourses) != 0 {
+		schedule.SpringCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(err.Error()))
+			return
+		}
 	}
-	schedule.SummerCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(err.Error()))
-		return
+	if len(parsedInput.CoursesToSchedule.SummerCourses) != 0 {
+		schedule.SummerCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(err.Error()))
+			return
+		}
 	}
 
 	marshalledJSON, err := structs.StructToJSON(schedule)
