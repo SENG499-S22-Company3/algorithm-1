@@ -85,7 +85,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 
 	//var courses []structs.Course
 	var profCourseCount int
-	_, _, _, term := getInput()
+	_, _, profs, term := getInput()
 
 	//evalute prof clashes
 	for i := range sem {
@@ -137,6 +137,12 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 
 	// Check if timeslots violate hard requirements
 	_, fail := scheduling.BaseTimeslotMaps(sem, term)
+	if fail != nil {
+		penalty += 1000
+	}
+
+	// Checks if prof requirements violated
+	fail = scheduling.ScheduleConstraintsCheck(term, sem, profs)
 	if fail != nil {
 		penalty += 1000
 	}
