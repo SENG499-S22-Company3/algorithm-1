@@ -20,35 +20,30 @@ func TestGenetic(t *testing.T) {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
 
-	initSchedule := structs.Schedule{
-		FallCourses: scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall"),
-	}
+	initSchedule := scheduling.Assignments(input.HardScheduled.FallCourses, input.CoursesToSchedule.FallCourses, input.Professors, "Fall")
 	professors := append(input.Professors, structs.Professor{DisplayName: "TBD"})
 	prefMap, _, teachingPrefMax := scheduling.MapPreferences(professors, "Fall")
 
-	startFit := int32(scheduling.GetFitness(initSchedule.FallCourses, prefMap, teachingPrefMax))
+	startFit := int32(scheduling.GetFitness(initSchedule, prefMap, teachingPrefMax))
 	fmt.Println("Starting Fitness: ", startFit)
-	scheduling.PrettyPrintSemester(initSchedule.FallCourses)
+	scheduling.PrettyPrintSemester(initSchedule)
 
 	fmt.Println("starting ga test")
 	var finalSchedule []structs.Course
-	fit := -1
-	i := 0
+	fit, i := -1, 0
 	for int32(fit) <= startFit {
 
 		timeslotMap, _ := scheduling.BaseTimeslotMaps(input.HardScheduled.FallCourses)
 		requestedCourses, _, _ := scheduling.AddCoursesToStreamMaps(scheduling.Split(input.CoursesToSchedule.FallCourses), timeslotMap)
-		schedule := structs.Schedule{
-			FallCourses: scheduling.AssignCourseProf(input.HardScheduled.FallCourses, requestedCourses, professors, "Fall"),
-		}
+		schedule := scheduling.AssignCourseProf(input.HardScheduled.FallCourses, requestedCourses, professors, "Fall")
 		scheduling.Optimize(schedule, professors, prefMap, teachingPrefMax)
-		finalSchedule = append(schedule.FallCourses, input.HardScheduled.FallCourses...)
+		finalSchedule = append(schedule, input.HardScheduled.FallCourses...)
 		fit = scheduling.GetFitness(finalSchedule, prefMap, teachingPrefMax)
 
 		// timeout so GA doesn't take for so long
 		if i > 60 {
 			fmt.Println("BREAK")
-			finalSchedule = initSchedule.FallCourses
+			finalSchedule = initSchedule
 			fit = scheduling.GetFitness(finalSchedule, prefMap, teachingPrefMax)
 			break
 		}

@@ -69,7 +69,36 @@ func Assignments(hardScheduledCourses []structs.Course, requestedCourses []struc
 	return requestedCourses
 }
 
-func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap map[string]map[string]int, teachingPrefMax map[string]int) {
+func GogaAssignments(hardScheduledCourses []structs.Course, requestedCourses []structs.Course, professors []structs.Professor, term string) []structs.Course {
+	initSchedule := Assignments(hardScheduledCourses, requestedCourses, professors, term)
+	professors = append(professors, structs.Professor{DisplayName: "TBD"})
+	prefMap, _, teachingPrefMax := MapPreferences(professors, term)
+	startFit := int32(GetFitness(initSchedule, prefMap, teachingPrefMax))
+
+	var finalSchedule []structs.Course
+	fit, i := -1, 0
+	for int32(fit) <= startFit {
+
+		timeslotMap, _ := BaseTimeslotMaps(hardScheduledCourses)
+		requestedCourses, _, _ := AddCoursesToStreamMaps(Split(requestedCourses), timeslotMap)
+		schedule := AssignCourseProf(hardScheduledCourses, requestedCourses, professors, term)
+		Optimize(schedule, professors, prefMap, teachingPrefMax)
+		finalSchedule = append(schedule, hardScheduledCourses...)
+		fit = GetFitness(finalSchedule, prefMap, teachingPrefMax)
+
+		// timeout so GA doesn't take for so long
+		if i > 60 {
+			finalSchedule = initSchedule
+			fit = GetFitness(finalSchedule, prefMap, teachingPrefMax)
+			break
+		}
+		i++
+	}
+
+	return finalSchedule
+}
+
+func Optimize(schedule []structs.Course, professors []structs.Professor, prefMap map[string]map[string]int, teachingPrefMax map[string]int) {
 	// calculating how many bits to enumerate the profs
 	professorBitWidth := int(math.Log2(float64(len(professors)-1)) + 1)
 	sectionBitWidth := (professorBitWidth + 4) // 4 extra bits for timeslots
@@ -78,8 +107,8 @@ func Optimize(schedule structs.Schedule, professors []structs.Professor, prefMap
 	simulation := ScheduleSimulation{
 		NumberOfSimulations: 10,
 		PopulationSize:      500,
-		BaseSemester:        schedule.FallCourses,
-		NumberOfCourses:     len(schedule.FallCourses),
+		BaseSemester:        schedule,
+		NumberOfCourses:     len(schedule),
 		ProfList:            professors,
 		NumberOfProfs:       len(professors),
 		SectionBitWidth:     sectionBitWidth,
