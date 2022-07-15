@@ -59,7 +59,12 @@ func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.C
 			if err != nil {
 				return nil, err
 			} else {
-				return goodSchedule, nil
+				err = scheduling.ScheduleConstraintsCheck(term, goodSchedule, professors)
+				if err != nil {
+					return nil, err
+				} else {
+					return goodSchedule, nil
+				}
 			}
 		}
 	}
