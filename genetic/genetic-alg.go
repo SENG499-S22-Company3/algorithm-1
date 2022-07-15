@@ -15,7 +15,7 @@ var coursesToSchedule []structs.Course
 var professors []structs.Professor
 var term string
 
-func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.Course, inputProfessors []structs.Professor, inputTerm string) {
+func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.Course, inputProfessors []structs.Professor, inputTerm string) ([]structs.Course, error) {
 
 	hardScheduled = inputHardScheduled
 	coursesToSchedule = inputCourses
@@ -25,8 +25,7 @@ func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.C
 	var ga, err = eaopt.NewDefaultGAConfig().NewGA()
 
 	if err != nil {
-		fmt.Println(err)
-		return
+		return nil, err
 	}
 	ga.NGenerations = 100
 	ga.HofSize = 5
@@ -50,29 +49,20 @@ func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.C
 	jsonData, err := json.Marshal(ga.HallOfFame[0].Genome)
 
 	if err != nil {
-		fmt.Println(err)
-		return
+		return nil, err
 	} else {
 		goodSchedule, err := structs.ParseCourses(jsonData)
 		if err != nil {
-			fmt.Println(err)
-			return
+			return nil, err
 		} else {
-			for _, course := range goodSchedule {
-				fmt.Printf("%+v%+v  %+v  %+v %+v\n\n", course.Subject, course.CourseNumber, course.StreamSequence, course.Assignment, course.Prof.DisplayName)
-			}
 			_, err = scheduling.BaseTimeslotMaps(goodSchedule, term)
 			if err != nil {
-				fmt.Println(err)
+				return nil, err
 			} else {
-				fmt.Println("Schedule Generated passes timeslot checks")
+				return goodSchedule, nil
 			}
 		}
 	}
-
-	fmt.Println()
-	fmt.Println()
-
 }
 
 func getInput() ([]structs.Course, []structs.Course, []structs.Professor, string) {
