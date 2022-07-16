@@ -44,19 +44,19 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 	var schedule structs.Schedule
 
 	// Test there are no problems with the courses given by trying to generate an initial solution
-	_, err = scheduling.Assignments(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors, "Fall")
+	fallBackup, err := scheduling.Assignments(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors, "Fall")
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
 		return
 	}
-	_, err = scheduling.Assignments(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
+	springBackup, err := scheduling.Assignments(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
 		return
 	}
-	_, err = scheduling.Assignments(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
+	summerBackup, err := scheduling.Assignments(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(err.Error()))
@@ -71,6 +71,8 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(err.Error()))
 			return
 		}
+	} else {
+		schedule.FallCourses = fallBackup
 	}
 	if len(parsedInput.CoursesToSchedule.SpringCourses) != 0 {
 		schedule.SpringCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
@@ -79,6 +81,8 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(err.Error()))
 			return
 		}
+	} else {
+		schedule.SpringCourses = springBackup
 	}
 	if len(parsedInput.CoursesToSchedule.SummerCourses) != 0 {
 		schedule.SummerCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
@@ -87,6 +91,8 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(err.Error()))
 			return
 		}
+	} else {
+		schedule.SummerCourses = summerBackup
 	}
 
 	marshalledJSON, err := structs.StructToJSON(schedule)
