@@ -4,8 +4,8 @@ import (
 	"algorithm-1/structs"
 	"fmt"
 	"math/rand"
-	"time"
 	"strings"
+	"time"
 )
 
 func randomizer(profList []string) []string {
@@ -32,11 +32,14 @@ func MapPreferences(profs []structs.Professor, term string) (map[string]map[stri
 		
 		// set profList
 		profList = append(profList, s.DisplayName)
+		term = strings.ToUpper(term)
 
 		// set prof preference map
 		prefsMap[s.DisplayName] = map[string]int{}
 		for _, x := range s.Preferences {
-			prefsMap[s.DisplayName][x.CourseNum] = int(x.PreferenceNum)
+			if x.Term == "" || x.Term == term {
+				prefsMap[s.DisplayName][x.CourseNum] = int(x.PreferenceNum)
+			}
 		}
 
 		// set max prefered courses to teach
