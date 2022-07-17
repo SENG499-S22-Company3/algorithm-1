@@ -64,7 +64,14 @@ func Assignments(hardScheduledCourses []structs.Course, requestedCourses []struc
 		return nil, err
 	}
 	requestedCourses = AssignCourseProf(hardScheduledCourses, requestedCourses, professors, term)
-	requestedCourses = append(requestedCourses, hardScheduledCourses...)
+
+	emptyMap := CreateEmptyStreamType()
+	hardCourses, _, err := AddCoursesToStreamMaps(hardScheduledCourses, emptyMap, term)
+	if err != nil {
+		return nil, err
+	}
+
+	requestedCourses = append(requestedCourses, hardCourses...)
 
 	return requestedCourses, err
 }

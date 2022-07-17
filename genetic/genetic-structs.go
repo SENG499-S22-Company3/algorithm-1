@@ -173,7 +173,11 @@ func MakeSemester(rng *rand.Rand) eaopt.Genome {
 	testStreamtype, _ := scheduling.BaseTimeslotMaps(hardScheduled, term)
 	coursesToSchedule, _, _ = scheduling.AddCoursesToStreamMaps(scheduling.Split(coursesToSchedule), testStreamtype, term)
 	testScheduleCourse := scheduling.AssignCourseProf(hardScheduled, coursesToSchedule, professors, term)
-	testScheduleCourse = append(testScheduleCourse, hardScheduled...)
+
+	emptyMap := scheduling.CreateEmptyStreamType()
+	hardCourses, _, _ := scheduling.AddCoursesToStreamMaps(hardScheduled, emptyMap, term)
+
+	testScheduleCourse = append(testScheduleCourse, hardCourses...)
 
 	testSem := make(Semester, len(testScheduleCourse))
 
