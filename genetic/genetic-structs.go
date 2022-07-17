@@ -162,7 +162,7 @@ func (sem Semester) Mutate(rng *rand.Rand) {
 
 // Crossover a Semester with another Semester by using Partially Mixed Crossover (PMX).
 func (sem Semester) Crossover(q eaopt.Genome, rng *rand.Rand) {
-	eaopt.CrossGNX(sem, q.(Semester), 3, rng)
+	eaopt.CrossGNX(sem, q.(Semester), 2, rng)
 }
 
 // MakeSemester creates a random semester

@@ -64,7 +64,7 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Run genetic algorithm on each semester, will update to run concurrently
-	if len(parsedInput.CoursesToSchedule.FallCourses) != 0 {
+	if len(parsedInput.CoursesToSchedule.FallCourses) > 1 {
 		schedule.FallCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.FallCourses, parsedInput.CoursesToSchedule.FallCourses, parsedInput.Professors, "Fall")
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
@@ -74,7 +74,7 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 	} else {
 		schedule.FallCourses = fallBackup
 	}
-	if len(parsedInput.CoursesToSchedule.SpringCourses) != 0 {
+	if len(parsedInput.CoursesToSchedule.SpringCourses) > 1 {
 		schedule.SpringCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SpringCourses, parsedInput.CoursesToSchedule.SpringCourses, parsedInput.Professors, "Spring")
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
@@ -84,7 +84,7 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 	} else {
 		schedule.SpringCourses = springBackup
 	}
-	if len(parsedInput.CoursesToSchedule.SummerCourses) != 0 {
+	if len(parsedInput.CoursesToSchedule.SummerCourses) > 1 {
 		schedule.SummerCourses, err = genetic.RunGeneticAlg(parsedInput.HardScheduled.SummerCourses, parsedInput.CoursesToSchedule.SummerCourses, parsedInput.Professors, "Summer")
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
