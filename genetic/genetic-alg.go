@@ -38,20 +38,19 @@ func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.C
 
 	// Add a custom print function to track progress
 	/*
-	ga.Callback = func(ga *eaopt.GA) {
-		fmt.Printf("Best fitness at generation %d: %f\n", ga.Generations, ga.HallOfFame[0].Fitness)
-	}
+		ga.Callback = func(ga *eaopt.GA) {
+			fmt.Printf("Best fitness at generation %d: %f\n", ga.Generations, ga.HallOfFame[0].Fitness)
+		}
 	*/
-	
+
 	// Run the GA
 	ga.Minimize(MakeSemester)
-	
+
 	rerun := false
 	hofSize := int(ga.HofSize)
-	
-	
+
 	//runs the GA once more if no good schedule was found in Hall of fame
-	for i := 0; i < hofSize ; i++{
+	for i := 0; i < hofSize; i++ {
 
 		jsonData, err := json.Marshal(ga.HallOfFame[i].Genome)
 
@@ -61,14 +60,14 @@ func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.C
 				_, err = scheduling.BaseTimeslotMaps(goodSchedule, term)
 				if err == nil {
 					err = scheduling.ScheduleConstraintsCheck(term, goodSchedule, professors)
-					if err == nil {	
+					if err == nil {
 						return goodSchedule, nil
 					}
 				}
 			}
 		}
 
-		if !rerun && i == hofSize - 1 {
+		if !rerun && i == hofSize-1 {
 			ga.PopSize *= 2
 			ga.NGenerations *= 2
 			ga.Minimize(MakeSemester)
@@ -79,7 +78,7 @@ func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.C
 	}
 
 	return nil, err
-		
+
 }
 
 func getInput() ([]structs.Course, []structs.Course, []structs.Professor, string) {

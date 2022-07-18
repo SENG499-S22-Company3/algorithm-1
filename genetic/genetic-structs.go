@@ -92,10 +92,14 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 		//courses = append(courses, sem[i])
 		profCourseCount = 0
 		for j := range sem {
+			// ignore TBD profs
+			if sem[i].Prof.DisplayName == "TBD" {
+				continue
+			}
 			//evalute prof clashes
-			if sem[i].Prof.DisplayName == sem[j].Prof.DisplayName && i != j && sem[i].Prof.DisplayName != "TBD" {
+			if sem[i].Prof.DisplayName == sem[j].Prof.DisplayName && i != j {
 				if sem[i].Assignment.BeginTime == sem[j].Assignment.BeginTime {
-					if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday {
+					if sem[i].Assignment == sem[j].Assignment {
 						penalty += 1000
 					}
 				}
@@ -107,7 +111,7 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 			}
 			//evaluate same stream time differences
 			if sem[i].StreamSequence == sem[j].StreamSequence {
-				if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday && sem[i].Prof.DisplayName != "TBD" {
+				if sem[i].Assignment == sem[j].Assignment {
 					t1, err := strconv.Atoi(sem[i].Assignment.BeginTime)
 					if err != nil {
 						fmt.Println(err.Error())
@@ -118,8 +122,9 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 						fmt.Println(err.Error())
 						break
 					}
-					if math.Copysign(float64(t1-t2), 1) > 600 {
-						penalty += 300
+					diff := math.Abs(float64(t1 - t2))
+					if diff > 600 {
+						penalty += (diff - 600)
 					}
 				}
 			}
