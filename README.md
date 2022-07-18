@@ -11,3 +11,6 @@
 - Service is run on port 8080 and can be done via
    - Using the included Dockerfile, or
    - Running main.go
+## Dependencies Used
+- EAOPT [here](https://github.com/MaxHalford/eaopt)
+- Copier [here](https://github.com/jinzhu/copier)
