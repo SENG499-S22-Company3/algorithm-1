@@ -252,15 +252,15 @@ func setCourseDates(course structs.Course, term string) structs.Course {
 	return course
 }
 
+
 func ChangeRandomCourseTime(courses []structs.Course, term string) []structs.Course {
 
-	var randInt int
+	var courseToChange int
 
 	timeslotMaps := CreateEmptyStreamType()
 
 	AddCoursesToStreamMaps(courses, timeslotMaps, term)
 
-	//choose course with large time gap for mutation
 	for i := range courses {
 		for j := range courses {
 			if courses[i].StreamSequence == courses[j].StreamSequence {
@@ -274,7 +274,7 @@ func ChangeRandomCourseTime(courses []structs.Course, term string) []structs.Cou
 						panic(err)
 					}
 					if math.Copysign(float64(t1-t2), 1) > 600 {
-						randInt = j
+						courseToChange = i
 						break
 					}
 				}
@@ -282,33 +282,31 @@ func ChangeRandomCourseTime(courses []structs.Course, term string) []structs.Cou
 		}
 	}
 
-	//add check for hard fixed courses?
+	courses[courseToChange].Assignment.BeginTime = ""
+	courses[courseToChange].Assignment.EndTime = ""
 
-	courses[randInt].Assignment.BeginTime = ""
-	courses[randInt].Assignment.EndTime = ""
+	courses[courseToChange].Assignment.Monday = false
+	courses[courseToChange].Assignment.Tuesday = false
+	courses[courseToChange].Assignment.Wednesday = false
+	courses[courseToChange].Assignment.Thursday = false
+	courses[courseToChange].Assignment.Friday = false
 
-	courses[randInt].Assignment.Monday = false
-	courses[randInt].Assignment.Tuesday = false
-	courses[randInt].Assignment.Wednesday = false
-	courses[randInt].Assignment.Thursday = false
-	courses[randInt].Assignment.Friday = false
-
-	if courses[randInt].StreamSequence == "1A" {
-		courses[randInt], timeslotMaps.S1A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S1A, term)
-	} else if courses[randInt].StreamSequence == "1B" {
-		courses[randInt], timeslotMaps.S1B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S1B, term)
-	} else if courses[randInt].StreamSequence == "2A" {
-		courses[randInt], timeslotMaps.S2A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S2A, term)
-	} else if courses[randInt].StreamSequence == "2B" {
-		courses[randInt], timeslotMaps.S2B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S2B, term)
-	} else if courses[randInt].StreamSequence == "3A" {
-		courses[randInt], timeslotMaps.S3A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S3A, term)
-	} else if courses[randInt].StreamSequence == "3B" {
-		courses[randInt], timeslotMaps.S3B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S3B, term)
-	} else if courses[randInt].StreamSequence == "4A" {
-		courses[randInt], timeslotMaps.S4A, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S4A, term)
-	} else if courses[randInt].StreamSequence == "4B" {
-		courses[randInt], timeslotMaps.S4B, _ = addMultipleTimeslots(courses[randInt], timeslotMaps.S4B, term)
+	if courses[courseToChange].StreamSequence == "1A" {
+		courses[courseToChange], timeslotMaps.S1A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S1A, term)
+	} else if courses[courseToChange].StreamSequence == "1B" {
+		courses[courseToChange], timeslotMaps.S1B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S1B, term)
+	} else if courses[courseToChange].StreamSequence == "2A" {
+		courses[courseToChange], timeslotMaps.S2A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S2A, term)
+	} else if courses[courseToChange].StreamSequence == "2B" {
+		courses[courseToChange], timeslotMaps.S2B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S2B, term)
+	} else if courses[courseToChange].StreamSequence == "3A" {
+		courses[courseToChange], timeslotMaps.S3A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S3A, term)
+	} else if courses[courseToChange].StreamSequence == "3B" {
+		courses[courseToChange], timeslotMaps.S3B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S3B, term)
+	} else if courses[courseToChange].StreamSequence == "4A" {
+		courses[courseToChange], timeslotMaps.S4A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S4A, term)
+	} else if courses[courseToChange].StreamSequence == "4B" {
+		courses[courseToChange], timeslotMaps.S4B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S4B, term)
 	}
 
 	return courses
