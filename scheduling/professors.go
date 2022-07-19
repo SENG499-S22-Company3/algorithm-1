@@ -43,9 +43,9 @@ func MapPreferences(profs []structs.Professor, term string) (map[string]map[stri
 		}
 
 		// set max prefered courses to teach
-		if term == "Fall" {
+		if term == "FALL" {
 			teachingPrefMax[s.DisplayName] = int(s.FallTermCourses)
-		} else if term == "Spring" {
+		} else if term == "SPRING" {
 			teachingPrefMax[s.DisplayName] = int(s.SpringTermCourses)
 		} else {
 			teachingPrefMax[s.DisplayName] = int(s.SummerTermCourses)
@@ -153,7 +153,7 @@ func AssignCourseProf(hardScheduled []structs.Course, semesterSchedule []structs
 			prof, profPos = assignProf(prefsMap, profList, teachingTimeslotMap, teachingCount, teachingPrefMax, c, profPos)
 		}
 		
-		if prof != "TBA" {
+		if prof != "TBD" {
 			if(c.Assignment.Monday == true){
 				d = "MTh"+c.Assignment.BeginTime
 			} else {
@@ -169,7 +169,6 @@ func AssignCourseProf(hardScheduled []structs.Course, semesterSchedule []structs
 				
 		// update semester schedule
 		semesterSchedule[i].Prof.DisplayName = prof
-		semesterSchedule[i].Prof.Preferences = make([]structs.Preference, 0)
 	}
 
 	return semesterSchedule
@@ -198,26 +197,19 @@ func ScheduleConstraintsCheck(term string,
 
 		// check for unscheduled course
 		if c.Prof.DisplayName == "" || c.Assignment.BeginTime == "" || c.Assignment.EndTime == "" {
-			err = fmt.Errorf("error: %v Schedule missing %v %v timeslot and/or prof,   ", term, c.Subject, c.CourseNumber)
+			err = fmt.Errorf("Error: %v %v course missing prof and/or timeslot assignment.\n", term, c.Subject+c.CourseNumber)
 			break
 		}
 
 		// check for double slotted prof
 		if _, found := teachingTimeslotMap[c.Prof.DisplayName+d]; found {
-			err = fmt.Errorf("error: %v teaching another %v course at %v,   ", c.Prof.DisplayName, term, d)
+			err = fmt.Errorf("Error: %v teaching another %v course at %v. Prof cannot two classes at the same time.\n", c.Prof.DisplayName, term, d)
 			break
 		}
 
 		// check that prof with zero preference doesn't get sheduled
 		if pref, pass := prefsMap[c.Prof.DisplayName][c.Subject+c.CourseNumber]; !pass && c.Prof.DisplayName != "TBD" {
-			err = fmt.Errorf(c.Prof.DisplayName, "cannot teach this "+term+" course since they have no (", pref, ") preference,   ")
-			break
-		}
-
-		// check that while a prof is teaching less than the number of prefered courese they will teach all sections
-		if prof, exists := courseMap[c.Subject+c.CourseNumber]; exists && !(teachingCount[prof] < teachingPrefMax[prof]) && c.Prof.DisplayName == prof {
-			fmt.Println(teachingCount[prof] , teachingPrefMax[prof])
-			err = fmt.Errorf("error: %v should be teaching this %v since they teach other sections.", prof, c.Subject+c.CourseNumber)
+			err = fmt.Errorf("Error: %v cannot teach %v %v since they have no (%v) preference.\n", c.Prof.DisplayName, term, c.Subject+c.CourseNumber, pref)
 			break
 		}
 
@@ -234,7 +226,7 @@ func ScheduleConstraintsCheck(term string,
 	for _, prof := range profList {
 		// check that profs do not teach more than prefered amount of courses
 		if teachingCount[prof] > teachingPrefMax[prof] {
-			err = fmt.Errorf("error: %v teaching %v courses which is more than there prefered %v courses.", prof, teachingCount[prof], teachingPrefMax[prof])
+			err = fmt.Errorf("Error: %v assigned %v %v courses which is more than their prefered maximum %v courses to teach this term.\n", prof, teachingCount[prof], term, teachingPrefMax[prof])
 			break
 		}
 	}
@@ -276,6 +268,4 @@ func ChangeRandomCourseProf(sem []structs.Course) []structs.Course{
 	}
 	
 	return sem
-
-
 } 
