@@ -65,7 +65,7 @@ func TestCheckScheduleProfFail(t *testing.T) {
 
 	// Assert
 	actual_response := response.Body.String()
-	expected_response := "error: Bird, Bill teaching another Fall course at MTh1300,   Schedule given has some violations that should be resolved"
+	expected_response := "Error: Bird, Bill teaching another Fall course at MTh1300. Prof cannot two classes at the same time.\nSchedule given has some violations that should be resolved"
 
 	if actual_response != expected_response {
 		t.Errorf("got %q, want %q", actual_response, expected_response)
