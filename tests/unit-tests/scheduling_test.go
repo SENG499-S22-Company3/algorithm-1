@@ -212,7 +212,7 @@ func TestGeneticAlg(t *testing.T) {
 	}
 
 	for _, course := range result {
-		fmt.Printf("%+v%+v  %+v  %+v %+v\n", course.Subject, course.CourseNumber, course.StreamSequence, course.Assignment.BeginTime, course.Prof.DisplayName)
+		fmt.Printf("%+v%+v  %+v  %+v %+v %+v\n", course.Subject, course.CourseNumber, course.StreamSequence, course.Assignment.BeginTime, course.Assignment.EndTime, course.Prof.DisplayName)
 	}
 
 }

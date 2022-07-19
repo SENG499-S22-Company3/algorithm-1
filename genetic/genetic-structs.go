@@ -116,13 +116,29 @@ func (sem Semester) Evaluate() (penalty float64, err error) {
 				}
 			}
 		}
-		if err != nil {
-			break
-		}
 		// penalize low prof preference values
 		for j := range sem[i].Prof.Preferences {
 			if strings.Contains(sem[i].Prof.Preferences[j].CourseNum, sem[i].CourseNumber) && strings.Contains(sem[i].Prof.Preferences[j].CourseNum, sem[i].Subject) {
 				penalty += 10 * (6 - float64(sem[i].Prof.Preferences[j].PreferenceNum))
+			}
+		}
+	}
+
+	// penalty for prof with back to back courses
+	for _, p := range profs {
+		var p_courses []structs.Course
+		for i := range sem {
+			if sem[i].Prof.DisplayName == p.DisplayName {
+				p_courses = append(p_courses, sem[i])
+			}
+		}
+		for i := range p_courses {
+			t1, _ := strconv.Atoi(p_courses[i].Assignment.BeginTime)
+			for j := range p_courses {
+				t2, _ := strconv.Atoi(p_courses[j].Assignment.EndTime)
+				if math.Abs(float64(t2-t1)) <= 10 {
+					penalty += 300
+				}
 			}
 		}
 	}
