@@ -79,31 +79,18 @@ func (sem Semester) Clone() eaopt.Genome {
 
 }
 
-// Evaluate a Semester by checking for time conflicts and schedule length
+// Evaluate a Semester by checking for time conflicts and other properties
 func (sem Semester) Evaluate() (penalty float64, err error) {
-	var profCourseCount int
 	_, _, profs, term := getInput()
 
 	// comparing each course to each other course
 	for i := range sem {
-		profCourseCount = 0
 		for j := range sem {
 			// ignore courses with TBD profs
 			if sem[i].Prof.DisplayName == "TBD" {
 				continue
 			}
 
-			// evalute prof clashes
-			if sem[i].Prof.DisplayName == sem[j].Prof.DisplayName && i != j {
-				if sem[i].Assignment == sem[j].Assignment {
-					penalty += 1000
-				}
-				// penalize profs teaching > 3 courses
-				profCourseCount += 1
-				if profCourseCount > 3 {
-					penalty += 1000
-				}
-			}
 			// evaluate same stream time differences
 			if sem[i].StreamSequence == sem[j].StreamSequence {
 				if sem[i].Assignment.Monday == sem[j].Assignment.Monday {
