@@ -3,7 +3,6 @@ package scheduling
 import (
 	"algorithm-1/structs"
 	"fmt"
-	"math"
 	"math/rand"
 	"strconv"
 	"time"
@@ -256,6 +255,8 @@ func setCourseDates(course structs.Course, term string) structs.Course {
 func ChangeRandomCourseTime(courses []structs.Course, term string) []structs.Course {
 
 	var courseToChange int
+	var err error
+	var found bool
 
 	timeslotMaps := CreateEmptyStreamType()
 
@@ -263,51 +264,69 @@ func ChangeRandomCourseTime(courses []structs.Course, term string) []structs.Cou
 
 	for i := range courses {
 		for j := range courses {
-			if courses[i].StreamSequence == courses[j].StreamSequence {
+			if courses[i].StreamSequence == courses[j].StreamSequence  {
 				if courses[i].Assignment.Monday && courses[j].Assignment.Monday || courses[i].Assignment.Tuesday && courses[j].Assignment.Tuesday && courses[i].Prof.DisplayName != "TBD" {
+										
 					t1, err := strconv.Atoi(courses[i].Assignment.BeginTime)
-					if err != nil {
-						panic(err)
+					if err != nil{
+						break 
 					}
-					t2, err := strconv.Atoi(courses[j].Assignment.EndTime)
-					if err != nil {
-						panic(err)
+					t2, err := strconv.Atoi(courses[i].Assignment.EndTime)
+					if err != nil{
+						break 
 					}
-					if math.Copysign(float64(t1-t2), 1) > 600 {
-						courseToChange = i
+					t3, err := strconv.Atoi(courses[j].Assignment.BeginTime)
+					if err != nil{
+						break 
+					}
+					t4, err := strconv.Atoi(courses[j].Assignment.EndTime)
+					if err != nil{
+						break 
+					}
+					
+					if float64(t1-t4) > 600 || float64(t3-t2) > 600 {
+						courseToChange = j
+						found = true
 						break
 					}
 				}
 			}
 		}
+		if found {
+			break
+		}
 	}
 
-	courses[courseToChange].Assignment.BeginTime = ""
-	courses[courseToChange].Assignment.EndTime = ""
+	if err == nil && found {
 
-	courses[courseToChange].Assignment.Monday = false
-	courses[courseToChange].Assignment.Tuesday = false
-	courses[courseToChange].Assignment.Wednesday = false
-	courses[courseToChange].Assignment.Thursday = false
-	courses[courseToChange].Assignment.Friday = false
+		courses[courseToChange].Assignment.BeginTime = ""
+		courses[courseToChange].Assignment.EndTime = ""
 
-	if courses[courseToChange].StreamSequence == "1A" {
-		courses[courseToChange], timeslotMaps.S1A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S1A, term)
-	} else if courses[courseToChange].StreamSequence == "1B" {
-		courses[courseToChange], timeslotMaps.S1B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S1B, term)
-	} else if courses[courseToChange].StreamSequence == "2A" {
-		courses[courseToChange], timeslotMaps.S2A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S2A, term)
-	} else if courses[courseToChange].StreamSequence == "2B" {
-		courses[courseToChange], timeslotMaps.S2B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S2B, term)
-	} else if courses[courseToChange].StreamSequence == "3A" {
-		courses[courseToChange], timeslotMaps.S3A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S3A, term)
-	} else if courses[courseToChange].StreamSequence == "3B" {
-		courses[courseToChange], timeslotMaps.S3B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S3B, term)
-	} else if courses[courseToChange].StreamSequence == "4A" {
-		courses[courseToChange], timeslotMaps.S4A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S4A, term)
-	} else if courses[courseToChange].StreamSequence == "4B" {
-		courses[courseToChange], timeslotMaps.S4B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S4B, term)
+		courses[courseToChange].Assignment.Monday = false
+		courses[courseToChange].Assignment.Tuesday = false
+		courses[courseToChange].Assignment.Wednesday = false
+		courses[courseToChange].Assignment.Thursday = false
+		courses[courseToChange].Assignment.Friday = false
+
+		if courses[courseToChange].StreamSequence == "1A" {
+			courses[courseToChange], timeslotMaps.S1A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S1A, term)
+		} else if courses[courseToChange].StreamSequence == "1B" {
+			courses[courseToChange], timeslotMaps.S1B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S1B, term)
+		} else if courses[courseToChange].StreamSequence == "2A" {
+			courses[courseToChange], timeslotMaps.S2A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S2A, term)
+		} else if courses[courseToChange].StreamSequence == "2B" {
+			courses[courseToChange], timeslotMaps.S2B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S2B, term)
+		} else if courses[courseToChange].StreamSequence == "3A" {
+			courses[courseToChange], timeslotMaps.S3A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S3A, term)
+		} else if courses[courseToChange].StreamSequence == "3B" {
+			courses[courseToChange], timeslotMaps.S3B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S3B, term)
+		} else if courses[courseToChange].StreamSequence == "4A" {
+			courses[courseToChange], timeslotMaps.S4A, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S4A, term)
+		} else if courses[courseToChange].StreamSequence == "4B" {
+			courses[courseToChange], timeslotMaps.S4B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S4B, term)
+		}
 	}
+	
 
 	return courses
 }
