@@ -42,34 +42,44 @@ func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.C
 		fmt.Printf("Best fitness at generation %d: %f\n", ga.Generations, ga.HallOfFame[0].Fitness)
 	}
 	*/
-
+	
 	// Run the GA
 	ga.Minimize(MakeSemester)
+	
+	rerun := false
+	hofSize := int(ga.HofSize)
+	
+	
+	//runs the GA once more if no good schedule was found in Hall of fame
+	for i := 0; i < hofSize ; i++{
 
-	// fmt.Printf("Best GA with fitness score %f:\n", ga.HallOfFame[0].Fitness)
+		jsonData, err := json.Marshal(ga.HallOfFame[i].Genome)
 
-	jsonData, err := json.Marshal(ga.HallOfFame[0].Genome)
-
-	if err != nil {
-		return nil, err
-	} else {
-		goodSchedule, err := structs.ParseCourses(jsonData)
-		if err != nil {
-			return nil, err
-		} else {
-			_, err = scheduling.BaseTimeslotMaps(goodSchedule, term)
-			if err != nil {
-				return nil, err
-			} else {
-				err = scheduling.ScheduleConstraintsCheck(term, goodSchedule, professors)
-				if err != nil {
-					return nil, err
-				} else {
-					return goodSchedule, nil
+		if err == nil {
+			goodSchedule, err := structs.ParseCourses(jsonData)
+			if err == nil {
+				_, err = scheduling.BaseTimeslotMaps(goodSchedule, term)
+				if err == nil {
+					err = scheduling.ScheduleConstraintsCheck(term, goodSchedule, professors)
+					if err == nil {	
+						return goodSchedule, nil
+					}
 				}
 			}
 		}
+
+		if !rerun && i == hofSize - 1 {
+			ga.PopSize *= 2
+			ga.NGenerations *= 2
+			ga.Minimize(MakeSemester)
+			rerun = true
+			i = 0
+		}
+
 	}
+
+	return nil, err
+		
 }
 
 func getInput() ([]structs.Course, []structs.Course, []structs.Professor, string) {
