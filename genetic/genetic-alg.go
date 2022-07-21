@@ -27,9 +27,9 @@ func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.C
 	if err != nil {
 		return nil, err
 	}
-	ga.NGenerations = 100
+	ga.NGenerations = 20
 	ga.HofSize = 5
-	ga.PopSize = 100
+	ga.PopSize = 500
 	ga.ParallelEval = true
 
 	// Append the initial GA status to the progress file
@@ -38,9 +38,9 @@ func RunGeneticAlg(inputHardScheduled []structs.Course, inputCourses []structs.C
 
 	// Add a custom print function to track progress
 	/*
-		ga.Callback = func(ga *eaopt.GA) {
-			fmt.Printf("Best fitness at generation %d: %f\n", ga.Generations, ga.HallOfFame[0].Fitness)
-		}
+	ga.Callback = func(ga *eaopt.GA) {
+		fmt.Printf("Best fitness at generation %d: %f\n", ga.Generations, ga.HallOfFame[0].Fitness)
+	}
 	*/
 
 	// Run the GA
