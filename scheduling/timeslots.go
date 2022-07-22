@@ -117,6 +117,13 @@ func addMultipleTimeslots(course structs.Course, timeslots structs.Timeslots, te
 	course = setCourseDates(course, term)
 
 	if course.Assignment.BeginTime != "" {
+		endTimeInt, _ := strconv.Atoi(course.Assignment.EndTime)
+		beginTimeInt, _ := strconv.Atoi(course.Assignment.BeginTime)
+
+		if (endTimeInt - beginTimeInt) < 0 {
+			err = fmt.Errorf("error: %v %v has an end time that is before its begin time in %v term,   ", course.Subject, course.CourseNumber, term)
+			return course, timeslots, err
+		}
 		if course.Assignment.Monday {
 			timeslots.Monday, err = addTimeslot(course, timeslots.Monday, term)
 		}
@@ -251,7 +258,6 @@ func setCourseDates(course structs.Course, term string) structs.Course {
 	return course
 }
 
-
 func ChangeRandomCourseTime(courses []structs.Course, term string) []structs.Course {
 
 	var courseToChange int
@@ -264,26 +270,26 @@ func ChangeRandomCourseTime(courses []structs.Course, term string) []structs.Cou
 
 	for i := range courses {
 		for j := range courses {
-			if courses[i].StreamSequence == courses[j].StreamSequence  {
+			if courses[i].StreamSequence == courses[j].StreamSequence {
 				if courses[i].Assignment.Monday && courses[j].Assignment.Monday || courses[i].Assignment.Tuesday && courses[j].Assignment.Tuesday && courses[i].Prof.DisplayName != "TBD" {
-										
+
 					t1, err := strconv.Atoi(courses[i].Assignment.BeginTime)
-					if err != nil{
-						break 
+					if err != nil {
+						break
 					}
 					t2, err := strconv.Atoi(courses[i].Assignment.EndTime)
-					if err != nil{
-						break 
+					if err != nil {
+						break
 					}
 					t3, err := strconv.Atoi(courses[j].Assignment.BeginTime)
-					if err != nil{
-						break 
+					if err != nil {
+						break
 					}
 					t4, err := strconv.Atoi(courses[j].Assignment.EndTime)
-					if err != nil{
-						break 
+					if err != nil {
+						break
 					}
-					
+
 					if float64(t1-t4) > 600 || float64(t3-t2) > 600 {
 						courseToChange = j
 						found = true
@@ -326,7 +332,6 @@ func ChangeRandomCourseTime(courses []structs.Course, term string) []structs.Cou
 			courses[courseToChange], timeslotMaps.S4B, _ = addMultipleTimeslots(courses[courseToChange], timeslotMaps.S4B, term)
 		}
 	}
-	
 
 	return courses
 }
