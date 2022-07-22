@@ -4,6 +4,7 @@ import (
 	"algorithm-1/genetic"
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -205,14 +206,13 @@ func TestGeneticAlg(t *testing.T) {
 		t.Error("Input parsing failed with error: ", err.Error())
 	}
 
-	_, err = genetic.RunGeneticAlg(input.HardScheduled.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors, term)
+	result, _ := genetic.RunGeneticAlg(input.HardScheduled.SpringCourses, input.CoursesToSchedule.SpringCourses, input.Professors, term)
 	if err != nil {
 		t.Error(err)
 	}
 
-	/*
-		for _, course := range testCourses {
-			fmt.Printf("%+v%+v  %+v  %+v %+v\n\n", course.Subject, course.CourseNumber, course.StreamSequence, course.Assignment, course.Prof.DisplayName)
-		}
-	*/
+	for _, course := range result {
+		fmt.Printf("%+v%+v  %+v  %+v %+v %+v\n", course.Subject, course.CourseNumber, course.StreamSequence, course.Assignment.BeginTime, course.Assignment.EndTime, course.Prof.DisplayName)
+	}
+
 }

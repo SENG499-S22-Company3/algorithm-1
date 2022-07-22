@@ -3,7 +3,6 @@ package genetic
 import (
 	"algorithm-1/scheduling"
 	"algorithm-1/structs"
-	"fmt"
 	"math/rand"
 	"strings"
 
@@ -80,57 +79,53 @@ func (sem Semester) Clone() eaopt.Genome {
 
 }
 
-// Evaluate a Semester by summing the consecutive Euclidean distances.
+// Evaluate a Semester by checking for time conflicts and other properties
 func (sem Semester) Evaluate() (penalty float64, err error) {
-
-	//var courses []structs.Course
-	var profCourseCount int
 	_, _, profs, term := getInput()
 
-	//evalute prof clashes
+	// comparing each course to each other course
 	for i := range sem {
-		//courses = append(courses, sem[i])
-		profCourseCount = 0
 		for j := range sem {
-			//evalute prof clashes
-			if sem[i].Prof.DisplayName == sem[j].Prof.DisplayName && i != j && sem[i].Prof.DisplayName != "TBD" {
-				if sem[i].Assignment.BeginTime == sem[j].Assignment.BeginTime {
-					if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday {
-						penalty += 1000
-					}
-				}
-				//penalize profs teaching > 3 courses
-				profCourseCount += 1
-				if profCourseCount > 3 {
-					penalty += 1000
-				}
+			// ignore courses with TBD profs
+			if sem[i].Prof.DisplayName == "TBD" {
+				continue
 			}
-			//evaluate same stream time differences
+
+			// evaluate same stream time differences
 			if sem[i].StreamSequence == sem[j].StreamSequence {
-				if sem[i].Assignment.Monday && sem[j].Assignment.Monday || sem[i].Assignment.Tuesday && sem[j].Assignment.Tuesday && sem[i].Prof.DisplayName != "TBD" {
-					t1, err := strconv.Atoi(sem[i].Assignment.BeginTime)
-					if err != nil {
-						fmt.Println(err.Error())
-						break
-					}
-					t2, err := strconv.Atoi(sem[j].Assignment.EndTime)
-					if err != nil {
-						fmt.Println(err.Error())
-						break
-					}
-					if math.Copysign(float64(t1-t2), 1) > 600 {
-						penalty += 300
+				if sem[i].Assignment.Monday == sem[j].Assignment.Monday {
+					t1, _ := strconv.Atoi(sem[i].Assignment.BeginTime)
+					t2, _ := strconv.Atoi(sem[j].Assignment.EndTime)
+					diff := math.Abs(float64(t1 - t2))
+					if diff > 600 {
+						penalty += (diff - 600)
 					}
 				}
 			}
 		}
-		if err != nil {
-			break
-		}
-		//penalize low prof preference values
+		// penalize low prof preference values
 		for j := range sem[i].Prof.Preferences {
 			if strings.Contains(sem[i].Prof.Preferences[j].CourseNum, sem[i].CourseNumber) && strings.Contains(sem[i].Prof.Preferences[j].CourseNum, sem[i].Subject) {
 				penalty += 10 * (6 - float64(sem[i].Prof.Preferences[j].PreferenceNum))
+			}
+		}
+	}
+
+	// penalty for prof with back to back courses
+	for _, p := range profs {
+		var p_courses []structs.Course
+		for i := range sem {
+			if sem[i].Prof.DisplayName == p.DisplayName {
+				p_courses = append(p_courses, sem[i])
+			}
+		}
+		for i := range p_courses {
+			t1, _ := strconv.Atoi(p_courses[i].Assignment.BeginTime)
+			for j := range p_courses {
+				t2, _ := strconv.Atoi(p_courses[j].Assignment.EndTime)
+				if math.Abs(float64(t2-t1)) <= 10 {
+					penalty += 300
+				}
 			}
 		}
 	}
