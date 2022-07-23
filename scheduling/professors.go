@@ -205,7 +205,6 @@ func ScheduleConstraintsCheck(term string,
 		for _, prof := range profList {
 			// check that profs do not teach more than prefered amount of courses
 			if prof == c.Prof.DisplayName || c.Prof.DisplayName == "TBD" {
-				fmt.Println(c.Prof.DisplayName, "TRUE")
 				isProf = true
 				break
 			}
