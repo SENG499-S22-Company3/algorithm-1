@@ -201,6 +201,21 @@ func ScheduleConstraintsCheck(term string,
 			break
 		}
 
+		isProf := false
+		for _, prof := range profList {
+			// check that profs do not teach more than prefered amount of courses
+			if prof == c.Prof.DisplayName || c.Prof.DisplayName == "TBD" {
+				fmt.Println(c.Prof.DisplayName, "TRUE")
+				isProf = true
+				break
+			}
+		}
+
+		if !isProf {
+			err = fmt.Errorf("Error: %v assigned to %v %v is not an actual professor.\n", c.Prof.DisplayName, term, c.Subject+c.CourseNumber)
+			break
+		}
+
 		// check for double slotted prof
 		if _, found := teachingTimeslotMap[c.Prof.DisplayName+d]; found {
 			err = fmt.Errorf("Error: %v teaching another %v course at %v. Prof cannot two classes at the same time.\n", c.Prof.DisplayName, term, d)
