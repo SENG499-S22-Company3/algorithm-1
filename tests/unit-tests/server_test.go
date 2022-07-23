@@ -96,7 +96,7 @@ func TestCheckScheduleTimeslotFail(t *testing.T) {
 
 func TestCheckScheduleImaginaryProf(t *testing.T) {
 	// Setup
-	jsonFile, err := os.Open("../data/not-real-prof.json")
+	jsonFile, err := os.Open("../data/not-real-prof-test.json")
 	if err != nil {
 		t.Error("File not found")
 	}
