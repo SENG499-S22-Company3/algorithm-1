@@ -211,7 +211,7 @@ func ScheduleConstraintsCheck(term string,
 		}
 
 		// if prof doesn't exist then throw err
-		if !isProf {
+		if !isProf && c.Prof.DisplayName != "TBD" {
 			err = fmt.Errorf("Error: %v assigned to %v %v is not an actual professor.\n", c.Prof.DisplayName, term, c.Subject+c.CourseNumber)
 			break
 		}
