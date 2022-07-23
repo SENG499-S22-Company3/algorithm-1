@@ -201,15 +201,16 @@ func ScheduleConstraintsCheck(term string,
 			break
 		}
 
+		// check that course prof is in proflist given and that prof isn't TBD
 		isProf := false
 		for _, prof := range profList {
-			// check that profs do not teach more than prefered amount of courses
 			if prof == c.Prof.DisplayName || c.Prof.DisplayName == "TBD" {
 				isProf = true
 				break
 			}
 		}
 
+		// if prof doesn't exist then throw err
 		if !isProf {
 			err = fmt.Errorf("Error: %v assigned to %v %v is not an actual professor.\n", c.Prof.DisplayName, term, c.Subject+c.CourseNumber)
 			break
