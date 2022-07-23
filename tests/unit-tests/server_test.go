@@ -93,3 +93,25 @@ func TestCheckScheduleTimeslotFail(t *testing.T) {
 		t.Errorf("got %q, want %q", actual_response, expected_response)
 	}
 }
+
+func TestCheckScheduleImaginaryProf(t *testing.T) {
+	// Setup
+	jsonFile, err := os.Open("../data/not-real-prof.json")
+	if err != nil {
+		t.Error("File not found")
+	}
+
+	request, _ := http.NewRequest(http.MethodPost, "/CheckSchedule", jsonFile)
+	response := httptest.NewRecorder()
+
+	// Act
+	server.CheckSchedule(response, request)
+
+	// Assert
+	actual_response := response.Body.String()
+	expected_response := "Error: Birdy, Bill assigned to Fall SENG310 is not an actual professor.\nSchedule given has some violations that should be resolved"
+
+	if actual_response != expected_response {
+		t.Errorf("got %q, want %q", actual_response, expected_response)
+	}
+}
