@@ -195,9 +195,9 @@ func addTimeslot(course structs.Course, day map[string]string, term string) (map
 	//endTimeInt, _ := strconv.Atoi(course.Assignment.EndTime)
 
 	if _, isValid := day[course.Assignment.BeginTime]; !isValid { // Check if map key exists
-		err = fmt.Errorf("error: %v %v is scheduled outside a regular block time at %v in  %v term   ", course.Subject, course.CourseNumber, course.Assignment.BeginTime, term)
+		err = fmt.Errorf("error: %v %v is scheduled outside a regular block time at %v in  %v term. Block times considered valid are 0830, 1000, 1130, 1300, 1430, 1600, and 1730 for Monday/Thursday classes and 0830, 0930, 1030, 1130, 1230, 1330, 1430, 1530, 1630, and 1730 for Tuesday/Wednesday/Friday\n", course.Subject, course.CourseNumber, course.Assignment.BeginTime, term)
 	} else if scheduledCourse := day[course.Assignment.BeginTime]; scheduledCourse != "" { // Check if there is already a course there
-		err = fmt.Errorf("error: %v %v is scheduled at same time as another required course %v in %v term,   ", course.Subject, course.CourseNumber, scheduledCourse, term)
+		err = fmt.Errorf("error: %v %v is scheduled at same time as another required course %v in %v term,\n", course.Subject, course.CourseNumber, scheduledCourse, term)
 	} else {
 		day[course.Assignment.BeginTime] = course.Subject + course.CourseNumber
 	}
