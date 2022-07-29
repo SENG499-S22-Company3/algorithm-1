@@ -13,7 +13,10 @@
       - ```docker build -t c3a1-img .```
       - ```docker run -dp 8080:8080 c3a1```
    - Using Go: 
-      - ```go run main.go ```
+      - ```go run main.go ```      
+## Running Unit Test
+- Navigate to ```./tests/unit-tests``` directory from repo root
+- than execute ```go test``` command
 ## Dependencies Used
 - EAOPT [here](https://github.com/MaxHalford/eaopt)
 - Copier [here](https://github.com/jinzhu/copier)
